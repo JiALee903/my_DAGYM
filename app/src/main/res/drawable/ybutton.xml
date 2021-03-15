@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--겉 테두리-->
+    <stroke
+        android:width="3dp"
+        android:color="#FFD700" />
+    <!--테두리 완만한 정도-->
+    <corners
+        android:radius="20dp" />
+    <!--배경색-->
+    <solid
+        android:color="#FFD700" />
+</shape>

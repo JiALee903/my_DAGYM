@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+
+
+    <Button
+        android:id="@+id/btn_register"
+        android:onClick="onClick"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="112dp"
+        android:background="@color/black"
+        android:text="가입하기"
+        android:textColor="@color/white"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.311"
+        app:layout_constraintStart_toStartOf="@+id/et_email"
+        app:layout_constraintTop_toBottomOf="@+id/et_email" />
+
+    <EditText
+        android:id="@+id/et_email"
+        android:layout_width="270dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="이메일"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="5sp"
+        app:layout_constraintEnd_toEndOf="@+id/et_phone2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/et_phone2"
+        app:layout_constraintTop_toBottomOf="@+id/et_phone2" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/numberButton"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="348dp"
+        android:background="@color/black"
+        android:text="인증 번호"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.138"
+        app:layout_constraintStart_toEndOf="@+id/et_phone"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_pass"
+        android:layout_width="270dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="비밀번호"
+        android:paddingLeft="5sp"
+        app:layout_constraintEnd_toEndOf="@+id/et_id"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/et_id"
+        app:layout_constraintTop_toBottomOf="@+id/et_id" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/x_button2"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="64dp"
+        android:background="@color/white"
+        android:text="X"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/et_email"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/et_email"
+        app:layout_constraintTop_toBottomOf="@+id/et_email" />
+
+    <EditText
+        android:id="@+id/et_passck"
+        android:layout_width="270dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="비밀번호 확인"
+        android:paddingLeft="5sp"
+        app:layout_constraintEnd_toEndOf="@+id/et_pass"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/et_pass"
+        app:layout_constraintTop_toBottomOf="@+id/et_pass" />
+
+    <TextView
+        android:id="@+id/trainer"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="532dp"
+        android:layout_marginEnd="148dp"
+        android:layout_marginRight="148dp"
+        android:gravity="center"
+        android:text="트레이너 여부"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/et_email"
+        app:layout_constraintRight_toRightOf="@+id/x_button1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_name"
+        android:layout_width="270dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="이름"
+        android:inputType="textPersonName"
+        android:paddingLeft="5sp"
+        app:layout_constraintEnd_toEndOf="@+id/et_passck"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/et_passck"
+        app:layout_constraintTop_toBottomOf="@+id/et_passck" />
+
+    <EditText
+        android:id="@+id/et_birth"
+        android:layout_width="270dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/white"
+        android:hint="생년월일 8자리"
+        android:inputType="textPersonName"
+        android:paddingLeft="5sp"
+        app:layout_constraintEnd_toEndOf="@+id/et_name"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/et_name"
+        app:layout_constraintTop_toBottomOf="@+id/et_name" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/o_button2"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="64dp"
+        android:background="@color/white"
+        android:text="O"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/et_email"
+        app:layout_constraintHorizontal_bias="0.714"
+        app:layout_constraintStart_toStartOf="@+id/et_email"
+        app:layout_constraintTop_toBottomOf="@+id/et_email" />
+
+    <EditText
+        android:id="@+id/et_phone"
+        android:layout_width="170dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/white"
+        android:hint="휴대폰 번호(숫자만)"
+        android:inputType="textPersonName"
+        android:paddingLeft="5sp"
+        app:layout_constraintEnd_toEndOf="@+id/et_birth"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/et_birth"
+        app:layout_constraintTop_toBottomOf="@+id/et_birth" />
+
+    <EditText
+        android:id="@+id/et_phone2"
+        android:layout_width="270dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:hint="발송된 인증 번호 입력"
+        android:inputType="textPersonName"
+        android:paddingLeft="5sp"
+        app:layout_constraintEnd_toEndOf="@+id/et_phone"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/et_phone"
+        app:layout_constraintTop_toBottomOf="@+id/et_phone" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/o_button1"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="64dp"
+        android:background="@color/white"
+        android:text="O"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/et_email"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/et_email"
+        app:layout_constraintTop_toBottomOf="@+id/et_email" />
+
+    <EditText
+        android:id="@+id/et_id"
+        android:layout_width="170dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="48dp"
+        android:background="@color/white"
+        android:hint="아이디"
+        android:inputType="textPersonName"
+        android:paddingLeft="5sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.236"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/x_button1"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="64dp"
+        android:background="@color/white"
+        android:text="X"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/et_email"
+        app:layout_constraintHorizontal_bias="0.285"
+        app:layout_constraintStart_toStartOf="@+id/et_email"
+        app:layout_constraintTop_toBottomOf="@+id/et_email" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/validateButton"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="48dp"
+        android:background="@color/black"
+        android:text="중복 확인"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.138"
+        app:layout_constraintStart_toEndOf="@+id/et_id"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/pt"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="532dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center"
+        android:text="PT 여부"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/et_email"
+        app:layout_constraintRight_toRightOf="@+id/x_button2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
