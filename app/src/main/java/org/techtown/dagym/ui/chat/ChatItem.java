@@ -5,21 +5,18 @@ public class ChatItem {
     String name;
     String message;
     String time;
-    String profileUrl;
 
-    public ChatItem(String name, String message, String time, String pofileUrl) {
+    public ChatItem(String name, String message, String time) {
         this.name = name;
         this.message = message;
         this.time = time;
-        this.profileUrl = pofileUrl;
     }
 
-    //firebase DB에 객체로 값을 읽어올 때..
-    //파라미터가 비어있는 생성자가 핑요함.
+    //firebase DB에 객체로 값을 읽어올 때 파라미터가 비어있는 생성자가 필요
     public ChatItem() {
     }
 
-    public ChatItem(String nickName, String message, String time) {
+    public ChatItem(String name, String message) {
     }
 
     //Getter & Setter
