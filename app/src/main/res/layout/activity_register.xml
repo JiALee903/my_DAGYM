@@ -100,7 +100,6 @@
         android:layout_height="20dp"
         android:layout_marginTop="532dp"
         android:layout_marginEnd="148dp"
-        android:layout_marginRight="148dp"
         android:gravity="center"
         android:text="트레이너 여부"
         android:textAlignment="center"
@@ -243,7 +242,6 @@
         android:layout_height="20dp"
         android:layout_marginTop="532dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
         android:gravity="center"
         android:text="PT 여부"
         android:textAlignment="center"
@@ -252,6 +250,5 @@
         app:layout_constraintEnd_toEndOf="@+id/et_email"
         app:layout_constraintRight_toRightOf="@+id/x_button2"
         app:layout_constraintTop_toTopOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

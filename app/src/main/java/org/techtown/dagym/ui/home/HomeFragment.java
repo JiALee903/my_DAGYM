@@ -1,5 +1,6 @@
 package org.techtown.dagym.ui.home;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LegendEntry;
@@ -15,6 +17,9 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
@@ -26,6 +31,7 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     BarChart barChart, barChart1;
+    PieChart pieChart;
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -36,9 +42,7 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    public HomeFragment() {
-
-    }
+    public HomeFragment() {}
 
     /*
         public static HomeFragment newInstance() {
@@ -53,8 +57,9 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_home, container, false);
 
-        barChart = (BarChart)view.findViewById(R.id.daychart);
-        barChart1 = (BarChart)view.findViewById(R.id.weekchart);
+        barChart = (BarChart)view.findViewById(R.id.ex_chart);
+        barChart1 = (BarChart)view.findViewById(R.id.kcal_chart);
+        pieChart = (PieChart) view.findViewById(R.id.kcal_chart2);
 
         List<BarEntry> entries = new ArrayList<>();
         entries.add(new BarEntry(0, 1200, ""));
@@ -75,40 +80,60 @@ public class HomeFragment extends Fragment {
         entries1.add(new BarEntry(6, 1000, ""));
 
         BarDataSet barDataSet = new BarDataSet(entries, "");
-        barDataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
 
         BarDataSet barDataSet1 = new BarDataSet(entries1, "");
-        barDataSet1.setColors(ColorTemplate.VORDIPLOM_COLORS);
-
-        ArrayList<String> barFactors = new ArrayList<>();
-        barFactors.add("운동량");
-
-        ArrayList<String> barFactors1 = new ArrayList<>();
-        barFactors1.add("섭취 칼로리");
-
-        XAxis xAxis = barChart.getXAxis();
-        xAxis.setGranularity(1f);
-        xAxis.setGranularityEnabled(true);
+        barDataSet1.setColors(ColorTemplate.MATERIAL_COLORS);
 
         BarData data = new BarData(barDataSet);
         data.setBarWidth(0.9f);
         data.setValueTextSize(12);
 
+        Legend legend = barChart.getLegend();
+        legend.setTextSize(15f);
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+
+        barChart.getXAxis().setEnabled(true);
+        barChart.getAxisLeft().setEnabled(false);
+        barChart.getAxisRight().setEnabled(false);
+        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+
+        barChart.getXAxis().setDrawGridLines(false);
+        barChart.getAxisLeft().setDrawAxisLine(false);
+        barChart.getAxisRight().setDrawAxisLine(false);
+        barChart.getAxisLeft().setDrawGridLines(false);
+        barChart.getAxisRight().setDrawGridLines(false);
+
+        Legend legend1 = barChart1.getLegend();
+        legend1.setTextSize(15f);
+        legend1.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        legend1.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+        legend1.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+
+        barChart1.getXAxis().setEnabled(true);
+        barChart1.getAxisLeft().setEnabled(false);
+        barChart1.getAxisRight().setEnabled(false);
+        barChart1.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+
+        barChart1.getXAxis().setDrawGridLines(false);
+        barChart1.getAxisLeft().setDrawAxisLine(false);
+        barChart1.getAxisRight().setDrawAxisLine(false);
+        barChart1.getAxisLeft().setDrawGridLines(false);
+        barChart1.getAxisRight().setDrawGridLines(false);
+
         /*
         Description description = new Description();
         description.setTextColor(R.color.black);
-        description.setText("DAGYMSET");
+        description.setText("총 운동량");
         */
 
         // barChart.setDescription(description);
         barChart.setData(data);
-        barChart.setFitBars(true);
+        barChart.getDescription().setEnabled(false);
         barChart.invalidate();
         // barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(barFactors));
-
-        XAxis xAxis1 = barChart1.getXAxis();
-        xAxis1.setGranularity(1f);
-        xAxis1.setGranularityEnabled(true);
 
         BarData data1 = new BarData(barDataSet1);
         data1.setBarWidth(0.9f);
@@ -117,51 +142,44 @@ public class HomeFragment extends Fragment {
         /*
         Description description1 = new Description();
         description1.setTextColor(R.color.black);
-        description1.setText("DAGYMSET");
+        description1.setText("섭취한 칼로리");
         */
 
-        // barChart1.setDescription(description);
+        // barChart1.setDescription(description1);
         barChart1.setData(data1);
-        barChart1.setFitBars(true);
+        barChart1.getDescription().setEnabled(false);
         barChart1.invalidate();
         // barChart1.getXAxis().setValueFormatter(new IndexAxisValueFormatter(barFactors1));
 
-        barChart.getXAxis().setEnabled(false);
-        barChart1.getXAxis().setEnabled(false);
+        pieChart.setUsePercentValues(true);
+        pieChart.getDescription().setEnabled(false);
+        pieChart.setExtraOffsets(5, 10, 5, 5);
 
-        Legend legend = barChart.getLegend();
-        legend.setFormSize(10f);
-        legend.setForm(Legend.LegendForm.LINE);
-        legend.setTextSize(12f);
-        legend.setTextColor(android.R.color.black);
-        List<LegendEntry> legendEntries = new ArrayList<>();
-        for(int i = 0; i < barFactors.size(); i++) {
-            LegendEntry legendEntry = new LegendEntry();
-            legendEntry.formColor = ColorTemplate.VORDIPLOM_COLORS[i];
-            legendEntry.label = barFactors.get(i);
-            legendEntries.add(legendEntry);
-        }
+        pieChart.setDrawHoleEnabled(false);
+        pieChart.setHoleColor(Color.WHITE);
+        pieChart.setTransparentCircleRadius(61f);
 
-        Legend legend1 = barChart1.getLegend();
-        legend1.setFormSize(10f);
-        legend1.setForm(Legend.LegendForm.LINE);
-        legend1.setTextSize(12f);
-        legend1.setTextColor(android.R.color.black);
-        List<LegendEntry> legendEntries1 = new ArrayList<>();
-        for(int i = 0; i < barFactors1.size(); i++) {
-            LegendEntry legendEntry1 = new LegendEntry();
-            legendEntry1.formColor = ColorTemplate.VORDIPLOM_COLORS[i];
-            legendEntry1.label = barFactors1.get(i);
-            legendEntries1.add(legendEntry1);
-        }
+        ArrayList<PieEntry> pieEntries = new ArrayList<PieEntry>();
 
-        legend.setXEntrySpace(5f);
-        legend.setYEntrySpace(2f);
-        legend.setCustom(legendEntries);
+        pieEntries.add(new PieEntry(34f, "지방"));
+        pieEntries.add(new PieEntry(50f, "탄수화물"));
+        pieEntries.add(new PieEntry(26f, "단백질"));
 
-        legend1.setXEntrySpace(5f);
-        legend1.setYEntrySpace(2f);
-        legend1.setCustom(legendEntries1);
+        Description des = new Description();
+        des.setText("하루 섭취량");
+        des.setTextSize(15);
+        pieChart.setDescription(des);
+
+        PieDataSet dataSet = new PieDataSet(pieEntries, "");
+        dataSet.setSliceSpace(3f);
+        dataSet.setSelectionShift(5f);
+        dataSet.setColors(ColorTemplate.PASTEL_COLORS);
+
+        PieData data2 = new PieData((dataSet));
+        data2.setValueTextSize(15f);
+        data2.setValueTextColor(Color.WHITE);
+
+        pieChart.setData(data2);
 
         return view;
     }

@@ -2,15 +2,75 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_horizontal|center_vertical">
+    android:layout_height="match_parent">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/dateNow"
-        android:layout_width="146dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="-250dp"
-        android:textColor="@color/black"
-        android:textStyle="bold" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/name_inbody"
+            android:layout_width="146dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="100dp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:text="권준희 님"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dateNow"
+            android:layout_width="146dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="105dp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/line_chart"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/line_chart2"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/line_chart3"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/line_chart4"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp" />
+
+    </LinearLayout>
+</ScrollView>
 </LinearLayout>
