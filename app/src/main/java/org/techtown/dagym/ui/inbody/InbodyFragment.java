@@ -31,6 +31,7 @@ import java.util.List;
 
 public class InbodyFragment extends Fragment {
 
+    /*
     long now = System.currentTimeMillis();
 
     // 현재 시간을 date 변수에 저장한다.
@@ -43,6 +44,7 @@ public class InbodyFragment extends Fragment {
     String formatDate = sdfNow.format(date);
 
     TextView dateNow;
+     */
 
     LineChart lineChart, lineChart2, lineChart3, lineChart4;
 
@@ -51,8 +53,9 @@ public class InbodyFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_inbody, container, false);
 
-        dateNow = (TextView) view.findViewById(R.id.dateNow);
+        /* dateNow = (TextView) view.findViewById(R.id.dateNow);
         dateNow.setText(formatDate); // TextView에 현재 시간 문자열 할당
+         */
 
         lineChart = (LineChart)view.findViewById(R.id.line_chart);
         lineChart2 = (LineChart)view.findViewById(R.id.line_chart2);
@@ -68,7 +71,7 @@ public class InbodyFragment extends Fragment {
         entries.add(new Entry(6, 60));
         entries.add(new Entry(7, 59));
 
-        LineDataSet lineDataSet = new LineDataSet(entries, "체중");
+        LineDataSet lineDataSet = new LineDataSet(entries, "");
         lineDataSet.setLineWidth(2);
         lineDataSet.setCircleRadius(6);
         lineDataSet.setColor(Color.parseColor("#6495ED"));
@@ -87,10 +90,7 @@ public class InbodyFragment extends Fragment {
         description.setText("");
 
         Legend legend = lineChart.getLegend();
-        legend.setTextSize(15f);
-        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
-        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        legend.setEnabled(false);
 
         lineChart.getXAxis().setEnabled(true);
         lineChart.getAxisLeft().setEnabled(false);
@@ -118,7 +118,7 @@ public class InbodyFragment extends Fragment {
         entries2.add(new Entry(6, (float) 25.2));
         entries2.add(new Entry(7, (float) 23.4));
 
-        LineDataSet lineDataSet2 = new LineDataSet(entries2, "골격근량");
+        LineDataSet lineDataSet2 = new LineDataSet(entries2, "");
         lineDataSet2.setLineWidth(2);
         lineDataSet2.setCircleRadius(6);
         lineDataSet2.setColor(Color.parseColor("#20B2AA"));
@@ -137,10 +137,7 @@ public class InbodyFragment extends Fragment {
         description2.setText("");
 
         Legend legend2 = lineChart2.getLegend();
-        legend2.setTextSize(15f);
-        legend2.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        legend2.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
-        legend2.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        legend2.setEnabled(false);
 
         lineChart2.getXAxis().setEnabled(true);
         lineChart2.getAxisLeft().setEnabled(false);
@@ -168,7 +165,7 @@ public class InbodyFragment extends Fragment {
         entries3.add(new Entry(6, (float) 17.2));
         entries3.add(new Entry(7, (float) 14.7));
 
-        LineDataSet lineDataSet3 = new LineDataSet(entries3, "체지방량");
+        LineDataSet lineDataSet3 = new LineDataSet(entries3, "");
         lineDataSet3.setLineWidth(2);
         lineDataSet3.setCircleRadius(6);
         lineDataSet3.setColor(Color.parseColor("#BA55D3"));
@@ -187,10 +184,7 @@ public class InbodyFragment extends Fragment {
         description3.setText("");
 
         Legend legend3 = lineChart3.getLegend();
-        legend3.setTextSize(15f);
-        legend3.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        legend3.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
-        legend3.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        legend3.setEnabled(false);
 
         lineChart3.getXAxis().setEnabled(true);
         lineChart3.getAxisLeft().setEnabled(false);
@@ -218,7 +212,7 @@ public class InbodyFragment extends Fragment {
         entries4.add(new Entry(6, (float) 25.4));
         entries4.add(new Entry(7, (float) 19.9));
 
-        LineDataSet lineDataSet4 = new LineDataSet(entries4, "체지방률");
+        LineDataSet lineDataSet4 = new LineDataSet(entries4, "");
         lineDataSet4.setLineWidth(2);
         lineDataSet4.setCircleRadius(6);
         lineDataSet4.setColor(Color.parseColor("#BDB76B"));
@@ -237,10 +231,7 @@ public class InbodyFragment extends Fragment {
         description4.setText("");
 
         Legend legend4 = lineChart4.getLegend();
-        legend4.setTextSize(15f);
-        legend4.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        legend4.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
-        legend4.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        legend4.setEnabled(false);
 
         lineChart4.getXAxis().setEnabled(true);
         lineChart4.getAxisLeft().setEnabled(false);

@@ -62,22 +62,22 @@ public class HomeFragment extends Fragment {
         pieChart = (PieChart) view.findViewById(R.id.kcal_chart2);
 
         List<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(0, 1200, ""));
-        entries.add(new BarEntry(1, 800, ""));
-        entries.add(new BarEntry(2, 1300, ""));
-        entries.add(new BarEntry(3, 1300, ""));
-        entries.add(new BarEntry(4, 700, ""));
-        entries.add(new BarEntry(5, 1000, ""));
-        entries.add(new BarEntry(6, 300, ""));
+        entries.add(new BarEntry(0, 1200));
+        entries.add(new BarEntry(1, 800));
+        entries.add(new BarEntry(2, 1300));
+        entries.add(new BarEntry(3, 1300));
+        entries.add(new BarEntry(4, 700));
+        entries.add(new BarEntry(5, 1000));
+        entries.add(new BarEntry(6, 300));
 
         List<BarEntry> entries1 = new ArrayList<>();
-        entries1.add(new BarEntry(0, 3000, ""));
-        entries1.add(new BarEntry(1, 2000, ""));
-        entries1.add(new BarEntry(2, 500, ""));
-        entries1.add(new BarEntry(3, 1500, ""));
-        entries1.add(new BarEntry(4, 800, ""));
-        entries1.add(new BarEntry(5, 1600, ""));
-        entries1.add(new BarEntry(6, 1000, ""));
+        entries1.add(new BarEntry(0, 3000));
+        entries1.add(new BarEntry(1, 2000));
+        entries1.add(new BarEntry(2, 500));
+        entries1.add(new BarEntry(3, 1500));
+        entries1.add(new BarEntry(4, 800));
+        entries1.add(new BarEntry(5, 1600));
+        entries1.add(new BarEntry(6, 1000));
 
         BarDataSet barDataSet = new BarDataSet(entries, "");
         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
@@ -87,16 +87,17 @@ public class HomeFragment extends Fragment {
 
         BarData data = new BarData(barDataSet);
         data.setBarWidth(0.9f);
-        data.setValueTextSize(12);
+        data.setValueTextSize(12f);
+
+        BarData data1 = new BarData(barDataSet1);
+        data1.setBarWidth(0.9f);
+        data1.setValueTextSize(12f);
 
         Legend legend = barChart.getLegend();
-        legend.setTextSize(15f);
-        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
-        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        legend.setEnabled(false);
 
         barChart.getXAxis().setEnabled(true);
-        barChart.getAxisLeft().setEnabled(false);
+        barChart.getAxisLeft().setEnabled(true);
         barChart.getAxisRight().setEnabled(false);
         barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
 
@@ -107,13 +108,10 @@ public class HomeFragment extends Fragment {
         barChart.getAxisRight().setDrawGridLines(false);
 
         Legend legend1 = barChart1.getLegend();
-        legend1.setTextSize(15f);
-        legend1.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        legend1.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
-        legend1.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        legend1.setEnabled(false);
 
         barChart1.getXAxis().setEnabled(true);
-        barChart1.getAxisLeft().setEnabled(false);
+        barChart1.getAxisLeft().setEnabled(true);
         barChart1.getAxisRight().setEnabled(false);
         barChart1.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
 
@@ -132,12 +130,9 @@ public class HomeFragment extends Fragment {
         // barChart.setDescription(description);
         barChart.setData(data);
         barChart.getDescription().setEnabled(false);
+        barChart.setTouchEnabled(false);
         barChart.invalidate();
         // barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(barFactors));
-
-        BarData data1 = new BarData(barDataSet1);
-        data1.setBarWidth(0.9f);
-        data1.setValueTextSize(12);
 
         /*
         Description description1 = new Description();
@@ -148,6 +143,7 @@ public class HomeFragment extends Fragment {
         // barChart1.setDescription(description1);
         barChart1.setData(data1);
         barChart1.getDescription().setEnabled(false);
+        barChart1.setTouchEnabled(false);
         barChart1.invalidate();
         // barChart1.getXAxis().setValueFormatter(new IndexAxisValueFormatter(barFactors1));
 

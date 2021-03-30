@@ -36,7 +36,6 @@
                 android:id="@+id/exercise_rc"
                 android:layout_width="380dp"
                 android:layout_height="235dp"
-                android:layout_marginTop="16dp"
                 android:gravity="center_horizontal"
                 android:text="하루 운동량"
                 android:textAlignment="center"
@@ -44,15 +43,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:layout_height="250dp"
+                android:id="@+id/food_list"
+                android:layout_height="235dp"
                 android:layout_marginTop="4dp"
-                android:layout_marginStart="0dp"
                 android:layout_width="380dp"
                 android:gravity="center_horizontal"
                 android:text="하루 식단"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.487"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/exercise_rc" />
 
