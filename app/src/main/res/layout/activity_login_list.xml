@@ -38,7 +38,7 @@
         android:id="@+id/k_button"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_marginTop="168dp"
+        android:layout_marginTop="140dp"
         android:background="@drawable/ybutton"
         android:text="Kakao 계정으로 로그인"
         android:textColor="#8B4513"
@@ -48,23 +48,10 @@
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/n_button"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="108dp"
-        android:background="@drawable/gbutton"
-        android:text="Naver 계정으로 로그인"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
-
-    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/d_button"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_marginTop="228dp"
+        android:layout_marginTop="197dp"
         android:background="@drawable/button"
         android:text="DAGYM 계정으로 로그인"
         android:textColor="@color/white"
@@ -104,10 +91,10 @@
         android:id="@+id/g_button"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="85dp"
         android:background="@drawable/wbutton"
         android:text="Google 계정으로 로그인"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
