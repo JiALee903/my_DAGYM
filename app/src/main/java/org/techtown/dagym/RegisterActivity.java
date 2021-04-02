@@ -1,126 +1,176 @@
 package org.techtown.dagym;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.graphics.Rect;
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import org.techtown.dagym.databinding.ActivityRegisterBinding;
+import org.techtown.dagym.entity.Member;
 
-import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+//회원가입
 public class RegisterActivity extends AppCompatActivity {
+    private ActivityRegisterBinding b;
+    DataService dataService = new DataService();
     private static final String TAG = "REGISTERACTIVITY";
-    private EditText et_email, et_pass, et_passck, et_id, et_name;
-    private Button btn_register;
-
-    private FirebaseAuth firebaseAuth;
-//    private DatabaseReference databaseReference;
-//    private FirebaseDatabase firebaseDatabase;
+    static final int SMS_RECEIVE_PERMISSON=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        b = b.inflate(getLayoutInflater());
+        setContentView(b.getRoot());
 
+        //      Spinner
+        Spinner genderSpinner = (Spinner)b.spinnerGender;
+        ArrayAdapter genderAdapter = ArrayAdapter.createFromResource(this, R.array.select_gender,
+                android.R.layout.simple_spinner_dropdown_item);
+        genderSpinner.setAdapter(genderAdapter);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-//        firebaseDatabase = FirebaseDatabase.getInstance();
-//        databaseReference = firebaseDatabase.getReference("user");
+        // insert 회원가입
+        b.btnRegister.setOnClickListener(reg -> {
+            Member member = new Member();
+            member.setUser_id(b.etId.getText().toString());
+            member.setUser_pw(b.etPass.getText().toString());
+            member.setUser_name(b.etName.getText().toString());
+            member.setUser_pn(b.etPhone.getText().toString());
+            member.setUser_email(b.etEmail.getText().toString());
+//            member.setAddress_detail(b.etBasicAddr.getText().toString());
+//            member.setAddress_normal();
+//            member.setUser_rrn();
+//            member.setUser_gender();
+//            member.setUser_role();
 
-        et_email = (EditText) findViewById(R.id.et_email);
-        et_pass = (EditText) findViewById(R.id.et_pass);
-        et_passck = (EditText) findViewById(R.id.et_passck);
-        et_name = (EditText) findViewById(R.id.et_name);
-        btn_register = (Button) findViewById(R.id.btn_register);
+            Log.i(TAG, "onCreate: map = " + member.toString());
+            dataService.insert.insertOne(member).enqueue(new Callback<Member>() {
+                @Override
+                public void onResponse(Call<Member> call, Response<Member> response) {
+                    Log.i(TAG, "onResponse: In");
+                }
 
-        btn_register.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onFailure(Call<Member> call, Throwable t) {
+                    Log.i(TAG, "onFailure: fail");
+                    t.printStackTrace();
+                }
+            });
+        });
+
+        //권한이 부여되어 있는지 확인
+        int permissonCheck= ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS);
+        if(permissonCheck == PackageManager.PERMISSION_GRANTED){
+            Toast.makeText(getApplicationContext(), "SMS 수신권한 있음", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(getApplicationContext(), "SMS 수신권한 없음", Toast.LENGTH_SHORT).show();
+
+            //권한설정 dialog에서 거부를 누르면
+            //ActivityCompat.shouldShowRequestPermissionRationale 메소드의 반환값이 true가 된다.
+            //단, 사용자가 "Don't ask again"을 체크한 경우
+            //거부하더라도 false를 반환하여, 직접 사용자가 권한을 부여하지 않는 이상, 권한을 요청할 수 없게 된다.
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECEIVE_SMS)){
+                //이곳에 권한이 왜 필요한지 설명하는 Toast나 dialog를 띄워준 후, 다시 권한을 요청한다.
+                Toast.makeText(getApplicationContext(), "SMS권한이 필요합니다", Toast.LENGTH_SHORT).show();
+                ActivityCompat.requestPermissions(this, new String[]{ Manifest.permission.RECEIVE_SMS},       SMS_RECEIVE_PERMISSON);
+            }else{
+                ActivityCompat.requestPermissions(this, new String[]{ Manifest.permission.RECEIVE_SMS}, SMS_RECEIVE_PERMISSON);
+            }
+        }
+
+        // 인증 번호
+        b.numberButton.setOnClickListener(num -> {
+
+            Log.i(TAG, "onCreate: In");
+            String phoneNo = b.etPhone.getText().toString();
+            int v = (int) (Math.random() * 10000);
+            try {
+                ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.SEND_SMS},1);
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage(phoneNo, null, "인증번호는 "+v+ " 입니다.", null, null);
+                Log.i(TAG, "인증 번호 : " + v);
+                Toast.makeText(getApplicationContext(), "인증번호 전송 완료!", Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), "전송 실패", Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
+        });
+
+        // 중복 확인
+        b.validateButton.setOnClickListener(val -> {
+            String user_id = b.etId.getText().toString();
+            Log.i(TAG, "onCreate: user_id = " + user_id);
+            dataService.select.selectIdCheck(user_id).enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    String str = response.body();
+                    Log.i(TAG, "onResponse: str = " + str);
+                    if (str.equals("NO")) {
+                        Toast.makeText(getApplicationContext(), "사용가능한 아이디 입니다.", Toast.LENGTH_LONG).show();
+                        b.etPass.hasFocus();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "사용중인 아이디 입니다.", Toast.LENGTH_LONG).show();
+                        b.etId.hasFocus();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    t.printStackTrace();
+                }
+            });
+        });
+
+        b.etEmail.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+
             @Override
-            public void onClick(View v) {
-                final String email = et_email.getText().toString().trim();
-                String pass = et_pass.getText().toString().trim();
-                String passck = et_passck.getText().toString().trim();
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus) {
+                    Pattern p = Pattern.compile("^[a-zA-X0-9]@[a-zA-Z0-9].[a-zA-Z0-9]");
+                    Matcher m = p.matcher((b.etEmail).getText().toString());
 
-                if (pass.equals(passck)) {
-                    Log.d(TAG, "등록 버튼" + email + ", " + pass);
-                    final ProgressDialog dialog = new ProgressDialog(RegisterActivity.this);
-                    dialog.setMessage("가입 중...");
-                    dialog.show();
-
-                    firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                dialog.dismiss();
-
-                                FirebaseUser user = firebaseAuth.getCurrentUser();
-
-                                String email = user.getEmail();
-                                String uid = user.getUid();
-                                String name = et_name.getText().toString().trim();
-
-                                HashMap<Object, String> hashMap = new HashMap<>();
-
-                                hashMap.put("uid", uid);
-                                hashMap.put("email", email);
-                                hashMap.put("name", name);
-
-                                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                DatabaseReference reference = database.getReference("Users");
-                                reference.child(uid).setValue(hashMap);
-
-                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                startActivity(intent);
-                                finish();
-
-                                Toast.makeText(RegisterActivity.this, "회원가입 성공", Toast.LENGTH_LONG).show();
-                            } else {
-                                dialog.dismiss();
-                                Toast.makeText(RegisterActivity.this, "이미 존재하는 아이디입니다.", Toast.LENGTH_LONG).show();
-                                return;
-                            }
-                        }
-                    });
-                } else {
-                    Toast.makeText(RegisterActivity.this, "비밀번호가 틀렸습니다. 다시 입력해 주세요.", Toast.LENGTH_LONG).show();
-                    return;
+                    if ( !m.matches()){
+                        Toast.makeText(RegisterActivity.this, "Email형식으로 입력하세요", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
+
     }
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        View focusView = getCurrentFocus();
-        if (focusView != null) {
-            Rect rect = new Rect();
-            focusView.getGlobalVisibleRect(rect);
-            int x = (int) ev.getX(), y = (int) ev.getY();
-            if (!rect.contains(x, y)) {
-                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                if (imm != null)
-                    imm.hideSoftInputFromWindow(focusView.getWindowToken(), 0);
-                focusView.clearFocus();
-            }
-        }
-        return super.dispatchTouchEvent(ev);
-    }
+//    public class AndroidJS {
+//        private String TAG = "AndroidJS";
+//        WebView wv;
+//        RegisterActivity registerActivity;
+//        final public Handler handler = new Handler();
+//
+//        public AndroidJS(WebView wv, RegisterActivity registerActivity) {
+//            wv = this.wv;
+//            registerActivity = this.registerActivity;
+//        }
+//
+//        @JavascriptInterface
+//        public void phone_num(final String phone_num) {
+//            Log.i(TAG, "phone_num: " + phone_num);
+//
+//            handler.post(new Runnable() {
+//                @Override
+//                public void run() {
+//                }
+//            })
+//        }
+//    }
 }
-
-
