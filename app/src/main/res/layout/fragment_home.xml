@@ -26,12 +26,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginStart="10dp"
                 android:text="총 운동량"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="20sp" />
 
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/ex_chart"
@@ -45,12 +44,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginStart="10dp"
                 android:text="섭취한 칼로리"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="20sp" />
 
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/kcal_chart"
@@ -64,12 +62,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginStart="10dp"
                 android:text="영양 성분 비교"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="20sp" />
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/kcal_chart2"
