@@ -12,8 +12,10 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -40,6 +42,11 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+//      Spinner
+        Spinner genderSpinner = (Spinner)findViewById(R.id.spinner_gender);
+        ArrayAdapter genderAdapter = ArrayAdapter.createFromResource(this, R.array.select_gender,
+                android.R.layout.simple_spinner_dropdown_item);
+        genderSpinner.setAdapter(genderAdapter);
 
         firebaseAuth = FirebaseAuth.getInstance();
 //        firebaseDatabase = FirebaseDatabase.getInstance();
@@ -47,7 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         et_email = (EditText) findViewById(R.id.et_email);
         et_pass = (EditText) findViewById(R.id.et_pass);
-        et_passck = (EditText) findViewById(R.id.et_passck);
+        // et_passck = (EditText) findViewById(R.id.et_passck);
         et_name = (EditText) findViewById(R.id.et_name);
         btn_register = (Button) findViewById(R.id.btn_register);
 
