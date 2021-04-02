@@ -10,7 +10,8 @@
         android:label="DAGYM"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DAGYM.NoActionBar">
+        android:theme="@style/Theme.DAGYM.NoActionBar"
+        android:usesCleartextTraffic="true">
 
         <activity
             android:name=".SplashActivity"

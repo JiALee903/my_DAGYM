@@ -164,7 +164,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <EditText
-            android:id="@+id/et_post"
+            android:id="@+id/et_basicAddr"
             android:layout_width="270dp"
             android:layout_height="40dp"
             android:layout_marginTop="7dp"
@@ -181,7 +181,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <EditText
-            android:id="@+id/et_basicAddr"
+            android:id="@+id/et_detailAddr"
             android:layout_width="270dp"
             android:layout_height="40dp"
             android:layout_marginTop="7dp"
@@ -201,13 +201,13 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/trainerCheck"
+            android:id="@+id/trainer"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:text="트레이너" />
 
         <RadioButton
-            android:id="@+id/basic_userCheck"
+            android:id="@+id/user"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_marginStart="30dp"

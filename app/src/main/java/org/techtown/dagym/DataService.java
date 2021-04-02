@@ -20,8 +20,9 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public class DataService {
-    private String BASE_URL = "http://192.168.1.55:8090/";
-
+    private String BASE_URL = "http://192.168.0.4:8090/";
+//192.168.0.4
+//    192.168.1.55
     OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
 
     Gson gson = new GsonBuilder().setLenient().create();

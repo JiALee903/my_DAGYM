@@ -30,6 +30,12 @@ public class RegisterActivity extends AppCompatActivity {
     DataService dataService = new DataService();
     private static final String TAG = "REGISTERACTIVITY";
     static final int SMS_RECEIVE_PERMISSON=1;
+    int v = (int) (Math.random() * 10000);
+    private String emailValidation = "^[a-zA-X0-9]@[a-zA-Z0-9].[a-zA-Z0-9]";
+
+    boolean idChk = false;
+    boolean pnChk = false;
+    boolean emailChk = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,33 +49,63 @@ public class RegisterActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_dropdown_item);
         genderSpinner.setAdapter(genderAdapter);
 
+        // 체크 검사
+
+
+
         // insert 회원가입
         b.btnRegister.setOnClickListener(reg -> {
+            // 트레이너 체크
+            String tr_if = null;
+            if (b.trainer.isChecked()) {
+                tr_if = "trainer";
+            } else if(b.user.isChecked()) {
+                tr_if = "user";
+            }
+
+            String gender_if = null;
+            if (genderSpinner.getSelectedItem().toString().equals("남")) {
+                gender_if = "1";
+            } else if (genderSpinner.getSelectedItem().toString().equals("여")) {
+                gender_if = "2";
+            }
+
             Member member = new Member();
             member.setUser_id(b.etId.getText().toString());
             member.setUser_pw(b.etPass.getText().toString());
             member.setUser_name(b.etName.getText().toString());
             member.setUser_pn(b.etPhone.getText().toString());
             member.setUser_email(b.etEmail.getText().toString());
-//            member.setAddress_detail(b.etBasicAddr.getText().toString());
-//            member.setAddress_normal();
-//            member.setUser_rrn();
-//            member.setUser_gender();
-//            member.setUser_role();
+            member.setAddress_normal(b.etBasicAddr.getText().toString());
+            member.setAddress_detail(b.etDetailAddr.getText().toString());
+            member.setUser_rrn(b.etBirth.getText().toString());
+            member.setUser_gender(gender_if);
+            member.setUser_role(tr_if);
 
-            Log.i(TAG, "onCreate: map = " + member.toString());
-            dataService.insert.insertOne(member).enqueue(new Callback<Member>() {
-                @Override
-                public void onResponse(Call<Member> call, Response<Member> response) {
-                    Log.i(TAG, "onResponse: In");
-                }
+            if (idChk == true && pnChk == true) {
+                Log.i(TAG, "onCreate: map = " + member.toString());
+                dataService.insert.insertOne(member).enqueue(new Callback<Member>() {
+                    @Override
+                    public void onResponse(Call<Member> call, Response<Member> response) {
+                        Log.i(TAG, "onResponse: In");
+                    }
 
-                @Override
-                public void onFailure(Call<Member> call, Throwable t) {
-                    Log.i(TAG, "onFailure: fail");
-                    t.printStackTrace();
-                }
-            });
+                    @Override
+                    public void onFailure(Call<Member> call, Throwable t) {
+                        Log.i(TAG, "onFailure: fail");
+                        t.printStackTrace();
+                    }
+                });
+            } else if (idChk==false) {
+                Toast.makeText(getApplicationContext(), "ID 중복체크를 해주세요.", Toast.LENGTH_SHORT).show();
+            } else if (pnChk == false) {
+                Toast.makeText(getApplicationContext(), "전화번호 인증을 진행해주세요.", Toast.LENGTH_SHORT).show();
+            }
+//            else if (emailChk==false) {
+//                Toast.makeText(getApplicationContext(), "이메일 형식을 지켜주세요.", Toast.LENGTH_SHORT).show();
+//            }
+
+
         });
 
         //권한이 부여되어 있는지 확인
@@ -97,7 +133,6 @@ public class RegisterActivity extends AppCompatActivity {
 
             Log.i(TAG, "onCreate: In");
             String phoneNo = b.etPhone.getText().toString();
-            int v = (int) (Math.random() * 10000);
             try {
                 ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.SEND_SMS},1);
                 SmsManager smsManager = SmsManager.getDefault();
@@ -107,6 +142,16 @@ public class RegisterActivity extends AppCompatActivity {
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(), "전송 실패", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
+            }
+        });
+
+        b.okButton.setOnClickListener(ok -> {
+            String okPhone = b.etPhone2.getText().toString();
+            if (Integer.parseInt(okPhone) == v) {
+                Toast.makeText(getApplicationContext(), "인증 성공", Toast.LENGTH_LONG).show();
+                pnChk=true;
+            } else {
+                Toast.makeText(getApplicationContext(), "인증 실패", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -121,7 +166,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Log.i(TAG, "onResponse: str = " + str);
                     if (str.equals("NO")) {
                         Toast.makeText(getApplicationContext(), "사용가능한 아이디 입니다.", Toast.LENGTH_LONG).show();
-                        b.etPass.hasFocus();
+                        idChk = true;
                     } else {
                         Toast.makeText(getApplicationContext(), "사용중인 아이디 입니다.", Toast.LENGTH_LONG).show();
                         b.etId.hasFocus();
@@ -143,9 +188,11 @@ public class RegisterActivity extends AppCompatActivity {
                     Pattern p = Pattern.compile("^[a-zA-X0-9]@[a-zA-Z0-9].[a-zA-Z0-9]");
                     Matcher m = p.matcher((b.etEmail).getText().toString());
 
+                    String trim = b.etEmail.getText().toString().trim();
                     if ( !m.matches()){
                         Toast.makeText(RegisterActivity.this, "Email형식으로 입력하세요", Toast.LENGTH_SHORT).show();
                     }
+
                 }
             }
         });
