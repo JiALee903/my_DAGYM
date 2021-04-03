@@ -20,8 +20,11 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public class DataService {
-    private String BASE_URL = "http://172.30.1.25:8090/";
-//    192.168.1.55
+    private String BASE_URL = "http://192.168.232.233:8090/";
+    // 데이터 값 테스트하고싶으면 자기 cmd에서 ipconfig치고 ipv4 주소 :8090앞에 입력해줘야됨.
+    // IPv4 주소........... : 192.168.1.55
+    // 참고) IPv4 주소가 2개있는데 어뎁터 와이파이 적힌거 쓰면됨.
+    // 와이파이에 따라서 값 바뀌니까 집이랑 카페, 학교에서 IPv4값이 다 다를거임.
     OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
 
     Gson gson = new GsonBuilder().setLenient().create();
@@ -51,17 +54,7 @@ interface SelectAPI {
 }
 
 interface InsertAPI{
-//    @POST("android/insert")
-//    Call<Member> insertOne(@Body Map<String, String> map);
 
     @POST("android/insert")
     Call<Member> insertOne(@Body Member member);
 }
-
-//interface SAPI{
-//    @GET("select/{id}")
-//    Call<Member> selectOne(@Path("id") long id);
-//
-//    @GET("select")
-//    Call<List<Member>> selectAll();
-//}
