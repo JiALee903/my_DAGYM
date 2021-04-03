@@ -5,6 +5,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.telephony.SmsManager;
@@ -25,13 +26,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/*
+* 04/03 회원가입 완료.
+* insert 시 onresponse 부분은 작동 안하는데 에러 원인 찾는거 못함.
+* select 시는 에러 없음.
+* + 비밀번호 눈 아이콘 추가해서 비밀번호 잠깐보이게 하는 기능 추가할까 생각중
+* */
+
 //회원가입
 public class RegisterActivity extends AppCompatActivity {
     private ActivityRegisterBinding b;
     DataService dataService = new DataService();
     private static final String TAG = "REGISTERACTIVITY";
     static final int SMS_RECEIVE_PERMISSON = 1;
-    int v;
+    int certNum;
     private String emailValidation = "^[a-zA-X0-9]@[a-zA-Z0-9].[a-zA-Z0-9]";
 
     boolean idChk = false;
@@ -49,9 +57,6 @@ public class RegisterActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_dropdown_item);
         genderSpinner.setAdapter(genderAdapter);
 
-        // 체크 검사
-
-
         // insert 회원가입
         b.btnRegister.setOnClickListener(reg -> {
             // 트레이너 체크
@@ -62,6 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
                 tr_if = "user";
             }
 
+            // 성별 확인
             String gender_if = null;
             if (genderSpinner.getSelectedItem().toString().equals("남")) {
                 gender_if = "1";
@@ -69,6 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
                 gender_if = "2";
             }
 
+            // 회원가입 값 저장
             Member member = new Member();
             member.setUser_id(b.etId.getText().toString());
             member.setUser_pw(b.etPass.getText().toString());
@@ -80,11 +87,13 @@ public class RegisterActivity extends AppCompatActivity {
             member.setUser_rrn(b.etBirth.getText().toString());
             member.setUser_gender(gender_if);
             member.setUser_role(tr_if);
-
+            
+            // 체크 값 확인 및 회원가입
             String email = b.etEmail.getText().toString();
-
             if (idChk == true && pnChk == true && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 Log.i(TAG, "onCreate: map = " + member.toString());
+                
+                // 웹 db 호출 및 저장
                 dataService.insert.insertOne(member).enqueue(new Callback<Member>() {
                     @Override
                     public void onResponse(Call<Member> call, Response<Member> response) {
@@ -97,17 +106,18 @@ public class RegisterActivity extends AppCompatActivity {
                         t.printStackTrace();
                     }
                 });
+                Toast.makeText(getApplicationContext(), "회원가입 성공", Toast.LENGTH_SHORT).show();
+
+                // DAGYM로그인 페이지로 이동
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
             } else if (idChk == false) {
                 Toast.makeText(getApplicationContext(), "ID 중복체크를 해주세요.", Toast.LENGTH_SHORT).show();
             } else if (pnChk == false) {
                 Toast.makeText(getApplicationContext(), "전화번호 인증을 진행해주세요.", Toast.LENGTH_SHORT).show();
-            }
-//            else if (!email.matches(emailValidation)) {
-//                Toast.makeText(getApplicationContext(), "이메일 형식을 지켜주세요.", Toast.LENGTH_SHORT).show();
-//            }
-            else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
 
-                Toast.makeText(getApplicationContext(), "이메일 형식~~~~", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "이메일 형식을 맞춰 작성해주세요.", Toast.LENGTH_SHORT).show();
             }
 
 
@@ -116,9 +126,9 @@ public class RegisterActivity extends AppCompatActivity {
         //권한이 부여되어 있는지 확인
         int permissonCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS);
         if (permissonCheck == PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(getApplicationContext(), "SMS 수신권한 있음", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), "SMS 수신권한 있음", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getApplicationContext(), "SMS 수신권한 없음", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), "SMS 수신권한 없음", Toast.LENGTH_SHORT).show();
 
             //권한설정 dialog에서 거부를 누르면
             //ActivityCompat.shouldShowRequestPermissionRationale 메소드의 반환값이 true가 된다.
@@ -135,14 +145,19 @@ public class RegisterActivity extends AppCompatActivity {
 
         // 인증 번호
         b.numberButton.setOnClickListener(num -> {
-            v = (int) (Math.random() * 10000);
+            // 인증번호 난수 값 생성
+            certNum = (int) (Math.random() * 10000);
+            if (certNum < 1000) {
+                certNum+=1000;
+            }
             Log.i(TAG, "onCreate: In");
             String phoneNo = b.etPhone.getText().toString();
             try {
+                // 문자전송
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 1);
                 SmsManager smsManager = SmsManager.getDefault();
-                smsManager.sendTextMessage(phoneNo, null, "인증번호는 " + v + " 입니다.", null, null);
-                Log.i(TAG, "인증 번호 : " + v);
+                smsManager.sendTextMessage(phoneNo, null, "DAGYM 인증번호는 " + certNum + " 입니다.", null, null);
+                Log.i(TAG, "인증 번호 : " + certNum);
                 Toast.makeText(getApplicationContext(), "인증번호 전송 완료!", Toast.LENGTH_LONG).show();
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(), "전송 실패", Toast.LENGTH_LONG).show();
@@ -150,9 +165,10 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        // 인증 버튼 클릭 시
         b.okButton.setOnClickListener(ok -> {
             String okPhone = b.etPhone2.getText().toString();
-            if (Integer.parseInt(okPhone) == v) {
+            if (Integer.parseInt(okPhone) == certNum) {
                 Toast.makeText(getApplicationContext(), "인증 성공", Toast.LENGTH_LONG).show();
                 pnChk = true;
             } else {
@@ -185,8 +201,8 @@ public class RegisterActivity extends AppCompatActivity {
             });
         });
 
+        // 이메일 형식 체크
         b.etEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
@@ -200,28 +216,5 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
-//    public class AndroidJS {
-//        private String TAG = "AndroidJS";
-//        WebView wv;
-//        RegisterActivity registerActivity;
-//        final public Handler handler = new Handler();
-//
-//        public AndroidJS(WebView wv, RegisterActivity registerActivity) {
-//            wv = this.wv;
-//            registerActivity = this.registerActivity;
-//        }
-//
-//        @JavascriptInterface
-//        public void phone_num(final String phone_num) {
-//            Log.i(TAG, "phone_num: " + phone_num);
-//
-//            handler.post(new Runnable() {
-//                @Override
-//                public void run() {
-//                }
-//            })
-//        }
-//    }
 }

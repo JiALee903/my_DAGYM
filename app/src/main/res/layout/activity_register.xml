@@ -47,6 +47,7 @@
             android:background="@color/white"
             android:ems="10"
             android:hint="비밀번호"
+            android:inputType="textPassword"
             android:paddingLeft="5sp" />
     </LinearLayout>
 
