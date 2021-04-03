@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -29,13 +30,12 @@ public class RegisterActivity extends AppCompatActivity {
     private ActivityRegisterBinding b;
     DataService dataService = new DataService();
     private static final String TAG = "REGISTERACTIVITY";
-    static final int SMS_RECEIVE_PERMISSON=1;
-    int v = (int) (Math.random() * 10000);
+    static final int SMS_RECEIVE_PERMISSON = 1;
+    int v;
     private String emailValidation = "^[a-zA-X0-9]@[a-zA-Z0-9].[a-zA-Z0-9]";
 
     boolean idChk = false;
     boolean pnChk = false;
-    boolean emailChk = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +44,12 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(b.getRoot());
 
         //      Spinner
-        Spinner genderSpinner = (Spinner)b.spinnerGender;
+        Spinner genderSpinner = (Spinner) b.spinnerGender;
         ArrayAdapter genderAdapter = ArrayAdapter.createFromResource(this, R.array.select_gender,
                 android.R.layout.simple_spinner_dropdown_item);
         genderSpinner.setAdapter(genderAdapter);
 
         // 체크 검사
-
 
 
         // insert 회원가입
@@ -59,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
             String tr_if = null;
             if (b.trainer.isChecked()) {
                 tr_if = "trainer";
-            } else if(b.user.isChecked()) {
+            } else if (b.user.isChecked()) {
                 tr_if = "user";
             }
 
@@ -82,7 +81,9 @@ public class RegisterActivity extends AppCompatActivity {
             member.setUser_gender(gender_if);
             member.setUser_role(tr_if);
 
-            if (idChk == true && pnChk == true) {
+            String email = b.etEmail.getText().toString();
+
+            if (idChk == true && pnChk == true && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 Log.i(TAG, "onCreate: map = " + member.toString());
                 dataService.insert.insertOne(member).enqueue(new Callback<Member>() {
                     @Override
@@ -96,47 +97,51 @@ public class RegisterActivity extends AppCompatActivity {
                         t.printStackTrace();
                     }
                 });
-            } else if (idChk==false) {
+            } else if (idChk == false) {
                 Toast.makeText(getApplicationContext(), "ID 중복체크를 해주세요.", Toast.LENGTH_SHORT).show();
             } else if (pnChk == false) {
                 Toast.makeText(getApplicationContext(), "전화번호 인증을 진행해주세요.", Toast.LENGTH_SHORT).show();
             }
-//            else if (emailChk==false) {
+//            else if (!email.matches(emailValidation)) {
 //                Toast.makeText(getApplicationContext(), "이메일 형식을 지켜주세요.", Toast.LENGTH_SHORT).show();
 //            }
+            else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+
+                Toast.makeText(getApplicationContext(), "이메일 형식~~~~", Toast.LENGTH_SHORT).show();
+            }
 
 
         });
 
         //권한이 부여되어 있는지 확인
-        int permissonCheck= ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS);
-        if(permissonCheck == PackageManager.PERMISSION_GRANTED){
+        int permissonCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS);
+        if (permissonCheck == PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(getApplicationContext(), "SMS 수신권한 있음", Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
             Toast.makeText(getApplicationContext(), "SMS 수신권한 없음", Toast.LENGTH_SHORT).show();
 
             //권한설정 dialog에서 거부를 누르면
             //ActivityCompat.shouldShowRequestPermissionRationale 메소드의 반환값이 true가 된다.
             //단, 사용자가 "Don't ask again"을 체크한 경우
             //거부하더라도 false를 반환하여, 직접 사용자가 권한을 부여하지 않는 이상, 권한을 요청할 수 없게 된다.
-            if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECEIVE_SMS)){
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECEIVE_SMS)) {
                 //이곳에 권한이 왜 필요한지 설명하는 Toast나 dialog를 띄워준 후, 다시 권한을 요청한다.
                 Toast.makeText(getApplicationContext(), "SMS권한이 필요합니다", Toast.LENGTH_SHORT).show();
-                ActivityCompat.requestPermissions(this, new String[]{ Manifest.permission.RECEIVE_SMS},       SMS_RECEIVE_PERMISSON);
-            }else{
-                ActivityCompat.requestPermissions(this, new String[]{ Manifest.permission.RECEIVE_SMS}, SMS_RECEIVE_PERMISSON);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS}, SMS_RECEIVE_PERMISSON);
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS}, SMS_RECEIVE_PERMISSON);
             }
         }
 
         // 인증 번호
         b.numberButton.setOnClickListener(num -> {
-
+            v = (int) (Math.random() * 10000);
             Log.i(TAG, "onCreate: In");
             String phoneNo = b.etPhone.getText().toString();
             try {
-                ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.SEND_SMS},1);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 1);
                 SmsManager smsManager = SmsManager.getDefault();
-                smsManager.sendTextMessage(phoneNo, null, "인증번호는 "+v+ " 입니다.", null, null);
+                smsManager.sendTextMessage(phoneNo, null, "인증번호는 " + v + " 입니다.", null, null);
                 Log.i(TAG, "인증 번호 : " + v);
                 Toast.makeText(getApplicationContext(), "인증번호 전송 완료!", Toast.LENGTH_LONG).show();
             } catch (Exception e) {
@@ -149,7 +154,7 @@ public class RegisterActivity extends AppCompatActivity {
             String okPhone = b.etPhone2.getText().toString();
             if (Integer.parseInt(okPhone) == v) {
                 Toast.makeText(getApplicationContext(), "인증 성공", Toast.LENGTH_LONG).show();
-                pnChk=true;
+                pnChk = true;
             } else {
                 Toast.makeText(getApplicationContext(), "인증 실패", Toast.LENGTH_LONG).show();
             }
@@ -180,16 +185,15 @@ public class RegisterActivity extends AppCompatActivity {
             });
         });
 
-        b.etEmail.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+        b.etEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus) {
+                if (hasFocus) {
                     Pattern p = Pattern.compile("^[a-zA-X0-9]@[a-zA-Z0-9].[a-zA-Z0-9]");
                     Matcher m = p.matcher((b.etEmail).getText().toString());
 
-                    String trim = b.etEmail.getText().toString().trim();
-                    if ( !m.matches()){
+                    if (!m.matches()) {
                         Toast.makeText(RegisterActivity.this, "Email형식으로 입력하세요", Toast.LENGTH_SHORT).show();
                     }
 
