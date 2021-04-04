@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -24,6 +25,7 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.techtown.dagym.R;
+import org.techtown.dagym.session.SharedPreference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +58,11 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_home, container, false);
+
+        TextView sessionId = view.findViewById(R.id.session_id);
+
+        String user_name = SharedPreference.getAttribute(getContext(), "user_name");
+        sessionId.setText(user_name + " 님");
 
         barChart = (BarChart)view.findViewById(R.id.ex_chart);
         barChart1 = (BarChart)view.findViewById(R.id.kcal_chart);

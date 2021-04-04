@@ -26,6 +26,11 @@ public class Member {
     public Member() {
     }
 
+    public Member(String user_id, String user_pw) {
+        this.user_id = user_id;
+        this.user_pw = user_pw;
+    }
+
     @Builder
     public Member(Long id, String user_id, String user_pw, String user_name, String user_pn, String user_email, String address_normal, String address_detail, String user_rrn, String user_gender, String user_role) {
         this.id = id;
