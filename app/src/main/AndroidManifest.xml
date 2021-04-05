@@ -14,6 +14,9 @@
         android:theme="@style/Theme.DAGYM.NoActionBar"
         android:usesCleartextTraffic="true">
         <!--android:usesCleartextTraffic="true"> 써야지 웹 연동 가능 -->
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="8aed129972f1253dee29332d6291a455" />
 
         <activity
             android:name=".SplashActivity"
@@ -37,6 +40,7 @@
         <activity android:name=".FindidActivity"></activity>
         <activity android:name=".FindpwActivity"></activity>
         <activity android:name=".Board"></activity>
+        <activity android:name=".UpdatePwActivity"></activity>
 
     </application>
 

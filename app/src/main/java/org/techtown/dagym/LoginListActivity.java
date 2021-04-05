@@ -7,11 +7,27 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.kakao.auth.ISessionCallback;
+import com.kakao.auth.Session;
+import com.kakao.util.exception.KakaoException;
+
 import org.techtown.dagym.FindidActivity;
 import org.techtown.dagym.LoginActivity;
 import org.techtown.dagym.R;
 
 public class LoginListActivity extends AppCompatActivity {
+    private ISessionCallback sessionCallback = new ISessionCallback() {
+        @Override
+        public void onSessionOpened() {
+
+        }
+
+        @Override
+        public void onSessionOpenFailed(KakaoException exception) {
+
+        }
+    };
+    Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
