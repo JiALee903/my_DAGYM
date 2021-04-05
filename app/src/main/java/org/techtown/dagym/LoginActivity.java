@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.techtown.dagym.entity.dto.MemberSignDto;
 import org.techtown.dagym.session.SharedPreference;
 import org.techtown.dagym.databinding.ActivityLoginBinding;
 import org.techtown.dagym.entity.Member;
@@ -38,11 +39,13 @@ public class LoginActivity extends AppCompatActivity {
         login_pass = b.loginPass;
 
         b.findIdL.setOnClickListener(findId -> {
+            Log.i(TAG, "onCreate: findId");
             Intent intent = new Intent(getApplicationContext(), FindidActivity.class);
             startActivity(intent);
         });
 
         b.findPwdL.setOnClickListener(findPw -> {
+            Log.i(TAG, "onCreate: findPw");
             Intent intent = new Intent(getApplicationContext(), FindpwActivity.class);
             startActivity(intent);
         });
@@ -52,15 +55,13 @@ public class LoginActivity extends AppCompatActivity {
             String id = login_id.getText().toString().trim();
             String pwd = login_pass.getText().toString().trim();
 
-            Member member = new Member();
-            member.setUser_id(id);
-            member.setUser_pw(pwd);
+            MemberSignDto memberSignDto = new MemberSignDto(id, pwd);
 
-            dataService.select.signIn(member).enqueue(new Callback<Member>() {
+            dataService.select.signIn(memberSignDto).enqueue(new Callback<Member>() {
                 @Override
                 public void onResponse(Call<Member> call, Response<Member> response) {
-                    Log.i(TAG, "onResponse: In, Member.getUser_name = " + response.body().getUser_name());
                     try {
+                        Log.i(TAG, "onResponse: In, Member.getUser_name = " + response.body().getUser_name());
                         if (!response.body().equals(null)) {
                             Toast.makeText(getApplicationContext(), "로그인을 성공했습니다.", Toast.LENGTH_SHORT).show();
                             SharedPreference.setAttribute(getApplicationContext(), "user_id", response.body().getUser_id());
@@ -81,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Member> call, Throwable t) {
-
+                    Toast.makeText(getApplicationContext(), "가입하지 않은 아이디거나, 잘못된 비밀번호입니다.", Toast.LENGTH_SHORT).show();
                 }
             });
         });
