@@ -6,19 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".FindpwActivity">
 
-
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/find2button"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
+        android:id="@+id/find_pwBtn"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
         android:layout_marginTop="80dp"
+        android:layout_marginEnd="35dp"
         android:background="@drawable/button"
         android:text="비밀번호 찾기"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="17sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/et_phone2"
-        app:layout_constraintStart_toStartOf="@+id/et_phone2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_phone2" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/backLoginBtn2"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/button"
+        android:text="로그인 페이지로"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_phone2" />
 
     <androidx.appcompat.widget.AppCompatButton
