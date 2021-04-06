@@ -9,15 +9,33 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/find2button"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
+        android:layout_width="140dp"
+        android:layout_height="45dp"
         android:layout_marginTop="60dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/button"
         android:text="아이디 찾기"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.811"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_phone2" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/backloginBtn1"
+        android:layout_width="140dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/button"
+        android:text="로그인 페이지로"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.174"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_phone2" />
 
