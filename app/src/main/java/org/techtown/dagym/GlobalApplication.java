@@ -19,7 +19,6 @@ public class GlobalApplication extends Application {
         if (instance == null) {
             throw new IllegalStateException("This Application does not inherit com.kakao.GlobalApplication");
         }
-
         return instance;
     }
 

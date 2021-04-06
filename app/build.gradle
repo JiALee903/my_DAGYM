@@ -69,6 +69,11 @@ dependencies {
 
     // 카카오 로그인
     implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.30.6'
+
+    // 구글 로그인
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.android.application'
