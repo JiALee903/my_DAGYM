@@ -1,7 +1,9 @@
 package org.techtown.dagym;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -12,6 +14,8 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import org.techtown.dagym.session.SharedPreference;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,9 +36,9 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_calendar, R.id.nav_inbody, R.id.nav_timer, R.id.nav_board, R.id.nav_chat)
-                .setDrawerLayout(drawer)
-                .build();
+                        R.id.nav_home, R.id.nav_calendar, R.id.nav_inbody, R.id.nav_timer, R.id.nav_board, R.id.nav_chat)
+                        .setDrawerLayout(drawer)
+                        .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
@@ -42,9 +46,26 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.mypage) {
+            Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
+            startActivity(intent);
+        }
+
+        if(id == R.id.action_logout) {
+            SharedPreference.removeAllAttribute(getApplicationContext());
+            Intent intent = new Intent(getApplicationContext(), LoginListActivity.class);
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

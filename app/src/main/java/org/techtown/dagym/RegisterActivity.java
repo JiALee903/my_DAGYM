@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.jetbrains.annotations.NotNull;
 import org.techtown.dagym.databinding.ActivityRegisterBinding;
 import org.techtown.dagym.entity.Member;
 import org.techtown.dagym.entity.dto.MemberRegisterDto;
@@ -79,10 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         //      Spinner
-        Spinner genderSpinner = (Spinner) b.spinnerGender;
-        ArrayAdapter genderAdapter = ArrayAdapter.createFromResource(this, R.array.select_gender,
-                android.R.layout.simple_spinner_dropdown_item);
-        genderSpinner.setAdapter(genderAdapter);
+        Spinner genderSpinner = getSpinner();
 
         // insert 회원가입
         b.btnRegister.setOnClickListener(reg -> {
@@ -141,6 +139,15 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    @NotNull
+    private Spinner getSpinner() {
+        Spinner genderSpinner = (Spinner) b.spinnerGender;
+        ArrayAdapter genderAdapter = ArrayAdapter.createFromResource(this, R.array.select_gender,
+                android.R.layout.simple_spinner_dropdown_item);
+        genderSpinner.setAdapter(genderAdapter);
+        return genderSpinner;
+    }
+
     private void validate() {
         String user_id = b.etId.getText().toString();
         Log.i(TAG, "onCreate: user_id = " + user_id);
@@ -195,7 +202,6 @@ public class RegisterActivity extends AppCompatActivity {
         dataService.select.findPn(phoneNo).enqueue(new Callback<Member>() {
             @Override
             public void onResponse(Call<Member> call, Response<Member> response) {
-                Log.i(TAG, "onResponse: body.pn = " + response.body().getUser_pn().toString());
 
                 try {
                     if (response.body().getUser_pn().toString().equals(phoneNo)) {
@@ -289,9 +295,7 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "이메일 형식을 맞춰 작성해주세요.", Toast.LENGTH_SHORT).show();
         } else if (tr_if == null) {
             Toast.makeText(getApplicationContext(), "트레이너 여부를 확인해주세요.", Toast.LENGTH_SHORT).show();
-        }
-
-        if (idChk == true && pnChk == true && Patterns.EMAIL_ADDRESS.matcher(user_email).matches() && tr_if != null) {
+        } else if (idChk == true && pnChk == true && Patterns.EMAIL_ADDRESS.matcher(user_email).matches() && tr_if != null) {
             Log.i(TAG, "onCreate: map = " + memberRegisterDto.getUser_name());
 
             // 웹 db 호출 및 저장

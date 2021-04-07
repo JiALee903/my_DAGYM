@@ -23,6 +23,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
 import org.techtown.dagym.R;
+import org.techtown.dagym.session.SharedPreference;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,6 +53,11 @@ public class InbodyFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_inbody, container, false);
+
+        TextView sessionId = view.findViewById(R.id.session_inbody);
+
+        String user_name = SharedPreference.getAttribute(getContext(), "user_name");
+        sessionId.setText(user_name + " 님의 기록");
 
         /* dateNow = (TextView) view.findViewById(R.id.dateNow);
         dateNow.setText(formatDate); // TextView에 현재 시간 문자열 할당

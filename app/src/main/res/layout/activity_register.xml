@@ -27,7 +27,7 @@
 
         <Button
             android:id="@+id/validateButton"
-            android:layout_width="90dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginTop="70dp"
             android:background="@color/black"
@@ -88,7 +88,7 @@
 
         <Button
             android:id="@+id/numberButton"
-            android:layout_width="90dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginTop="7dp"
             android:background="@color/black"
@@ -114,7 +114,7 @@
 
         <Button
             android:id="@+id/okButton"
-            android:layout_width="90dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginTop="7dp"
             android:background="@color/black"
