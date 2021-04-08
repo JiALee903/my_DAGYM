@@ -65,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (!response.body().equals(null)) {
                             Toast.makeText(getApplicationContext(), "로그인을 성공했습니다.", Toast.LENGTH_SHORT).show();
                             SharedPreference.setAttribute(getApplicationContext(), "user_id", response.body().getUser_id());
+                            SharedPreference.setAttribute(getApplicationContext(), "id", response.body().getId().toString());
                             SharedPreference.setAttribute(getApplicationContext(), "user_name", response.body().getUser_name());
                             String user_name = SharedPreference.getAttribute(getApplicationContext(), "user_name");
                             Log.i(TAG, "onResponse: sessionName = " + user_name);

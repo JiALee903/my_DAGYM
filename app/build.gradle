@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "org.techtown.dagym"
-        minSdkVersion 26
+        minSdkVersion 30
         targetSdkVersion 30
         multiDexEnabled true
         versionCode 1
@@ -46,6 +46,9 @@ dependencies {
     implementation 'androidx.mediarouter:mediarouter:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.annotation:annotation:1.1.0'
+
+    implementation 'com.github.lakue119:LakuePopupActivity:1.0.1' // 팝업창
+    
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
