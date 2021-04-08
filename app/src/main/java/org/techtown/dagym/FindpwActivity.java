@@ -98,6 +98,12 @@ public class FindpwActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "인증 실패", Toast.LENGTH_LONG).show();
             }
         });
+
+        b.pbtnBacklogin.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), LoginListActivity.class);
+            startActivity(intent);
+        });
+
     }
 //    @Override
 //    public boolean dispatchTouchEvent(MotionEvent ev) {

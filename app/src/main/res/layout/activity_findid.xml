@@ -24,7 +24,7 @@
         app:layout_constraintTop_toBottomOf="@+id/et_phone2" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/backloginBtn1"
+        android:id="@+id/ibtn_backlogin"
         android:layout_width="140dp"
         android:layout_height="45dp"
         android:layout_marginStart="15dp"

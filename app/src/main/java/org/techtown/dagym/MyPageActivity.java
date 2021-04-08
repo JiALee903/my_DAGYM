@@ -49,6 +49,8 @@ public class MyPageActivity extends AppCompatActivity {
         b = b.inflate(getLayoutInflater());
         setContentView(b.getRoot());
 
+        
+
         String str = SharedPreference.getAttribute(getApplicationContext(), "id");
         Long id = Long.parseLong(str);
 
@@ -181,7 +183,7 @@ public class MyPageActivity extends AppCompatActivity {
             popup.setPositiveButton("예", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    String str = SharedPreference.getAttribute(getApplicationContext(), "id");
+                    String str = SharedPreference.getAttribute(getApplicationContext(), "id"); // 세션
                     Long id = Long.parseLong(str);
                     Log.i(TAG, "onClick: id = " + id);
                     dataService.delete.userDelete(id).enqueue(new Callback<String>() {

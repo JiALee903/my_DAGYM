@@ -7,7 +7,7 @@
     tools:context=".FindpwActivity">
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/backloginBtn2"
+        android:id="@+id/pbtn_backlogin"
         android:layout_width="140dp"
         android:layout_height="45dp"
         android:layout_marginTop="80dp"

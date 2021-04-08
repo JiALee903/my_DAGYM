@@ -102,6 +102,11 @@ public class FindidActivity extends AppCompatActivity {
             }
         });
 
+        b.ibtnBacklogin.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), LoginListActivity.class);
+            startActivity(intent);
+        });
+
 //    @Override
 //    public boolean dispatchTouchEvent(MotionEvent ev) {
 //        View focusView = getCurrentFocus();
