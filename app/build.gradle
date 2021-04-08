@@ -73,6 +73,9 @@ dependencies {
     // 구글 로그인
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
 
+    // RecyclerView 추가
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
