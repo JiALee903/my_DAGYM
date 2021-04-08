@@ -91,6 +91,8 @@ interface UpdateAPI{
     @PUT("mypage/{id}")
     Call<Member> mypageUpdate(@Path("id") Long id, @Body MemberUpdateDto memberUpdateDto);
 
+
+
 }
 
 interface DeleteAPI {

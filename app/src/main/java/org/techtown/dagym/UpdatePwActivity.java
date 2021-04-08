@@ -40,6 +40,9 @@ public class UpdatePwActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Member> call, Response<Member> response) {
                         Toast.makeText(getApplicationContext(), "비밀번호 변경 완료.", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                        startActivity(intent);
                     }
 
                     @Override
@@ -50,6 +53,7 @@ public class UpdatePwActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(getApplicationContext(), "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
             }
+
         });
 
 
