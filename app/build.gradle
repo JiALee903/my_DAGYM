@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "org.techtown.dagym"
-        minSdkVersion 30
+        minSdkVersion 29
         targetSdkVersion 30
         multiDexEnabled true
         versionCode 1

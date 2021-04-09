@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import org.techtown.dagym.databinding.ActivityWriteBoardBinding;
 import org.techtown.dagym.databinding.BoardItemBinding;
@@ -27,7 +28,10 @@ public class BoardInsert extends AppCompatActivity {
 
     private ActivityWriteBoardBinding b;
 
-    DataService dataService;
+    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+    DataService dataService = new DataService();
+    BoardFragment boardFragment = new BoardFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +54,14 @@ public class BoardInsert extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<Board> call, Response<Board> response) {
                     Log.i("TAG", "onResponse: dhodkseotlqkf");
-                    Intent intent = new Intent(getApplicationContext(), BoardFragment.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(getApplicationContext(), BoardFragment.class);
+//                    startActivity(intent);
+//                    transaction.replace(R.id.nav_board, boardFragment);
                 }
 
                 @Override
                 public void onFailure(Call<Board> call, Throwable t) {
-
+                    t.printStackTrace();
                 }
             });
         });
