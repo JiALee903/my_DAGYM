@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,18 +25,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BoardInsert extends AppCompatActivity {
+public class BoardInsert extends Activity {
 
     private ActivityWriteBoardBinding b;
 
-    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
     DataService dataService = new DataService();
-    BoardFragment boardFragment = new BoardFragment();
+
+    BoardInsert boardInsert = new BoardInsert();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         b = b.inflate(getLayoutInflater());
         setContentView(b.getRoot());
 
@@ -54,9 +55,8 @@ public class BoardInsert extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<Board> call, Response<Board> response) {
                     Log.i("TAG", "onResponse: dhodkseotlqkf");
-//                    Intent intent = new Intent(getApplicationContext(), BoardFragment.class);
-//                    startActivity(intent);
-//                    transaction.replace(R.id.nav_board, boardFragment);
+
+                    boardInsert.finish();
                 }
 
                 @Override
