@@ -6,94 +6,72 @@
     android:layout_height="match_parent"
     tools:context=".LoginListActivity">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="151dp"
-        android:layout_height="73dp"
-        android:layout_marginTop="120dp"
-        android:gravity="center"
-        android:text="DAGYM"
-        android:textColor="@color/black"
-        android:textSize="35sp"
-        android:textStyle="bold"
-        android:typeface="monospace"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="170dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/applogo2" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_register"
-        android:layout_width="70dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="8dp"
-        android:background="#00FF0000"
-        android:text="회원가입"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.243"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/d_button" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/k_button"
+        android:id="@+id/login"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_marginTop="140dp"
-        android:background="@drawable/ybutton"
-        android:text="Kakao 계정으로 로그인"
-        android:textColor="#8B4513"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/d_button"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="197dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/button"
         android:text="DAGYM 계정으로 로그인"
         android:textColor="@color/white"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/find_id"
-        android:layout_width="80dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="8dp"
-        android:background="#00FF0000"
-        android:text="아이디 찾기"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.462"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/d_button" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/find_pass"
-        android:layout_width="90dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="8dp"
-        android:background="#00FF0000"
-        android:text="비밀번호 찾기"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.728"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/d_button" />
-
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/g_button"
+        android:id="@+id/social"
         android:layout_width="250dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="78dp"
-        app:layout_constraintEnd_toEndOf="@+id/title"
-        app:layout_constraintStart_toStartOf="@+id/title"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edge"
+        android:text="소셜 계정으로 로그인"
+        android:textColor="@color/dagym"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/login"
+        app:layout_constraintStart_toStartOf="@+id/login"
+        app:layout_constraintTop_toBottomOf="@+id/login" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DAGYM 계정으로 로그인 하시려면" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_register"
+            android:layout_width="70dp"
+            android:layout_height="20dp"
+            android:background="#00FF0000"
+            android:text="회원가입"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="을 누르세요." />
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -83,9 +83,6 @@ public class TimerFragment extends Fragment {
         }
     };
 
-//질문: 왜 위에서 INIT(초기값)을 넣은 status 를 스위치문에서 다시 캐스팅 하는가?
-    //대답: 그래야 상태값을 확인할수 있기 때문이다. 즉, 달라지는 상태값을 알기위해선 기준이 되는 초기값이 필요한것!
-
     private void staButton(){
         switch (status){
             case INIT:

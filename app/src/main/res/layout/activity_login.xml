@@ -6,33 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="151dp"
-        android:layout_height="73dp"
-        android:layout_marginTop="120dp"
-        android:gravity="center"
-        android:text="DAGYM"
-        android:textColor="@color/black"
-        android:textSize="35sp"
-        android:textStyle="bold"
-        android:typeface="monospace"
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/applogo2" />
 
     <EditText
         android:id="@+id/login_id"
         android:layout_width="270dp"
         android:layout_height="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="18dp"
         android:background="@drawable/edittext"
-        android:paddingLeft="5dp"
+        android:drawableLeft="@drawable/ic_identity"
+        android:hint=" 아이디"
         android:inputType="textPersonName"
-        android:hint="아이디"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@id/textView2" />
+        android:paddingLeft="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
         android:id="@+id/login_pass"
@@ -42,7 +39,8 @@
         android:background="@drawable/edittext"
         android:paddingLeft="5dp"
         android:inputType="textPassword"
-        android:hint="비밀번호"
+        android:drawableLeft="@drawable/ic_password"
+        android:hint=" 비밀번호"
         app:layout_constraintTop_toBottomOf="@+id/login_id"
         app:layout_constraintEnd_toEndOf="@+id/login_id"
         app:layout_constraintStart_toStartOf="@+id/login_id" />
@@ -54,7 +52,7 @@
         android:layout_marginTop="8dp"
         android:background="#00FF0000"
         android:text="아이디 찾기"
-        android:textColor="@color/black"
+        android:textColor="@color/dagym"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.31"
@@ -68,7 +66,7 @@
         android:layout_marginTop="8dp"
         android:background="#00FF0000"
         android:text="비밀번호 찾기"
-        android:textColor="@color/black"
+        android:textColor="@color/dagym"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.672"

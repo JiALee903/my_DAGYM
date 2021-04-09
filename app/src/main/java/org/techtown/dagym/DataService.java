@@ -3,7 +3,9 @@ package org.techtown.dagym;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.techtown.dagym.entity.Board;
 import org.techtown.dagym.entity.Member;
+import org.techtown.dagym.entity.dto.BoardListResponseDto;
 import org.techtown.dagym.entity.dto.MemberFindIdDto;
 import org.techtown.dagym.entity.dto.MemberFindPwDto;
 import org.techtown.dagym.entity.dto.MemberRegisterDto;
@@ -11,13 +13,9 @@ import org.techtown.dagym.entity.dto.MemberSignDto;
 import org.techtown.dagym.entity.dto.MemberUpdateDto;
 
 import java.util.List;
-import java.util.Map;
 
-import lombok.val;
 import okhttp3.OkHttpClient;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
@@ -82,6 +80,9 @@ interface InsertAPI{
 
     @POST("insert")
     Call<Member> insertOne(@Body MemberRegisterDto memberRegisterDto);
+
+    @POST("insert/{member_id}")
+    Call<Board> insertBoard(@Path("member_id") Long member_id, @Body BoardListResponseDto boardListResponseDto);
 }
 
 interface UpdateAPI{
@@ -90,7 +91,6 @@ interface UpdateAPI{
 
     @PUT("mypage/{id}")
     Call<Member> mypageUpdate(@Path("id") Long id, @Body MemberUpdateDto memberUpdateDto);
-
 
 
 }

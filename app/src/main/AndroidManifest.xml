@@ -40,9 +40,10 @@
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".FindidActivity"></activity>
         <activity android:name=".FindpwActivity"></activity>
-        <activity android:name=".Board"></activity>
+        <activity android:name=".BoardInsert"></activity>
         <activity android:name=".UpdatePwActivity"></activity>
         <activity android:name=".MyPageActivity"></activity>
+        <activity android:name=".SocialLoginActivity" android:theme="@android:style/Theme.Dialog"></activity>
     </application>
 
 </manifest>
