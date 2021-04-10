@@ -1,4 +1,4 @@
-package org.techtown.dagym.ui.board;
+package org.techtown.dagym;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,7 +21,9 @@ import org.techtown.dagym.MainActivity;
 import org.techtown.dagym.R;
 import org.techtown.dagym.entity.Board;
 import org.techtown.dagym.entity.dto.BoardListResponseDto;
+import org.techtown.dagym.ui.board.RecyclerAdapter;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,30 +36,12 @@ import retrofit2.Response;
 
 public class BoardFragment extends Fragment{
 
-//    DataService dataService = new DataService();
+    DataService dataService = new DataService();
 
     private Button writeBtn;
 
-    private ArrayList<BoardListResponseDto> mArrayList;
+    private ArrayList<Board> mArrayList;
     private RecyclerAdapter mAdapter;
-//    private MainActivity mainActivity;
-
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//        dataService.select.selectBoard().enqueue(new Callback<List<BoardListResponseDto>>() {
-//            @Override
-//            public void onResponse(Call<List<BoardListResponseDto>> call, Response<List<BoardListResponseDto>> response) {
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<BoardListResponseDto>> call, Throwable t) {
-//
-//            }
-//        });
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,14 +56,36 @@ public class BoardFragment extends Fragment{
 
         mArrayList = new ArrayList<>();
 
-        mAdapter = new RecyclerAdapter(mArrayList);
-        recyclerView.setAdapter(mAdapter);
+        dataService.select.selectBoard().enqueue(new Callback<ArrayList<BoardListResponseDto>>() {
+            @Override
+            public void onResponse(Call<ArrayList<BoardListResponseDto>> call, Response<ArrayList<BoardListResponseDto>> response) {
+                Log.i("TAG", "onResponse: arraylist" + response.body().get(0).toString());
+                ArrayList<BoardListResponseDto> body = response.body();
+//                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd hh:mm");
+                for (int i = 0; i < response.body().size(); i++) {
+                    LocalDateTime modifiedDate = body.get(i).getModifiedDate();
+//                    String modDate = simpleDateFormat.format(modifiedDate);
 
-        // 꾸며주는 애, 구분선 지어주려고 만들어놓음
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                mLinearLayoutManager.getOrientation());
+                    Log.i("TAG", "onResponse: " + modifiedDate);
+                    Board board = new Board(body.get(i).getId(), body.get(i).getTitle(), body.get(i).getUser_id(), modifiedDate);
+                    mArrayList.add(board);
+                    Log.i("TAG", "onCreateView: " + mArrayList);
+                }
+                mAdapter = new RecyclerAdapter(mArrayList);
+                recyclerView.setAdapter(mAdapter);
 
-        recyclerView.addItemDecoration(dividerItemDecoration);
+                // 꾸며주는 애, 구분선 지어주려고 만들어놓음
+                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                        mLinearLayoutManager.getOrientation());
+
+                recyclerView.addItemDecoration(dividerItemDecoration);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<BoardListResponseDto>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
 
         return view;
     }

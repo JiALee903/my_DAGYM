@@ -21,7 +21,7 @@ import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
-    private ArrayList<BoardListResponseDto> mList;
+    private ArrayList<Board> mList;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         protected TextView id;
@@ -38,7 +38,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         }
     }
 
-    public RecyclerAdapter(ArrayList<BoardListResponseDto> list) {
+    public RecyclerAdapter(ArrayList<Board> list) {
         this.mList = list;
     }
 
@@ -72,7 +72,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         viewholder.id.setText(id); //Integer.parseInt()
         viewholder.title.setText(mList.get(position).getTitle());
         viewholder.user_id.setText(mList.get(position).getUser_id());
-        viewholder.regDate.setText(mList.get(position).getModifiedDate().toString());
+        viewholder.regDate.setText(mList.get(position).getRegDate().toString());
     }
 
     @Override

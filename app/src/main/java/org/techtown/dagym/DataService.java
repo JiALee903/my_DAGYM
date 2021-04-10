@@ -13,6 +13,7 @@ import org.techtown.dagym.entity.dto.MemberRegisterDto;
 import org.techtown.dagym.entity.dto.MemberSignDto;
 import org.techtown.dagym.entity.dto.MemberUpdateDto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -48,8 +49,6 @@ public class DataService {
     public InsertAPI insert = retrofitClient.create(InsertAPI.class);
     public UpdateAPI update = retrofitClient.create(UpdateAPI.class);
     public DeleteAPI delete = retrofitClient.create(DeleteAPI.class);
-
-
 }
 
 interface SelectAPI {
@@ -72,19 +71,19 @@ interface SelectAPI {
     @POST("findMem")
     Call<Member> findMem(@Body Long id);
 
-    @GET("board/select")
-    Call<List<BoardListResponseDto>> selectBoard();
+    @POST("board/select")
+    Call<ArrayList<BoardListResponseDto>> selectBoard();
 }
 
 interface InsertAPI{
-//    @POST("insert")
-//    Call<Member> insertOne(@Body Member member);
 
     @POST("insert")
     Call<Member> insertOne(@Body MemberRegisterDto memberRegisterDto);
 
     @POST("board/insert/{member_id}")
     Call<Board> insertBoard(@Path("member_id") Long member_id, @Body BoardSaveDto boardSaveDto);
+
+
 }
 
 interface UpdateAPI{

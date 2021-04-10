@@ -5,7 +5,7 @@
     android:id="@+id/board"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.board.BoardFragment">
+    tools:context=".BoardFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout2"

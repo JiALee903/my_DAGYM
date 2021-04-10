@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import org.techtown.dagym.entity.Member;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
 public class BoardListResponseDto{
@@ -27,32 +28,6 @@ public class BoardListResponseDto{
         this.likes = likes;
         this.modifiedDate = modifiedDate;
     }
-
-    protected BoardListResponseDto(Parcel in) {
-        if (in.readByte() == 0) {
-            id = null;
-        } else {
-            id = in.readLong();
-        }
-        title = in.readString();
-        user_id = in.readString();
-        content = in.readString();
-        hit = in.readInt();
-        recommends = in.readInt();
-        likes = in.readInt();
-    }
-
-//    public static final Creator<BoardListResponseDto> CREATOR = new Creator<BoardListResponseDto>() {
-//        @Override
-//        public BoardListResponseDto createFromParcel(Parcel in) {
-//            return new BoardListResponseDto(in);
-//        }
-//
-//        @Override
-//        public BoardListResponseDto[] newArray(int size) {
-//            return new BoardListResponseDto[size];
-//        }
-//    };
 
     public Long getId() {
         return id;
@@ -119,25 +94,3 @@ public class BoardListResponseDto{
     }
 }
 
-//    @Override
-//    public int describeContents() {
-//        return 0;
-//    }
-//
-//    @Override
-//    public void writeToParcel(Parcel dest, int flags) {
-//
-//        if (id == null) {
-//            dest.writeByte((byte) 0);
-//        } else {
-//            dest.writeByte((byte) 1);
-//            dest.writeLong(id);
-//        }
-//        dest.writeString(title);
-//        dest.writeString(user_id);
-//        dest.writeString(content);
-//        dest.writeInt(hit);
-//        dest.writeInt(recommends);
-//        dest.writeInt(likes);
-//    }
-//}

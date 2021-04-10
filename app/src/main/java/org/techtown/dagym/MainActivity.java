@@ -18,11 +18,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import org.techtown.dagym.entity.dto.BoardListResponseDto;
 import org.techtown.dagym.session.SharedPreference;
-import org.techtown.dagym.ui.board.BoardFragment;
-import org.techtown.dagym.ui.board.RecyclerAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,17 +50,17 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        dataService.select.selectBoard().enqueue(new Callback<List<BoardListResponseDto>>() {
-            @Override
-            public void onResponse(Call<List<BoardListResponseDto>> call, Response<List<BoardListResponseDto>> response) {
-                Log.i("TAG", "onResponse: board" + response.body());
-            }
-
-            @Override
-            public void onFailure(Call<List<BoardListResponseDto>> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
+//        dataService.select.selectBoard().enqueue(new Callback<ArrayList<BoardListResponseDto>>() {
+//            @Override
+//            public void onResponse(Call<ArrayList<BoardListResponseDto>> call, Response<ArrayList<BoardListResponseDto>> response) {
+//                Log.i("TAG", "onResponse: array test = " + response.body().get(0).getTitle());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ArrayList<BoardListResponseDto>> call, Throwable t) {
+//
+//            }
+//        });
 
     }
 

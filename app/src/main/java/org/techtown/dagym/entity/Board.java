@@ -1,5 +1,6 @@
 package org.techtown.dagym.entity;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
 import lombok.Data;
@@ -15,6 +16,13 @@ public class Board {
     private String regDate;
     private String modDate;
 
+    public Board(Long id, String title, String user_id, String regDate) {
+        this.id = id;
+        this.title = title;
+        this.user_id = user_id;
+        this.regDate = regDate;
+    }
+
     public Board(Long id, String title, String user_id, String content, int hit, Member member) {
         this.id = id;
         this.title = title;
@@ -22,13 +30,6 @@ public class Board {
         this.content = content;
         this.hit = hit;
         this.member = member;
-    }
-
-    public Board(Long id, String title, String user_id, String regDate) {
-        this.id = id;
-        this.title = title;
-        this.user_id = user_id;
-        this.regDate = regDate;
     }
 
     public Long getId() {
