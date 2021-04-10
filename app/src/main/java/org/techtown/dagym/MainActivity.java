@@ -2,6 +2,7 @@ package org.techtown.dagym;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -15,12 +16,23 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import org.techtown.dagym.entity.dto.BoardListResponseDto;
 import org.techtown.dagym.session.SharedPreference;
+import org.techtown.dagym.ui.board.BoardFragment;
+import org.techtown.dagym.ui.board.RecyclerAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-//    private Object BoardFragment;
+    DataService dataService = new DataService();
+//    ArrayList<BoardListResponseDto> mlist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +40,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -43,7 +52,24 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        dataService.select.selectBoard().enqueue(new Callback<List<BoardListResponseDto>>() {
+            @Override
+            public void onResponse(Call<List<BoardListResponseDto>> call, Response<List<BoardListResponseDto>> response) {
+                Log.i("TAG", "onResponse: board" + response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<BoardListResponseDto>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
     }
+
+//    public ArrayList<BoardListResponseDto> getArrayList() {
+//        return mlist;
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
