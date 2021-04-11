@@ -10,6 +10,7 @@ import org.techtown.dagym.entity.Board;
 import org.techtown.dagym.entity.dto.BoardListResponseDto;
 import org.techtown.dagym.entity.dto.BoardSaveDto;
 import org.techtown.dagym.session.SharedPreference;
+import org.techtown.dagym.ui.board.RecyclerAdapter;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,6 +21,7 @@ public class BoardInsert extends Activity {
     private ActivityWriteBoardBinding b;
 
     DataService dataService = new DataService();
+    BoardFragment boardFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,7 @@ public class BoardInsert extends Activity {
                     t.printStackTrace();
                 }
             });
-
+//            boardFragment.insert();
             finish();
         });
 

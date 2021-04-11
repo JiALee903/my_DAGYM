@@ -12,22 +12,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.techtown.dagym.R;
 import org.techtown.dagym.entity.Board;
-import org.techtown.dagym.entity.dto.BoardListResponseDto;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     private ArrayList<Board> mList;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public Board getItem(int position) {
+        return this.mList.get(position);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder  {
         protected TextView id;
         protected TextView title;
         protected TextView user_id;
         protected TextView regDate;
+
+
+
 
         public ViewHolder(@NonNull View view) {
             super(view);
@@ -36,6 +39,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             this.user_id = (TextView) view.findViewById(R.id.boardWriter);
             this.regDate = (TextView) view.findViewById(R.id.boardDate);
         }
+
     }
 
     public RecyclerAdapter(ArrayList<Board> list) {

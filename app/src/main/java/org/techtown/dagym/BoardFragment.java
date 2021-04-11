@@ -3,10 +3,13 @@ package org.techtown.dagym;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,21 +18,14 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.techtown.dagym.BoardInsert;
-import org.techtown.dagym.DataService;
-import org.techtown.dagym.MainActivity;
-import org.techtown.dagym.R;
 import org.techtown.dagym.entity.Board;
 import org.techtown.dagym.entity.dto.BoardListResponseDto;
+import org.techtown.dagym.listener.RecyclerViewItemClickListener;
 import org.techtown.dagym.ui.board.RecyclerAdapter;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,7 +39,6 @@ public class BoardFragment extends Fragment{
 
     private ArrayList<Board> mArrayList;
     private RecyclerAdapter mAdapter;
-    private Date modDate;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,12 +56,12 @@ public class BoardFragment extends Fragment{
         dataService.select.selectBoard().enqueue(new Callback<ArrayList<BoardListResponseDto>>() {
             @Override
             public void onResponse(Call<ArrayList<BoardListResponseDto>> call, Response<ArrayList<BoardListResponseDto>> response) {
-                Log.i("TAG", "onResponse: arraylist" + response.body().get(0).toString());
+//                Log.i("TAG", "onResponse: arraylist" + response.body().get(0).toString());
                 ArrayList<BoardListResponseDto> body = response.body();
 
                 for (int i = 0; i < response.body().size(); i++) {
                     String strDate = body.get(i).getModifiedDate();
-                    LocalDateTime localDateTime =LocalDateTime.parse(strDate, DateTimeFormatter.ISO_DATE_TIME);
+                    LocalDateTime localDateTime = LocalDateTime.parse(strDate, DateTimeFormatter.ISO_DATE_TIME);
                     String modDate = localDateTime.format(DateTimeFormatter.ofPattern("yy/MM/dd hh:mm"));
                     Board board = new Board(body.get(i).getId(), body.get(i).getTitle(), body.get(i).getUser_id(), modDate);
                     mArrayList.add(board);
@@ -80,6 +75,8 @@ public class BoardFragment extends Fragment{
                         mLinearLayoutManager.getOrientation());
 
                 recyclerView.addItemDecoration(dividerItemDecoration);
+
+
             }
 
             @Override
@@ -88,13 +85,28 @@ public class BoardFragment extends Fragment{
             }
         });
 
+        recyclerView.addOnItemTouchListener(new RecyclerViewItemClickListener(getContext(), new RecyclerViewItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                // 아이템 클릭시에 실행되는 이벤트 부분
+                Intent intent = new Intent(getContext(), BoardDetail.class);
+                startActivity(intent);
+            }
+        }));
+
         return view;
     }
+
+//    public void insert() {
+//        mAdapter.notifyDataSetChanged();
+//    }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         writeBtn = view.findViewById(R.id.boardWriteBtn);
         writeBtn.setOnClickListener(onClickListener);
+
     }
 
     // 글쓰기 버튼
