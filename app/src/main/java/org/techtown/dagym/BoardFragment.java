@@ -23,10 +23,11 @@ import org.techtown.dagym.entity.Board;
 import org.techtown.dagym.entity.dto.BoardListResponseDto;
 import org.techtown.dagym.ui.board.RecyclerAdapter;
 
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Dictionary;
 import java.util.List;
 
@@ -42,6 +43,7 @@ public class BoardFragment extends Fragment{
 
     private ArrayList<Board> mArrayList;
     private RecyclerAdapter mAdapter;
+    private Date modDate;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,13 +63,12 @@ public class BoardFragment extends Fragment{
             public void onResponse(Call<ArrayList<BoardListResponseDto>> call, Response<ArrayList<BoardListResponseDto>> response) {
                 Log.i("TAG", "onResponse: arraylist" + response.body().get(0).toString());
                 ArrayList<BoardListResponseDto> body = response.body();
-//                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd hh:mm");
-                for (int i = 0; i < response.body().size(); i++) {
-                    LocalDateTime modifiedDate = body.get(i).getModifiedDate();
-//                    String modDate = simpleDateFormat.format(modifiedDate);
 
-                    Log.i("TAG", "onResponse: " + modifiedDate);
-                    Board board = new Board(body.get(i).getId(), body.get(i).getTitle(), body.get(i).getUser_id(), modifiedDate);
+                for (int i = 0; i < response.body().size(); i++) {
+                    String strDate = body.get(i).getModifiedDate();
+                    LocalDateTime localDateTime =LocalDateTime.parse(strDate, DateTimeFormatter.ISO_DATE_TIME);
+                    String modDate = localDateTime.format(DateTimeFormatter.ofPattern("yy/MM/dd hh:mm"));
+                    Board board = new Board(body.get(i).getId(), body.get(i).getTitle(), body.get(i).getUser_id(), modDate);
                     mArrayList.add(board);
                     Log.i("TAG", "onCreateView: " + mArrayList);
                 }

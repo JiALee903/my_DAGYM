@@ -1,11 +1,6 @@
 package org.techtown.dagym.entity.dto;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import org.techtown.dagym.entity.Member;
-
-import java.text.SimpleDateFormat;
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 public class BoardListResponseDto{
@@ -16,9 +11,10 @@ public class BoardListResponseDto{
     private int hit;
     private int recommends;
     private int likes;
-    private LocalDateTime modifiedDate;
+    private String modifiedDate;
 
-    public BoardListResponseDto(Long id, String title, String user_id, String content, int hit, int recommends, int likes, LocalDateTime modifiedDate) {
+
+    public BoardListResponseDto(Long id, String title, String user_id, String content, int hit, int recommends, int likes, String modifiedDate) {
         this.id = id;
         this.title = title;
         this.user_id = user_id;
@@ -85,11 +81,11 @@ public class BoardListResponseDto{
         this.likes = likes;
     }
 
-    public LocalDateTime getModifiedDate() {
+    public String getModifiedDate() {
         return modifiedDate;
     }
 
-    public void setModifiedDate(LocalDateTime modifiedDate) {
+    public void setModifiedDate(String modifiedDate) {
         this.modifiedDate = modifiedDate;
     }
 }

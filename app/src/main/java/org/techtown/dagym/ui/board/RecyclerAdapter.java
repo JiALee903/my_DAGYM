@@ -72,7 +72,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         viewholder.id.setText(id); //Integer.parseInt()
         viewholder.title.setText(mList.get(position).getTitle());
         viewholder.user_id.setText(mList.get(position).getUser_id());
-        viewholder.regDate.setText(mList.get(position).getRegDate().toString());
+        viewholder.regDate.setText(mList.get(position).getModDate());
     }
 
     @Override
