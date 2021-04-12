@@ -1,5 +1,6 @@
 package org.techtown.dagym.ui.board;
 
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -44,6 +45,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     public RecyclerAdapter(ArrayList<Board> list) {
         this.mList = list;
+    }
+
+//    public RecyclerAdapter() {
+//
+//    }
+
+    public void addItem(Board board) {
+        mList.add(board);
+        Log.i("TAG", "add: board = " + board);
+        notifyDataSetChanged();
     }
 
     @Override

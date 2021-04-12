@@ -89,7 +89,11 @@ public class BoardFragment extends Fragment{
             @Override
             public void onItemClick(View view, int position) {
                 // 아이템 클릭시에 실행되는 이벤트 부분
+                final Board board = mAdapter.getItem(position);
                 Intent intent = new Intent(getContext(), BoardDetail.class);
+                Log.i("TAG", "onItemClick: id = " + board.getId());
+
+                intent.putExtra("id", board.getId());
                 startActivity(intent);
             }
         }));
