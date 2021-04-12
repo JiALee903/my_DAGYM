@@ -6,12 +6,14 @@ import com.google.gson.GsonBuilder;
 import org.techtown.dagym.entity.Board;
 import org.techtown.dagym.entity.Member;
 import org.techtown.dagym.entity.dto.BoardListResponseDto;
+import org.techtown.dagym.entity.dto.BoardSaveDto;
 import org.techtown.dagym.entity.dto.MemberFindIdDto;
 import org.techtown.dagym.entity.dto.MemberFindPwDto;
 import org.techtown.dagym.entity.dto.MemberRegisterDto;
 import org.techtown.dagym.entity.dto.MemberSignDto;
 import org.techtown.dagym.entity.dto.MemberUpdateDto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -26,7 +28,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public class DataService {
-    private String BASE_URL = "http://192.168.1.93:8090/android/";
+    private String BASE_URL = "http://172.30.1.23:8090/android/";
     // 데이터 값 테스트하고싶으면 자기 cmd에서 ipconfig치고 ipv4 주소 :8090앞에 입력해줘야됨.
     // IPv4 주소........... : 192.168.1.55
     // 참고) IPv4 주소가 2개있는데 어뎁터 와이파이 적힌거 쓰면됨.
@@ -47,13 +49,9 @@ public class DataService {
     public InsertAPI insert = retrofitClient.create(InsertAPI.class);
     public UpdateAPI update = retrofitClient.create(UpdateAPI.class);
     public DeleteAPI delete = retrofitClient.create(DeleteAPI.class);
-
-
 }
 
 interface SelectAPI {
-    @GET("select")
-    Call<List<Member>> selectAll();
 
     @POST("idChk")
     Call<String> selectIdCheck(@Body String user_id);
@@ -72,17 +70,20 @@ interface SelectAPI {
 
     @POST("findMem")
     Call<Member> findMem(@Body Long id);
+
+    @POST("board/select")
+    Call<ArrayList<BoardListResponseDto>> selectBoard();
 }
 
 interface InsertAPI{
-//    @POST("insert")
-//    Call<Member> insertOne(@Body Member member);
 
     @POST("insert")
     Call<Member> insertOne(@Body MemberRegisterDto memberRegisterDto);
 
-    @POST("insert/{member_id}")
-    Call<Board> insertBoard(@Path("member_id") Long member_id, @Body BoardListResponseDto boardListResponseDto);
+    @POST("board/insert/{member_id}")
+    Call<Board> insertBoard(@Path("member_id") Long member_id, @Body BoardSaveDto boardSaveDto);
+
+
 }
 
 interface UpdateAPI{

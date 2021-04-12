@@ -6,8 +6,8 @@
             <!-- shadow (밑으로) : 그림자 -->
             <item android:top="3dp">
                 <shape>
-                    <corners android:radius="3dp" />
-                    <solid android:color="#1f000000" />
+                    <corners android:radius="4dp" />
+                    <solid android:color="#37000000" />
                 </shape>
             </item>
             <!-- background (위로) -->

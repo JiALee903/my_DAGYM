@@ -43,7 +43,8 @@
         <activity android:name=".BoardInsert"></activity>
         <activity android:name=".UpdatePwActivity"></activity>
         <activity android:name=".MyPageActivity"></activity>
-        <activity android:name=".SocialLoginActivity" android:theme="@android:style/Theme.Dialog"></activity>
+        <activity android:name=".SocialLoginActivity" android:theme="@android:style/Theme.Material.Light.Dialog"></activity>
+        <activity android:name=".BoardDetail"></activity>
     </application>
 
 </manifest>

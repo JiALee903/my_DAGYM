@@ -1,49 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BoardInsert">
 
-    <EditText
-        android:id="@+id/boardTitle"
-        android:layout_width="300dp"
-        android:layout_height="37dp"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/edittext"
-        android:hint="제목을 입력해 주세요."
-        android:paddingLeft="7sp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/boardContent"
-        android:layout_width="300dp"
-        android:layout_height="480dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/edittext"
-        android:gravity="top"
-        android:hint="내용을 입력해 주세요."
-        android:paddingLeft="7sp"
-        app:layout_constraintEnd_toEndOf="@+id/boardTitle"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="@+id/boardTitle"
-        app:layout_constraintTop_toBottomOf="@+id/boardTitle" />
+        <EditText
+            android:id="@+id/boardTitle"
+            android:layout_width="300dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/edittext"
+            android:layout_gravity="center"
+            android:hint="제목을 입력해 주세요."
+            android:paddingLeft="7sp" />
 
-    <Button
-        android:id="@+id/updateBoard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="56dp"
-        android:background="@color/black"
-        android:text="글등록"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/boardContent" />
+        <EditText
+            android:id="@+id/boardContent"
+            android:layout_width="300dp"
+            android:layout_height="480dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edittext"
+            android:gravity="top"
+            android:layout_gravity="center"
+            android:hint="내용을 입력해 주세요."
+            android:paddingLeft="7sp" />
+
+        <Button
+            android:id="@+id/updateBoard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="56dp"
+            android:background="@color/black"
+            android:text="글등록"
+            android:layout_gravity="right"
+            android:textColor="@color/white" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
