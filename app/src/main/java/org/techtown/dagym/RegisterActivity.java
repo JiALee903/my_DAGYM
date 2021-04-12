@@ -7,13 +7,16 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -139,6 +142,23 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View focusView = getCurrentFocus();
+        if (focusView != null) {
+            Rect rect = new Rect();
+            focusView.getGlobalVisibleRect(rect);
+            int x = (int) ev.getX(), y = (int) ev.getY();
+            if (!rect.contains(x, y)) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                if (imm != null)
+                    imm.hideSoftInputFromWindow(focusView.getWindowToken(), 0);
+                focusView.clearFocus();
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
     @NotNull
     private Spinner getSpinner() {
         Spinner genderSpinner = (Spinner) b.spinnerGender;
@@ -255,7 +275,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         // 에디트텍스트 값
         String user_id = b.etId.getText().toString();
-        String user_pw = b.etPass.getText().toString();
+        String user_pw = b.etPwd.getText().toString();
         String user_name = b.etName.getText().toString();
         String user_pn = b.etPhone.getText().toString();
         String user_email = b.etEmail.getText().toString();
@@ -313,7 +333,7 @@ public class RegisterActivity extends AppCompatActivity {
             });
             Toast.makeText(getApplicationContext(), "회원가입 성공", Toast.LENGTH_SHORT).show();
 
-            // DAGYM로그인 페이지로 이동
+            // DAGYM 로그인 페이지로 이동
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
         }
