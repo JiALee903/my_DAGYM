@@ -1,4 +1,4 @@
-package org.techtown.dagym.ui.board;
+package org.techtown.dagym;
 
 import android.util.Log;
 import android.util.TypedValue;
@@ -11,14 +11,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.techtown.dagym.R;
 import org.techtown.dagym.entity.Board;
+import org.techtown.dagym.entity.dto.BoardListResponseDto;
+import org.techtown.dagym.entity.dto.BoardSaveDto;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
-    private ArrayList<Board> mList;
+    private ArrayList<Board> mList = new ArrayList<>();
+    private DataService dataService = new DataService();
 
     public Board getItem(int position) {
         return this.mList.get(position);
@@ -39,25 +47,21 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             this.user_id = (TextView) view.findViewById(R.id.boardWriter);
             this.regDate = (TextView) view.findViewById(R.id.boardDate);
         }
-
     }
 
-    public RecyclerAdapter(ArrayList<Board> list) {
+    public RecyclerAdapter() {
+        Log.i("TAG", "RecyclerAdapter: here is adapter");
+    }
+
+    public void addList(ArrayList<Board> list) {
         this.mList = list;
     }
 
-//    public RecyclerAdapter() {
-//
-//    }
-
     public void addItem(Board board) {
-        mList.add(board);
-        Log.i("TAG", "add: board = " + board);
+        Log.i("TAG", "addItem: recyclerview in = " + board);
+//        mList.add(board);
         notifyDataSetChanged();
     }
-
-
-
 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
