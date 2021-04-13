@@ -25,6 +25,10 @@ public class BoardListResponseDto{
         this.modifiedDate = modifiedDate;
     }
 
+    public BoardListResponseDto() {
+
+    }
+
     public Long getId() {
         return id;
     }

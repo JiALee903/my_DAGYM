@@ -31,6 +31,10 @@ public class Board {
         this.member = member;
     }
 
+    public Board() {
+
+    }
+
     public Long getId() {
         return id;
     }

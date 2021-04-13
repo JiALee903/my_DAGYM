@@ -32,7 +32,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
 
 
-
         public ViewHolder(@NonNull View view) {
             super(view);
             this.id = (TextView) view.findViewById(R.id.boardNo);
@@ -57,17 +56,23 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         notifyDataSetChanged();
     }
 
+
+
+
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.board_item, viewGroup, false);
 
         ViewHolder viewHolder = new ViewHolder(view);
+
+
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewholder, int position) {
+
         // 글자 사이즈 지정
         viewholder.id.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
         viewholder.title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);

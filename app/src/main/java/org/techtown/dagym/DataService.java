@@ -28,7 +28,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public class DataService {
-    private String BASE_URL = "http://172.26.1.217:8090/android/";
+    private String BASE_URL = "http://192.168.1.93:8090/android/";
     // 데이터 값 테스트하고싶으면 자기 cmd에서 ipconfig치고 ipv4 주소 :8090앞에 입력해줘야됨.
     // IPv4 주소........... : 192.168.1.55
     // 참고) IPv4 주소가 2개있는데 어뎁터 와이파이 적힌거 쓰면됨.
@@ -96,10 +96,15 @@ interface UpdateAPI{
     @PUT("mypage/{id}")
     Call<Member> mypageUpdate(@Path("id") Long id, @Body MemberUpdateDto memberUpdateDto);
 
+    @PUT("board/update/{board_id}")
+    Call<Board> updateBoard(@Path("board_id") Long board_id, @Body BoardSaveDto boardSaveDto);
 
 }
 
 interface DeleteAPI {
     @DELETE("userDelete/{id}")
     Call<String> userDelete(@Path("id") Long id);
+
+    @DELETE("board/delete/{board_id}")
+    Call<Board> deleteBoard(@Path("board_id") Long board_id);
 }

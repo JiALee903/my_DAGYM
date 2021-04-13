@@ -45,6 +45,7 @@
         <activity android:name=".MyPageActivity"></activity>
         <activity android:name=".SocialLoginActivity" android:theme="@android:style/Theme.Material.Light.Dialog"></activity>
         <activity android:name=".BoardDetail"></activity>
+        <activity android:name=".BoardUpdate"></activity>
     </application>
 
 </manifest>

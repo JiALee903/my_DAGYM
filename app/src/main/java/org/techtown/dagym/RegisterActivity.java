@@ -275,7 +275,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         // 에디트텍스트 값
         String user_id = b.etId.getText().toString();
-        String user_pw = b.etPwd.getText().toString();
+        String user_pw = b.etPass.getText().toString();
         String user_name = b.etName.getText().toString();
         String user_pn = b.etPhone.getText().toString();
         String user_email = b.etEmail.getText().toString();

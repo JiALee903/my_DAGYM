@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import org.techtown.dagym.entity.Board;
 import org.techtown.dagym.entity.dto.BoardListResponseDto;
 import org.techtown.dagym.listener.RecyclerViewItemClickListener;
@@ -35,7 +37,7 @@ public class BoardFragment extends Fragment{
 
     DataService dataService = new DataService();
 
-    private Button writeBtn;
+    private FloatingActionButton writeBtn;
 
     private ArrayList<Board> mArrayList;
     private RecyclerAdapter mAdapter;
@@ -108,7 +110,7 @@ public class BoardFragment extends Fragment{
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        writeBtn = view.findViewById(R.id.boardWriteBtn);
+        writeBtn = view.findViewById(R.id.writeFab);
         writeBtn.setOnClickListener(onClickListener);
 
     }
@@ -118,7 +120,7 @@ public class BoardFragment extends Fragment{
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
-                case R.id.boardWriteBtn:
+                case R.id.writeFab:
                     writeButton();
             }
         }
