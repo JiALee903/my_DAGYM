@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import org.techtown.dagym.entity.Board;
+import org.techtown.dagym.entity.Comment;
 import org.techtown.dagym.entity.Member;
 import org.techtown.dagym.entity.dto.BoardListResponseDto;
 import org.techtown.dagym.entity.dto.BoardSaveDto;
@@ -28,7 +29,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public class DataService {
-    private String BASE_URL = "http://172.26.1.217:8090/android/";
+    private String BASE_URL = "http://192.168.0.4:8090/android/";
     // 데이터 값 테스트하고싶으면 자기 cmd에서 ipconfig치고 ipv4 주소 :8090앞에 입력해줘야됨.
     // IPv4 주소........... : 192.168.1.55
     // 참고) IPv4 주소가 2개있는데 어뎁터 와이파이 적힌거 쓰면됨.
@@ -76,6 +77,8 @@ interface SelectAPI {
 
     @POST("board/idSelect")
     Call<Board> idSelect(@Body Long id);
+
+
 }
 
 interface InsertAPI{
@@ -86,7 +89,8 @@ interface InsertAPI{
     @POST("board/insert/{member_id}")
     Call<Board> insertBoard(@Path("member_id") Long member_id, @Body BoardSaveDto boardSaveDto);
 
-
+    @POST("board/comment/insert/{user_id}/{board_id}")
+    Call<Comment> insertComment(@Path("user_id") String user_id, @Path("board_id") Long board_id, @Body String comment);
 }
 
 interface UpdateAPI{

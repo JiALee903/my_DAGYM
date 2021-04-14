@@ -83,11 +83,12 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         //      Spinner
-        Spinner genderSpinner = getSpinner();
+//        Spinner genderSpinner = getSpinner();
 
         // insert 회원가입
         b.btnRegister.setOnClickListener(reg -> {
-            register(genderSpinner);
+//            register(genderSpinner);
+            register();
         });
 
         //권한이 부여되어 있는지 확인
@@ -121,9 +122,9 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         // ID 중복 확인
-        b.validateButton.setOnClickListener(val -> {
-            validate();
-        });
+//        b.validateButton.setOnClickListener(val -> {
+//            validate();
+//        });
 
         // 이메일 형식 체크
         b.etEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -159,14 +160,15 @@ public class RegisterActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
 
-    @NotNull
-    private Spinner getSpinner() {
-        Spinner genderSpinner = (Spinner) b.spinnerGender;
-        ArrayAdapter genderAdapter = ArrayAdapter.createFromResource(this, R.array.select_gender,
-                android.R.layout.simple_spinner_dropdown_item);
-        genderSpinner.setAdapter(genderAdapter);
-        return genderSpinner;
-    }
+    // (**************추가 해야됨.****************)
+//    @NotNull
+//    private Spinner getSpinner() {
+//        Spinner genderSpinner = (Spinner) b.spinnerGender;
+//        ArrayAdapter genderAdapter = ArrayAdapter.createFromResource(this, R.array.select_gender,
+//                android.R.layout.simple_spinner_dropdown_item);
+//        genderSpinner.setAdapter(genderAdapter);
+//        return genderSpinner;
+//    }
 
     private void validate() {
         String user_id = b.etId.getText().toString();
@@ -256,7 +258,8 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private void register(Spinner genderSpinner) {
+    //    private void register(Spinner genderSpinner) {
+    private void register() {
         // 트레이너 체크
         String tr_if = null;
         if (b.trainer.isChecked()) {
@@ -266,12 +269,12 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         // 성별 확인
-        String gender_if = null;
-        if (genderSpinner.getSelectedItem().toString().equals("남")) {
-            gender_if = "1";
-        } else if (genderSpinner.getSelectedItem().toString().equals("여")) {
-            gender_if = "2";
-        }
+//        String gender_if = null;
+//        if (genderSpinner.getSelectedItem().toString().equals("남")) {
+//            gender_if = "1";
+//        } else if (genderSpinner.getSelectedItem().toString().equals("여")) {
+//            gender_if = "2";
+//        }
 
         // 에디트텍스트 값
         String user_id = b.etId.getText().toString();
@@ -293,7 +296,7 @@ public class RegisterActivity extends AppCompatActivity {
         memberRegisterDto.setAddress_normal(address_normal);
         memberRegisterDto.setAddress_detail(address_detail);
         memberRegisterDto.setUser_rrn(user_rrn);
-        memberRegisterDto.setUser_gender(gender_if);
+//        memberRegisterDto.setUser_gender(gender_if);
         memberRegisterDto.setUser_role(tr_if);
 
         // 체크 값 확인 및 회원가입
