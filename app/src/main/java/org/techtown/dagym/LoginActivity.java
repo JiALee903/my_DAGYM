@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.techtown.dagym.entity.dto.MemberRegisterDto;
 import org.techtown.dagym.entity.dto.MemberSignDto;
 import org.techtown.dagym.session.SharedPreference;
 import org.techtown.dagym.databinding.ActivityLoginBinding;
@@ -93,20 +94,36 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-   @Override
+    public void test(Member member) {
+        Log.i(TAG, "test: in");
+
+        Log.i(TAG, "test: " + member.getUser_id());
+
+//        SharedPreference.setAttribute(getApplicationContext(), "user_id", member.getUser_id());
+//        SharedPreference.setAttribute(getApplicationContext(), "id", member.getId().toString());
+//        SharedPreference.setAttribute(getApplicationContext(), "user_name", member.getUser_name());
+//
+//        Toast.makeText(, "로그인 성공", Toast.LENGTH_SHORT).show();
+//
+//        // DAGYM 로그인 페이지로 이동
+//        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+//        startActivity(intent);
+    }
+
+    @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         View focusView = getCurrentFocus();
-       if (focusView != null) {
-          Rect rect = new Rect();
-           focusView.getGlobalVisibleRect(rect);
-           int x = (int) ev.getX(), y = (int) ev.getY();
-          if (!rect.contains(x, y)) {
-               InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-              if (imm != null)
+        if (focusView != null) {
+            Rect rect = new Rect();
+            focusView.getGlobalVisibleRect(rect);
+            int x = (int) ev.getX(), y = (int) ev.getY();
+            if (!rect.contains(x, y)) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                if (imm != null)
                     imm.hideSoftInputFromWindow(focusView.getWindowToken(), 0);
                 focusView.clearFocus();
-           }
-       }
+            }
+        }
         return super.dispatchTouchEvent(ev);
-   }
+    }
 }

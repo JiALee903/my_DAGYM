@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,9 +17,27 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.kakao.auth.AuthType;
+import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
+import com.kakao.network.ErrorResult;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.MeResponseCallback;
+import com.kakao.usermgmt.callback.MeV2ResponseCallback;
+import com.kakao.usermgmt.response.MeV2Response;
+import com.kakao.usermgmt.response.model.Profile;
+import com.kakao.usermgmt.response.model.UserAccount;
+import com.kakao.usermgmt.response.model.UserProfile;
+import com.kakao.util.OptionalBoolean;
+import com.kakao.util.exception.KakaoException;
 
 import org.techtown.dagym.databinding.ActivitySocialBinding;
+import org.techtown.dagym.entity.Member;
+import org.techtown.dagym.entity.dto.MemberRegisterDto;
+import org.techtown.dagym.session.SharedPreference;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SocialLoginActivity extends Activity {
     private static final String TAG = "TEST";
@@ -28,9 +47,7 @@ public class SocialLoginActivity extends Activity {
     GoogleSignInClient mGoogleSignInClient;
     GoogleSignInAccount account;
     public static final int RC_SIGN_IN = 1;
-    private int requestCode;
-    private int resultCode;
-    private Intent data;
+    DataService dataService = new DataService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +59,13 @@ public class SocialLoginActivity extends Activity {
         // 카카오 세션
         session = Session.getCurrentSession();
         session.addCallback(sessionCallback);
+        session.checkAndImplicitOpen();
 
         b.kButton.setOnClickListener(v -> {
+
             session.open(AuthType.KAKAO_LOGIN_ALL, SocialLoginActivity.this);
+
+//            session.op
         });
 
         // 구글
@@ -65,10 +86,13 @@ public class SocialLoginActivity extends Activity {
             }
         });
     }
+
     // 구글 로그인
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+
+
     }
 
 
@@ -90,9 +114,9 @@ public class SocialLoginActivity extends Activity {
         }
 
         // 카카오톡|스토리 간편로그인 실행 결과를 받아서 SDK로 전달
-//        if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
-//            return;
-//        }
+        if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
+            return;
+        }
 
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -113,9 +137,38 @@ public class SocialLoginActivity extends Activity {
             Log.i(TAG, "handleSignInResult: DName = " + m2);
             Log.i(TAG, "handleSignInResult: user_id = " + user_id);
 
+            MemberRegisterDto memberRegisterDto = new MemberRegisterDto();
+            memberRegisterDto.setUser_email(email);
+            memberRegisterDto.setUser_id(user_id);
+            memberRegisterDto.setUser_name(m2);
+            dataService.insert.insertOne(memberRegisterDto).enqueue(new Callback<Member>() {
+                @Override
+                public void onResponse(Call<Member> call, Response<Member> response) {
+                    Long id = response.body().getId();
+
+                    SharedPreference.setAttribute(getApplicationContext(), "user_id", response.body().getUser_id());
+                    SharedPreference.setAttribute(getApplicationContext(), "id", response.body().getId().toString());
+                    SharedPreference.setAttribute(getApplicationContext(), "user_name", response.body().getUser_name());
+
+                    Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
+
+                    // DAGYM 로그인 페이지로 이동
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                }
+
+                @Override
+                public void onFailure(Call<Member> call, Throwable t) {
+
+                }
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-}
 
+    public void test() {
+        Log.e(TAG, "test: hihihihihi");
+    }
+}

@@ -44,9 +44,9 @@
         android:id="@+id/modifyWrite"
         android:layout_width="70dp"
         android:layout_height="40dp"
-        android:layout_marginTop="60dp"
         android:layout_marginStart="115dp"
-        android:text="글 수정"
+        android:layout_marginTop="60dp"
+        android:text="수정"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/textViewTitle"
         app:layout_constraintTop_toTopOf="parent" />
@@ -136,22 +136,11 @@
         android:id="@+id/replyBtn"
         android:layout_width="80dp"
         android:layout_height="40dp"
+        android:layout_marginStart="200dp"
         android:layout_marginTop="15dp"
-        android:layout_marginStart="115dp"
-        android:text="답글 작성"
+        android:text="작성"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/userNickname"
-        app:layout_constraintTop_toBottomOf="@+id/line" />
-
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"
-        android:text="댓글 삭제"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/line" />
 
     <TextView
