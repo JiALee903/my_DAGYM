@@ -42,7 +42,7 @@ import retrofit2.Response;
 public class SocialLoginActivity extends Activity {
     private static final String TAG = "TEST";
     private ActivitySocialBinding b;
-    private SessionCallback sessionCallback = new SessionCallback();
+    //    private ISessionCallback callback = new ISessionCallback();
     Session session;
     GoogleSignInClient mGoogleSignInClient;
     GoogleSignInAccount account;
@@ -58,14 +58,13 @@ public class SocialLoginActivity extends Activity {
 
         // 카카오 세션
         session = Session.getCurrentSession();
-        session.addCallback(sessionCallback);
+        session.addCallback(callback);
         session.checkAndImplicitOpen();
 
         b.kButton.setOnClickListener(v -> {
 
             session.open(AuthType.KAKAO_LOGIN_ALL, SocialLoginActivity.this);
 
-//            session.op
         });
 
         // 구글
@@ -73,7 +72,7 @@ public class SocialLoginActivity extends Activity {
                 .requestEmail()
                 .build();
 
-        mGoogleSignInClient =GoogleSignIn.getClient(this,gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         b.gButton.setOnClickListener(v ->
 
@@ -101,7 +100,7 @@ public class SocialLoginActivity extends Activity {
         super.onDestroy();
 
         // 세션 콜백 삭제
-        Session.getCurrentSession().removeCallback(sessionCallback);
+        Session.getCurrentSession().removeCallback(callback);
     }
 
     @Override
@@ -168,7 +167,103 @@ public class SocialLoginActivity extends Activity {
         }
     }
 
-    public void test() {
-        Log.e(TAG, "test: hihihihihi");
+    ISessionCallback callback = new ISessionCallback() {
+        @Override
+        public void onSessionOpened() {
+            requestMe();
+        }
+
+        @Override
+        public void onSessionOpenFailed(KakaoException exception) {
+
+        }
+    };
+
+    private void requestMe() {
+        UserManagement.getInstance()
+                .me(new MeV2ResponseCallback() {
+                    @Override
+                    public void onSessionClosed(ErrorResult errorResult) {
+                        Log.e("KAKAO_API", "세션이 닫혀 있음: " + errorResult);
+                    }
+
+                    @Override
+                    public void onFailure(ErrorResult errorResult) {
+                        Log.e("KAKAO_API", "사용자 정보 요청 실패: " + errorResult);
+                    }
+
+                    @Override
+                    public void onSuccess(MeV2Response result) {
+
+                        String user_name = null;
+                        String user_email = null;
+                        String user_id = null;
+
+                        user_id = Long.toString(result.getId());
+                        Log.i("KAKAO_API", "사용자 아이디: " + result.getId());
+
+                        UserAccount kakaoAccount = result.getKakaoAccount();
+                        if (kakaoAccount != null) {
+
+                            // 이메일
+                            String email = kakaoAccount.getEmail();
+
+                            if (email != null) {
+                                Log.i("KAKAO_API", "email: " + email);
+                                user_email = email;
+
+                            } else if (kakaoAccount.emailNeedsAgreement() == OptionalBoolean.TRUE) {
+                                // 동의 요청 후 이메일 획득 가능
+                                // 단, 선택 동의로 설정되어 있다면 서비스 이용 시나리오 상에서 반드시 필요한 경우에만 요청해야 합니다.
+
+                            } else {
+                                // 이메일 획득 불가
+                            }
+
+                            // 프로필
+                            Profile profile = kakaoAccount.getProfile();
+
+                            if (profile != null) {
+                                Log.d("KAKAO_API", "nickname: " + profile.getNickname());
+                                Log.d("KAKAO_API", "profile image: " + profile.getProfileImageUrl());
+                                Log.d("KAKAO_API", "thumbnail image: " + profile.getThumbnailImageUrl());
+                                user_name = profile.getNickname();
+
+                            } else if (kakaoAccount.profileNeedsAgreement() == OptionalBoolean.TRUE) {
+                                // 동의 요청 후 프로필 정보 획득 가능
+
+                            } else {
+                                // 프로필 획득 불가
+                            }
+                        }
+                        MemberRegisterDto memberRegisterDto = new MemberRegisterDto();
+                        memberRegisterDto.setUser_name(user_name);
+                        memberRegisterDto.setUser_email(user_email);
+                        memberRegisterDto.setUser_id(user_id);
+                        dataService.insert.insertOne(memberRegisterDto).enqueue(new Callback<Member>() {
+                            @Override
+                            public void onResponse(Call<Member> call, Response<Member> response) {
+                                Member member = response.body();
+                                Long id = response.body().getId();
+
+                                SharedPreference.setAttribute(getApplicationContext(), "user_id", member.getUser_id());
+                                SharedPreference.setAttribute(getApplicationContext(), "id", member.getId().toString());
+                                SharedPreference.setAttribute(getApplicationContext(), "user_name", member.getUser_name());
+
+                                Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
+
+                                // DAGYM 로그인 페이지로 이동
+                                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                                startActivity(intent);
+                            }
+
+                            @Override
+                            public void onFailure(Call<Member> call, Throwable t) {
+
+                            }
+                        });
+
+                    }
+                });
     }
 }

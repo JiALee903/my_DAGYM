@@ -94,22 +94,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void test(Member member) {
-        Log.i(TAG, "test: in");
-
-        Log.i(TAG, "test: " + member.getUser_id());
-
-//        SharedPreference.setAttribute(getApplicationContext(), "user_id", member.getUser_id());
-//        SharedPreference.setAttribute(getApplicationContext(), "id", member.getId().toString());
-//        SharedPreference.setAttribute(getApplicationContext(), "user_name", member.getUser_name());
-//
-//        Toast.makeText(, "로그인 성공", Toast.LENGTH_SHORT).show();
-//
-//        // DAGYM 로그인 페이지로 이동
-//        Intent intent = new Intent(getBaseContext(), MainActivity.class);
-//        startActivity(intent);
-    }
-
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         View focusView = getCurrentFocus();
