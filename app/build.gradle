@@ -47,6 +47,9 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.annotation:annotation:1.1.0'
 
+    //noinspection GradleCompatible
+    implementation 'com.android.support:design:27.1.1'
+
     implementation 'com.github.lakue119:LakuePopupActivity:1.0.1' // 팝업창
     
     testImplementation 'junit:junit:4.+'

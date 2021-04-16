@@ -60,34 +60,17 @@ public class RegisterActivity extends AppCompatActivity {
         b = b.inflate(getLayoutInflater());
         setContentView(b.getRoot());
 
+        b.check.setVisibility(View.INVISIBLE);
+        b.cancel.setVisibility(View.INVISIBLE);
+
         String keyHash = com.kakao.util.helper.Utility.getKeyHash(this /* context */);
 
         Log.i(TAG, "onCreate: keyHash = " + keyHash);
 
-        // 아이디값 변경 시 아이디 체크 다시실행하게 하는부분
-        b.etId.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                idChk = false;
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        //      Spinner
-        Spinner genderSpinner = getSpinner();
 
         // insert 회원가입
         b.btnRegister.setOnClickListener(reg -> {
-            register(genderSpinner);
+            register();
         });
 
         //권한이 부여되어 있는지 확인
@@ -110,6 +93,44 @@ public class RegisterActivity extends AppCompatActivity {
             }
         }
 
+        b.etId.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                String user_id = b.etId.getText().toString();
+                dataService.select.selectIdCheck(user_id).enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        Log.i(TAG, "onResponse: " + response.body());
+                        if (response.body().equals("YES")) {
+                            b.check.setVisibility(View.INVISIBLE);
+                            b.cancel.setVisibility(View.VISIBLE);
+                            idChk = false;
+                        } else {
+                            b.check.setVisibility(View.VISIBLE);
+                            b.cancel.setVisibility(View.INVISIBLE);
+                            idChk = true;
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         // 인증 번호
         b.numberButton.setOnClickListener(num -> {
             certificationNum();
@@ -119,11 +140,7 @@ public class RegisterActivity extends AppCompatActivity {
         b.okButton.setOnClickListener(ok -> {
             certificationBtn();
         });
-
-        // ID 중복 확인
-        b.validateButton.setOnClickListener(val -> {
-            validate();
-        });
+        
 
         // 이메일 형식 체크
         b.etEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -159,38 +176,6 @@ public class RegisterActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
 
-    @NotNull
-    private Spinner getSpinner() {
-        Spinner genderSpinner = (Spinner) b.spinnerGender;
-        ArrayAdapter genderAdapter = ArrayAdapter.createFromResource(this, R.array.select_gender,
-                android.R.layout.simple_spinner_dropdown_item);
-        genderSpinner.setAdapter(genderAdapter);
-        return genderSpinner;
-    }
-
-    private void validate() {
-        String user_id = b.etId.getText().toString();
-        Log.i(TAG, "onCreate: user_id = " + user_id);
-        dataService.select.selectIdCheck(user_id).enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                String str = response.body();
-                Log.i(TAG, "onResponse: str = " + str);
-                if (str.equals("NO")) {
-                    Toast.makeText(getApplicationContext(), "사용가능한 아이디 입니다.", Toast.LENGTH_LONG).show();
-                    idChk = true;
-                } else {
-                    Toast.makeText(getApplicationContext(), "사용중인 아이디 입니다.", Toast.LENGTH_LONG).show();
-                    b.etId.hasFocus();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-    }
 
     private void certificationBtn() {
         String okPhone = b.etPhone2.getText().toString();
@@ -256,21 +241,16 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private void register(Spinner genderSpinner) {
+
+
+    //    private void register(Spinner genderSpinner) {
+    private void register() {
         // 트레이너 체크
         String tr_if = null;
         if (b.trainer.isChecked()) {
             tr_if = "trainer";
         } else if (b.user.isChecked()) {
             tr_if = "user";
-        }
-
-        // 성별 확인
-        String gender_if = null;
-        if (genderSpinner.getSelectedItem().toString().equals("남")) {
-            gender_if = "1";
-        } else if (genderSpinner.getSelectedItem().toString().equals("여")) {
-            gender_if = "2";
         }
 
         // 에디트텍스트 값
@@ -293,7 +273,7 @@ public class RegisterActivity extends AppCompatActivity {
         memberRegisterDto.setAddress_normal(address_normal);
         memberRegisterDto.setAddress_detail(address_detail);
         memberRegisterDto.setUser_rrn(user_rrn);
-        memberRegisterDto.setUser_gender(gender_if);
+//        memberRegisterDto.setUser_gender(gender_if);
         memberRegisterDto.setUser_role(tr_if);
 
         // 체크 값 확인 및 회원가입
