@@ -1,7 +1,6 @@
-package org.techtown.dagym;
+package org.techtown.dagym.ui.board;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +10,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.techtown.dagym.DataService;
+import org.techtown.dagym.R;
 import org.techtown.dagym.databinding.BoardDetailBinding;
 import org.techtown.dagym.entity.Board;
 import org.techtown.dagym.entity.dto.CommentDto;
@@ -36,7 +37,6 @@ public class BoardDetail extends AppCompatActivity {
     private long member_id;
     private String bool = "false";
     private int recomment_cnt;
-
     DataService dataService = new DataService();
 
     @Override
@@ -65,7 +65,9 @@ public class BoardDetail extends AppCompatActivity {
 
         //글 삭제 버튼
         b.deleteWrite.setOnClickListener(v -> {
-            dataService.delete.deleteBoard(board_id).enqueue(new Callback<Board>() {
+            Call<Board> boardCall = dataService.boardAPI.deleteBoard(board_id);
+
+            boardCall.enqueue(new Callback<Board>() {
                 @Override
                 public void onResponse(Call<Board> call, Response<Board> response) {
 
@@ -93,7 +95,9 @@ public class BoardDetail extends AppCompatActivity {
         member_id = Long.parseLong(id);
         LikeDto likeDto = new LikeDto(member_id, board_id);
 
-        dataService.select.idSelect(likeDto).enqueue(new Callback<FindIdDto>() {
+        Call<FindIdDto> findIdDtoCall = dataService.boardAPI.idSelect(likeDto);
+
+        findIdDtoCall.enqueue(new Callback<FindIdDto>() {
             @Override
             public void onResponse(Call<FindIdDto> call, Response<FindIdDto> response) {
                 FindIdDto body = response.body();
@@ -135,8 +139,8 @@ public class BoardDetail extends AppCompatActivity {
             }
         });
 
-
-        dataService.select.selectComment(board_id).enqueue(new Callback<ArrayList<CommentDto>>() {
+        Call<ArrayList<CommentDto>> arrayListCall = dataService.boardAPI.selectComment(board_id);
+        arrayListCall.enqueue(new Callback<ArrayList<CommentDto>>() {
             @Override
             public void onResponse(Call<ArrayList<CommentDto>> call, Response<ArrayList<CommentDto>> response) {
                 try {
@@ -177,7 +181,8 @@ public class BoardDetail extends AppCompatActivity {
         b.favor.setOnClickListener(v -> {
             likeDto.setBool(bool);
             likeDto.setRecomment_cnt(recomment_cnt);
-            dataService.insert.addLike(likeDto).enqueue(new Callback<LikeDto>() {
+            Call<LikeDto> likeDtoCall = dataService.boardAPI.addLike(likeDto);
+            likeDtoCall.enqueue(new Callback<LikeDto>() {
                 @Override
                 public void onResponse(Call<LikeDto> call, Response<LikeDto> response) {
                     bool = response.body().getBool();

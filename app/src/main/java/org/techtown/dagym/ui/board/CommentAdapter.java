@@ -1,4 +1,4 @@
-package org.techtown.dagym;
+package org.techtown.dagym.ui.board;
 
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.techtown.dagym.R;
 import org.techtown.dagym.entity.dto.CommentDto;
 
 import java.util.ArrayList;

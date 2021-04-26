@@ -1,4 +1,4 @@
-package org.techtown.dagym;
+package org.techtown.dagym.ui.board;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,9 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.techtown.dagym.DataService;
+import org.techtown.dagym.R;
 import org.techtown.dagym.entity.Board;
 import org.techtown.dagym.entity.dto.BoardListResponseDto;
-import org.techtown.dagym.entity.dto.BoardSaveDto;
 import org.techtown.dagym.entity.dto.FindIdDto;
 import org.techtown.dagym.listener.RecyclerViewItemClickListener;
 import org.techtown.dagym.session.SharedPreference;
@@ -33,13 +34,14 @@ import retrofit2.Response;
 
 public class BoardFragment extends Fragment {
 
-    DataService dataService = new DataService();
-
     private FloatingActionButton writeBtn;
 
     private ArrayList<Board> mArrayList = new ArrayList<>();
     private RecyclerAdapter mAdapter = new RecyclerAdapter();
     private RecyclerView recyclerView;
+
+    DataService dataService = new DataService();
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -74,7 +76,8 @@ public class BoardFragment extends Fragment {
             Long id = Long.parseLong(sid);
 
             if (likeBtn.getText().equals("좋아요보기")) {
-                dataService.select.selectLike(id).enqueue(new Callback<ArrayList<FindIdDto>>() {
+                Call<ArrayList<FindIdDto>> arrayListCall = dataService.boardAPI.selectLike(id);
+                arrayListCall.enqueue(new Callback<ArrayList<FindIdDto>>() {
                     @Override
                     public void onResponse(Call<ArrayList<FindIdDto>> call, Response<ArrayList<FindIdDto>> response) {
                         ArrayList<FindIdDto> body = response.body();
@@ -100,7 +103,8 @@ public class BoardFragment extends Fragment {
                     }
                 });
             } else {
-                dataService.select.selectBoard().enqueue(new Callback<ArrayList<BoardListResponseDto>>() {
+                Call<ArrayList<BoardListResponseDto>> arrayListCall = dataService.boardAPI.selectBoard();
+                arrayListCall.enqueue(new Callback<ArrayList<BoardListResponseDto>>() {
                     @Override
                     public void onResponse(Call<ArrayList<BoardListResponseDto>> call, Response<ArrayList<BoardListResponseDto>> response) {
                         ArrayList<BoardListResponseDto> body = response.body();
@@ -156,7 +160,8 @@ public class BoardFragment extends Fragment {
     public void onStart() {
 
         super.onStart();
-        dataService.select.selectBoard().enqueue(new Callback<ArrayList<BoardListResponseDto>>() {
+        Call<ArrayList<BoardListResponseDto>> arrayListCall = dataService.boardAPI.selectBoard();
+        arrayListCall.enqueue(new Callback<ArrayList<BoardListResponseDto>>() {
             @Override
             public void onResponse(Call<ArrayList<BoardListResponseDto>> call, Response<ArrayList<BoardListResponseDto>> response) {
                 ArrayList<BoardListResponseDto> body = response.body();

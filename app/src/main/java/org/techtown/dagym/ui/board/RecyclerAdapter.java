@@ -1,4 +1,4 @@
-package org.techtown.dagym;
+package org.techtown.dagym.ui.board;
 
 import android.util.Log;
 import android.util.TypedValue;
@@ -11,22 +11,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.techtown.dagym.R;
 import org.techtown.dagym.entity.Board;
-import org.techtown.dagym.entity.dto.BoardListResponseDto;
-import org.techtown.dagym.entity.dto.BoardSaveDto;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     private ArrayList<Board> mList = new ArrayList<>();
-    private DataService dataService = new DataService();
 
     public Board getItem(int position) {
         return this.mList.get(position);

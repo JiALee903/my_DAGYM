@@ -41,12 +41,12 @@
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".FindidActivity"></activity>
         <activity android:name=".FindpwActivity"></activity>
-        <activity android:name=".BoardInsert"></activity>
+        <activity android:name=".ui.board.BoardInsert"></activity>
         <activity android:name=".UpdatePwActivity"></activity>
         <activity android:name=".MyPageActivity"></activity>
         <activity android:name=".SocialLoginActivity" android:theme="@android:style/Theme.Material.Light.Dialog"></activity>
-        <activity android:name=".BoardDetail"></activity>
-        <activity android:name=".BoardUpdate"></activity>
+        <activity android:name=".ui.board.BoardDetail"></activity>
+        <activity android:name=".ui.board.BoardUpdate"></activity>
     </application>
 
 </manifest>

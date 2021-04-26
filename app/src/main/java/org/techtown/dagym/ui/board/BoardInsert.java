@@ -1,4 +1,4 @@
-package org.techtown.dagym;
+package org.techtown.dagym.ui.board;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.techtown.dagym.DataService;
 import org.techtown.dagym.databinding.ActivityWriteBoardBinding;
 import org.techtown.dagym.entity.Board;
 import org.techtown.dagym.entity.dto.BoardSaveDto;
@@ -24,8 +25,6 @@ public class BoardInsert extends FragmentActivity {
 
     private ActivityWriteBoardBinding b;
 
-    DataService dataService = new DataService();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +32,7 @@ public class BoardInsert extends FragmentActivity {
         b = b.inflate(getLayoutInflater());
         setContentView(b.getRoot());
 
+        DataService dataService = new DataService();
 
         b.updateBoard.setOnClickListener(v -> {
 
@@ -44,7 +44,7 @@ public class BoardInsert extends FragmentActivity {
             boardSaveDto.setContent(content);
             String str = SharedPreference.getAttribute(getApplicationContext(), "id");
             Long id = Long.parseLong(str);
-            Call<Board> boardCall = dataService.insert.insertBoard(id, boardSaveDto);
+            Call<Board> boardCall = dataService.boardAPI.insertBoard(id, boardSaveDto);
             boardCall.enqueue(new Callback<Board>() {
                 @Override
                 public void onResponse(Call<Board> call, Response<Board> response) {

@@ -1,4 +1,4 @@
-package org.techtown.dagym;
+package org.techtown.dagym.ui.board;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.techtown.dagym.DataService;
 import org.techtown.dagym.databinding.ActivityWriteBoardBinding;
 import org.techtown.dagym.entity.Board;
 import org.techtown.dagym.entity.dto.BoardListResponseDto;
@@ -23,7 +24,6 @@ import retrofit2.Response;
 public class BoardUpdate extends AppCompatActivity {
 
     private ActivityWriteBoardBinding b;
-
     DataService dataService = new DataService();
 
     @Override
@@ -39,7 +39,8 @@ public class BoardUpdate extends AppCompatActivity {
         Long member_id = Long.parseLong(id);
         LikeDto likeDto = new LikeDto(member_id, board_id);
 
-        dataService.select.idSelect(likeDto).enqueue(new Callback<FindIdDto>() {
+        Call<FindIdDto> findIdDtoCall = dataService.boardAPI.idSelect(likeDto);
+        findIdDtoCall.enqueue(new Callback<FindIdDto>() {
             @Override
             public void onResponse(Call<FindIdDto> call, Response<FindIdDto> response) {
                 b.boardTitle.setText(response.body().getTitle());
@@ -61,7 +62,8 @@ public class BoardUpdate extends AppCompatActivity {
             boardSaveDto.setTitle(board_title);
             boardSaveDto.setContent(board_content);
 
-            dataService.update.updateBoard(board_id, boardSaveDto).enqueue(new Callback<Board>() {
+            Call<Board> boardCall = dataService.boardAPI.updateBoard(board_id, boardSaveDto);
+            boardCall.enqueue(new Callback<Board>() {
                 @Override
                 public void onResponse(Call<Board> call, Response<Board> response) {
                     Toast.makeText(getApplicationContext(), "글 수정이 완료되었습니다.", Toast.LENGTH_LONG).show();
