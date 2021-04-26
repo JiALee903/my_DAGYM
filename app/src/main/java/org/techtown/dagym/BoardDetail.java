@@ -7,15 +7,19 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.techtown.dagym.databinding.BoardDetailBinding;
 import org.techtown.dagym.entity.Board;
+import org.techtown.dagym.entity.dto.CommentDto;
 import org.techtown.dagym.entity.dto.FindIdDto;
 import org.techtown.dagym.entity.dto.LikeDto;
 import org.techtown.dagym.session.SharedPreference;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,6 +27,9 @@ import retrofit2.Response;
 
 public class BoardDetail extends AppCompatActivity {
     private BoardDetailBinding b;
+
+    private CommentAdapter commentAdapter = new CommentAdapter();
+    private RecyclerView recyclerView;
 
     private long board_id;
     private long member_id;
@@ -36,6 +43,15 @@ public class BoardDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         b = b.inflate(getLayoutInflater());
         setContentView(b.getRoot());
+
+        recyclerView = (RecyclerView) findViewById(R.id.comment_recyclerView);
+
+        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getApplicationContext());
+
+        recyclerView.setLayoutManager(mLinearLayoutManager);
+
+        recyclerView.setAdapter(commentAdapter);
+
 
         board_id = getIntent().getExtras().getLong("id");
 
@@ -68,6 +84,8 @@ public class BoardDetail extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
+        ArrayList<CommentDto> mArrayList = new ArrayList<>();
+
         board_id = getIntent().getExtras().getLong("id");
 
         String id = SharedPreference.getAttribute(getApplicationContext(), "id");
@@ -88,7 +106,7 @@ public class BoardDetail extends AppCompatActivity {
                 b.textViewDay.setText(modDate);
 
                 String user_id = SharedPreference.getAttribute(getApplicationContext(), "user_id");
-                if(!user_id.equals(body.getUser_id())) {
+                if (!user_id.equals(body.getUser_id())) {
                     b.deleteWrite.setVisibility(View.GONE);
                     b.modifyWrite.setVisibility(View.GONE);
                 }
@@ -106,7 +124,8 @@ public class BoardDetail extends AppCompatActivity {
 
                 Log.i("TAG", "onResponse: recomment_cnt = " + recomment_cnt);
 
-                b.likeAmount.setText("좋아요 " +recomment_cnt+"개");
+                b.likeAmount.setText("좋아요 " + recomment_cnt + "개");
+
             }
 
             @Override
@@ -114,6 +133,43 @@ public class BoardDetail extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
+
+
+        dataService.select.selectComment(board_id).enqueue(new Callback<ArrayList<CommentDto>>() {
+            @Override
+            public void onResponse(Call<ArrayList<CommentDto>> call, Response<ArrayList<CommentDto>> response) {
+                try {
+                    ArrayList<CommentDto> body = response.body();
+                    Log.i("TAG", "onResponse: comment = " + body.get(0).getComments());
+
+                    mArrayList.clear();
+
+                    for (int i = 0; i < body.size(); i++) {
+                        String strDate = body.get(i).getModDate();
+                        LocalDateTime localDateTime = LocalDateTime.parse(strDate, DateTimeFormatter.ISO_DATE_TIME);
+                        String modDate = localDateTime.format(DateTimeFormatter.ofPattern("yy/MM/dd hh:mm"));
+                        CommentDto commentDto = new CommentDto(
+                                body.get(i).getUser_id(),
+                                body.get(i).getComments(),
+                                body.get(i).getModDate()
+                        );
+                        mArrayList.add(commentDto);
+                    }
+
+                    commentAdapter.addList(mArrayList);
+                    commentAdapter.notifyDataSetChanged();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<CommentDto>> call, Throwable t) {
+
+            }
+        });
+
 
         /*좋아요 누를 시 */
         // 21 04 21 23:30
@@ -133,7 +189,7 @@ public class BoardDetail extends AppCompatActivity {
                         b.likeAmount.setTextColor(Color.parseColor("#000000"));
                     }
 
-                    b.likeAmount.setText("좋아요 " + recomment_cnt +"개");
+                    b.likeAmount.setText("좋아요 " + recomment_cnt + "개");
 
                 }
 
@@ -142,51 +198,7 @@ public class BoardDetail extends AppCompatActivity {
 
                 }
             });
-
-//            if (bool.equals("true")) {
-//
-//                bool = "false";
-//                b.likeAmount.setTextColor(Color.parseColor("#000000"));
-//            } else if (bool.equals("false")) {
-//                bool = "true";
-//                b.likeAmount.setTextColor(Color.parseColor("#FF0033"));
-//            }
-
-            // 스프링으로 값 넘겨줘야됨.
         });
-
-//        Log.i("TAG", "onStart: member_id + board_id = " + member_id + " " + board_id);
-//
-//        dataService.select.selectLike(likeDto).enqueue(new Callback<String>() {
-//            @Override
-//            public void onResponse(Call<String> call, Response<String> response) {
-//                Log.i("TAG", "onResponse: res = " + response.body());
-//            }
-//
-//            @Override
-//            public void onFailure(Call<String> call, Throwable t) {
-//
-//            }
-//        });
-
-//        dataService.select.selectLike(likeDto).enqueue(new Callback<RecommendDto>() {
-//            @Override
-//            public void onResponse(Call<RecommendDto> call, Response<RecommendDto> response) {
-//                RecommendDto body = response.body();
-//                Log.i("TAG", "onResponse: body = " + body.getRecomment_cnt());
-////                String bool = body.getBool();
-////                int recomment_cnt = body.getRecomment_cnt();
-//
-////                Log.i("TAG", "onResponse: recomment_cnt = " + recomment_cnt);
-//
-////                b.likeAmount.setText("좋아요 " +recomment_cnt+"개");
-//            }
-//
-//            @Override
-//            public void onFailure(Call<RecommendDto> call, Throwable t) {
-//
-//            }
-//        });
 
     }
 }

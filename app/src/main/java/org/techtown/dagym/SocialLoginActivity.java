@@ -59,7 +59,7 @@ public class SocialLoginActivity extends Activity {
         // 카카오 세션
         session = Session.getCurrentSession();
         session.addCallback(callback);
-        session.checkAndImplicitOpen();
+//        session.checkAndImplicitOpen();
 
         b.kButton.setOnClickListener(v -> {
 

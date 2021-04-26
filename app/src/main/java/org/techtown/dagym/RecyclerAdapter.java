@@ -57,19 +57,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         this.mList = list;
     }
 
-    public void addItem(Board board) {
-        Log.i("TAG", "addItem: recyclerview in = " + board);
-//        mList.add(board);
-        notifyDataSetChanged();
-    }
-
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.board_item, viewGroup, false);
 
         ViewHolder viewHolder = new ViewHolder(view);
-
 
         return viewHolder;
     }

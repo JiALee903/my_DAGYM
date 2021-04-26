@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.techtown.dagym.entity.Board;
 import org.techtown.dagym.entity.dto.BoardListResponseDto;
 import org.techtown.dagym.entity.dto.BoardSaveDto;
+import org.techtown.dagym.entity.dto.FindIdDto;
 import org.techtown.dagym.listener.RecyclerViewItemClickListener;
 import org.techtown.dagym.session.SharedPreference;
 
@@ -52,6 +54,8 @@ public class BoardFragment extends Fragment {
 
         recyclerView.setAdapter(mAdapter);
 
+        Button likeBtn = (Button) view.findViewById(R.id.likeBtn);
+
         recyclerView.addOnItemTouchListener(new RecyclerViewItemClickListener(getContext(), new RecyclerViewItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -64,7 +68,71 @@ public class BoardFragment extends Fragment {
                 startActivity(intent);
             }
         }));
+
+        likeBtn.setOnClickListener(v -> {
+            String sid = SharedPreference.getAttribute(getContext(), "id");
+            Long id = Long.parseLong(sid);
+
+            if (likeBtn.getText().equals("좋아요보기")) {
+                dataService.select.selectLike(id).enqueue(new Callback<ArrayList<FindIdDto>>() {
+                    @Override
+                    public void onResponse(Call<ArrayList<FindIdDto>> call, Response<ArrayList<FindIdDto>> response) {
+                        ArrayList<FindIdDto> body = response.body();
+
+                        mArrayList.clear();
+
+                        for (int i = 0; i < body.size(); i++) {
+                            String strDate = body.get(i).getModDate();
+                            LocalDateTime localDateTime = LocalDateTime.parse(strDate, DateTimeFormatter.ISO_DATE_TIME);
+                            String modDate = localDateTime.format(DateTimeFormatter.ofPattern("yy/MM/dd hh:mm"));
+                            Board board = new Board(body.get(i).getId(), body.get(i).getTitle(), body.get(i).getUser_id(), modDate);
+                            mArrayList.add(board);
+                        }
+                        Log.i("TAG", "onResponse: board = " + mArrayList);
+                        mAdapter.addList(mArrayList);
+                        mAdapter.notifyDataSetChanged();
+                        likeBtn.setText("전체게시글");
+                    }
+
+                    @Override
+                    public void onFailure(Call<ArrayList<FindIdDto>> call, Throwable t) {
+
+                    }
+                });
+            } else {
+                dataService.select.selectBoard().enqueue(new Callback<ArrayList<BoardListResponseDto>>() {
+                    @Override
+                    public void onResponse(Call<ArrayList<BoardListResponseDto>> call, Response<ArrayList<BoardListResponseDto>> response) {
+                        ArrayList<BoardListResponseDto> body = response.body();
+
+                        mArrayList.clear();
+
+                        for (int i = 0; i < response.body().size(); i++) {
+                            String strDate = body.get(i).getModifiedDate();
+                            LocalDateTime localDateTime = LocalDateTime.parse(strDate, DateTimeFormatter.ISO_DATE_TIME);
+                            String modDate = localDateTime.format(DateTimeFormatter.ofPattern("yy/MM/dd hh:mm"));
+                            Board board = new Board(body.get(i).getId(), body.get(i).getTitle(), body.get(i).getUser_id(), modDate);
+                            mArrayList.add(board);
+                        }
+                        Log.i("TAG", "onResponse: board = " + mArrayList);
+                        mAdapter.addList(mArrayList);
+                        mAdapter.notifyDataSetChanged();
+                        likeBtn.setText("좋아요보기");
+                    }
+
+                    @Override
+                    public void onFailure(Call<ArrayList<BoardListResponseDto>> call, Throwable t) {
+
+                    }
+                });
+            }
+
+
+        });
+
         return view;
+
+
     }
 
     @Override
