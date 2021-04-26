@@ -124,28 +124,20 @@
 
     <EditText
         android:id="@+id/editReply"
-        android:layout_width="350dp"
+        android:layout_width="380dp"
         android:layout_height="40dp"
-        android:layout_marginStart="16dp"
         android:background="@drawable/edittext"
+        android:drawableRight="@drawable/ic_send_comment"
+        android:drawableTint="@color/black"
         android:hint="댓글을 입력하세요."
-        android:textSize="15sp"
         android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.988" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/ic_send_comment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editReply"
-        app:layout_constraintTop_toTopOf="@+id/editReply" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
