@@ -21,33 +21,32 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:background="@color/dagym"
             android:layout_gravity="right"
-            android:text="완료"
-            android:textSize="15sp"/>
+            android:backgroundTint="@color/dagym"
+            android:text="글등록"
+            android:textSize="15sp"
+            android:textColor="@color/white"/>
 
         <EditText
             android:id="@+id/boardTitle"
-            android:layout_width="match_parent"
+            android:layout_width="395dp"
             android:layout_height="37dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:background="@color/white"
             android:hint="제목"
-            android:paddingLeft="15sp" />
+            android:paddingStart="10dp"/>
 
         <EditText
             android:id="@+id/boardContent"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginTop="20dp"
+            android:layout_width="395dp"
+            android:layout_height="595dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/edittext"
             android:gravity="top"
             android:layout_gravity="center"
             android:hint="내용을 입력하세요."
-            android:paddingTop="15sp"
-            android:paddingLeft="15sp" />
+            android:padding="10dp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

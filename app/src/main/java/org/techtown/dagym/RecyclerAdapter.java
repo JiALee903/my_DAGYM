@@ -33,7 +33,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder  {
-        protected TextView id;
         protected TextView title;
         protected TextView user_id;
         protected TextView regDate;
@@ -42,7 +41,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         public ViewHolder(@NonNull View view) {
             super(view);
-            this.id = (TextView) view.findViewById(R.id.boardNo);
             this.title = (TextView) view.findViewById(R.id.boardTitle_recyc);
             this.user_id = (TextView) view.findViewById(R.id.boardWriter);
             this.regDate = (TextView) view.findViewById(R.id.boardDate);
@@ -71,22 +69,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder viewholder, int position) {
 
         // 글자 사이즈 지정
-        viewholder.id.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
         viewholder.title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
         viewholder.user_id.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
         viewholder.regDate.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
 
 
         // 글자 중앙 정렬
-        viewholder.id.setGravity(Gravity.CENTER);
         viewholder.title.setGravity(Gravity.CENTER);
         viewholder.user_id.setGravity(Gravity.CENTER);
         viewholder.regDate.setGravity(Gravity.CENTER);
 
         // 저장된 값 꺼내서 setText해줌.
-        Long l = mList.get(position).getId();
-        String id = l.toString();
-        viewholder.id.setText(id); //Integer.parseInt()
         viewholder.title.setText(mList.get(position).getTitle());
         viewholder.user_id.setText(mList.get(position).getUser_id());
         viewholder.regDate.setText(mList.get(position).getModDate());

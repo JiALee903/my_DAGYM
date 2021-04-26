@@ -1,144 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginStart="20dp"
-        android:gravity="center"
-        android:text="프로필"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textViewTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:layout_marginStart="80dp"
-        android:text="닉네임"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textViewDay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_marginStart="80dp"
-        android:text="수정 날짜"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/modifyWrite"
-        android:layout_width="70dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="115dp"
-        android:layout_marginTop="60dp"
-        android:text="수정"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/textViewTitle"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/deleteWrite"
-        android:layout_width="70dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="20dp"
-        android:text="삭제"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/boardContent"
-        android:layout_width="370dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="135dp"
-        android:layout_marginStart="20dp"
-        android:text="내용 들어가는 곳"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/likeAmount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:layout_marginStart="20dp"
-        android:text="좋아요 0개"
-        android:textColor="#0054FF"
-        android:textSize="15sp"
-        android:clickable="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/boardContent" />
-
-    <TextView
-        android:id="@+id/replyAmount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:layout_marginStart="10dp"
-        android:text="댓글 0개"
-        android:textColor="#0054FF"
-        android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/likeAmount"
-        app:layout_constraintTop_toBottomOf="@+id/boardContent" />
-
-    <View
-        android:id="@+id/line"
+    <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="40dp"
-        android:background="#0054FF"
+        android:layout_height="680dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/boardContent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/replyBtn"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="22dp"
-        android:text="작성"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="닉네임"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="수정 날짜"
+                app:layout_constraintStart_toStartOf="@+id/textViewTitle"
+                app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+
+            <Button
+                android:id="@+id/deleteWrite"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="삭제"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/boardContent"
+                android:layout_width="395dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="내용 들어가는 곳"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewDay" />
+
+            <Button
+                android:id="@+id/favor"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/ic_favor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/boardContent" />
+
+            <TextView
+                android:id="@+id/likeAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/favor"
+                app:layout_constraintTop_toTopOf="@+id/favor" />
+
+            <TextView
+                android:id="@+id/commentAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/comment"
+                app:layout_constraintTop_toTopOf="@+id/favor" />
+
+            <Button
+                android:id="@+id/comment"
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/ic_comment"
+                app:layout_constraintStart_toEndOf="@+id/likeAmount"
+                app:layout_constraintTop_toTopOf="@+id/favor" />
+
+            <Button
+                android:id="@+id/modifyWrite"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:text="수정"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@+id/deleteWrite"
+                app:layout_constraintTop_toTopOf="@+id/deleteWrite" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/comment_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:overScrollMode="never"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/favor" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
 
     <EditText
         android:id="@+id/editReply"
-        android:layout_width="380dp"
+        android:layout_width="350dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginStart="16dp"
         android:background="@drawable/edittext"
         android:hint="댓글을 입력하세요."
-        android:paddingLeft="5dp"
+        android:textSize="15sp"
+        android:paddingStart="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/comment_recyclerView"
-        android:layout_width="409dp"
-        android:layout_height="474dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.988" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/ic_send_comment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editReply"
+        app:layout_constraintTop_toTopOf="@+id/editReply" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

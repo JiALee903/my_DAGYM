@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,38 +11,39 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/boardWriter"
-        app:layout_constraintTop_toTopOf="@+id/boardNo" />
+        app:layout_constraintStart_toStartOf="@+id/boardContent"
+        app:layout_constraintTop_toBottomOf="@+id/boardContent" />
 
     <TextView
         android:id="@+id/boardWriter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
+        android:layout_marginStart="5dp"
         android:text="TextView"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/boardTitle_recyc"
-        app:layout_constraintTop_toTopOf="@+id/boardNo" />
+        app:layout_constraintStart_toEndOf="@+id/boardDate"
+        app:layout_constraintTop_toTopOf="@+id/boardDate" />
 
     <TextView
         android:id="@+id/boardTitle_recyc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        app:layout_constraintHorizontal_weight="1"
+        android:layout_marginStart="10dp"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/boardNo"
-        app:layout_constraintTop_toTopOf="@+id/boardNo" />
-
-    <TextView
-        android:id="@+id/boardNo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintHorizontal_weight="1"
-        android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/boardContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#202020"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="@+id/boardTitle_recyc"
+        app:layout_constraintTop_toBottomOf="@+id/boardTitle_recyc" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

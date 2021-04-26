@@ -47,6 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
     private static final String TAG = "REGISTERACTIVITY";
     static final int SMS_RECEIVE_PERMISSON = 1;
     int certNum;
+    private String Error = "[ !@#$%^&*(),.?\\\":{}|<>]";
     private String emailValidation = "^[a-zA-X0-9]@[a-zA-Z0-9].[a-zA-Z0-9]";
     private MemberRegisterDto memberRegisterDto;
 
@@ -59,9 +60,6 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         b = b.inflate(getLayoutInflater());
         setContentView(b.getRoot());
-
-        b.check.setVisibility(View.INVISIBLE);
-        b.cancel.setVisibility(View.INVISIBLE);
 
         String keyHash = com.kakao.util.helper.Utility.getKeyHash(this /* context */);
 
@@ -108,12 +106,9 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onResponse(Call<String> call, Response<String> response) {
                         Log.i(TAG, "onResponse: " + response.body());
                         if (response.body().equals("YES")) {
-                            b.check.setVisibility(View.INVISIBLE);
-                            b.cancel.setVisibility(View.VISIBLE);
+                            b.idLayout.setError("중복된 아이디입니다.");
                             idChk = false;
                         } else {
-                            b.check.setVisibility(View.VISIBLE);
-                            b.cancel.setVisibility(View.INVISIBLE);
                             idChk = true;
                         }
                     }
@@ -127,7 +122,12 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                if(s.toString().matches(Error)) {
+//                    b.idLayout.setError("특수 문자는 사용할 수 없습니다.");
+                    b.idLayout.setEndIconCheckable(true);
+                } else {
+                    b.idLayout.setError(null);
+                }
             }
         });
 

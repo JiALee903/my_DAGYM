@@ -21,7 +21,7 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout"
+                android:id="@+id/id_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -39,35 +39,16 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <ImageView
-                android:id="@+id/cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
-                app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
-                app:srcCompat="@drawable/ic_cancel" />
-
-            <ImageView
-                android:id="@+id/check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_weight="1"
-                app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
-                app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
-                app:srcCompat="@drawable/ic_check" />
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 app:boxBackgroundColor="@color/white"
                 app:boxStrokeColor="@color/dagym"
-                app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
-                app:layout_constraintStart_toStartOf="@+id/textInputLayout"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+                app:layout_constraintEnd_toEndOf="@+id/id_layout"
+                app:layout_constraintStart_toStartOf="@+id/id_layout"
+                app:layout_constraintTop_toBottomOf="@+id/id_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_pass"
@@ -80,7 +61,7 @@
                 android:id="@+id/textInputLayout9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 app:boxBackgroundColor="@color/white"
                 app:boxStrokeColor="@color/dagym"
                 app:layout_constraintEnd_toEndOf="@+id/textInputLayout8"
@@ -98,7 +79,7 @@
                 android:id="@+id/textInputLayout3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 app:boxBackgroundColor="@color/white"
                 app:boxStrokeColor="@color/dagym"
                 app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
@@ -116,7 +97,7 @@
                 android:id="@+id/textInputLayout8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 app:boxBackgroundColor="@color/white"
                 app:boxStrokeColor="@color/dagym"
                 app:layout_constraintEnd_toEndOf="@+id/textInputLayout7"
@@ -134,7 +115,7 @@
                 android:id="@+id/textInputLayout7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 app:boxBackgroundColor="@color/white"
                 app:boxStrokeColor="@color/dagym"
                 app:layout_constraintEnd_toEndOf="@+id/textInputLayout6"
@@ -145,14 +126,14 @@
                     android:id="@+id/et_birth"
                     android:layout_width="300dp"
                     android:layout_height="match_parent"
-                    android:hint="주민 등록 번호" />
+                    android:hint="주민 등록 번호 앞자리" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
                 app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
@@ -188,7 +169,7 @@
                 android:id="@+id/linearLayout2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="@+id/linearLayout"
                 app:layout_constraintStart_toStartOf="@+id/linearLayout"
@@ -225,7 +206,7 @@
                 android:layout_width="200dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="@+id/textInputLayout9"
                 app:layout_constraintStart_toStartOf="@+id/textInputLayout9"
@@ -248,7 +229,7 @@
                 android:id="@+id/textInputLayout6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 app:boxBackgroundColor="@color/white"
                 app:boxStrokeColor="@color/dagym"
                 app:layout_constraintEnd_toEndOf="@+id/linearLayout2"

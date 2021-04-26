@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -117,14 +118,14 @@ public class BoardDetail extends AppCompatActivity {
                 bool = body.getBool();
 
                 if (bool.equals("true")) {
-                    b.likeAmount.setTextColor(Color.parseColor("#FF0033"));
+                    b.favor.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_fill_favor));
                 } else if (bool.equals("false")) {
-                    b.likeAmount.setTextColor(Color.parseColor("#000000"));
+                    b.favor.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favor));
                 }
 
                 Log.i("TAG", "onResponse: recomment_cnt = " + recomment_cnt);
 
-                b.likeAmount.setText("좋아요 " + recomment_cnt + "개");
+                b.likeAmount.setText(""+recomment_cnt);
 
             }
 
@@ -173,10 +174,9 @@ public class BoardDetail extends AppCompatActivity {
 
         /*좋아요 누를 시 */
         // 21 04 21 23:30
-        b.likeAmount.setOnClickListener(v -> {
+        b.favor.setOnClickListener(v -> {
             likeDto.setBool(bool);
             likeDto.setRecomment_cnt(recomment_cnt);
-
             dataService.insert.addLike(likeDto).enqueue(new Callback<LikeDto>() {
                 @Override
                 public void onResponse(Call<LikeDto> call, Response<LikeDto> response) {
@@ -184,12 +184,12 @@ public class BoardDetail extends AppCompatActivity {
                     recomment_cnt = response.body().getRecomment_cnt();
 
                     if (bool.equals("true")) {
-                        b.likeAmount.setTextColor(Color.parseColor("#FF0033"));
+                        b.favor.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_fill_favor));
                     } else if (bool.equals("false")) {
-                        b.likeAmount.setTextColor(Color.parseColor("#000000"));
+                        b.favor.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favor));
                     }
 
-                    b.likeAmount.setText("좋아요 " + recomment_cnt + "개");
+                    b.likeAmount.setText("" + recomment_cnt);
 
                 }
 
