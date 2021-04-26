@@ -121,6 +121,14 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/editReply"
+        app:layout_constraintEnd_toEndOf="@id/editReply"
+        app:layout_constraintStart_toStartOf="@id/editReply"
+        app:layout_constraintTop_toTopOf="@id/editReply" />
 
     <EditText
         android:id="@+id/editReply"
@@ -137,7 +145,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.988" />
+        app:layout_constraintVertical_bias="0.99" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
