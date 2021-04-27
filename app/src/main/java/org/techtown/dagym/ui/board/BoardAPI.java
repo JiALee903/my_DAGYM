@@ -18,6 +18,8 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface BoardAPI {
+
+
     // 삭제
     @DELETE("board/delete/{board_id}")
     Call<Board> deleteBoard(@Path("board_id") Long board_id);
