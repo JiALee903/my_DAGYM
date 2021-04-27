@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +20,9 @@ import org.techtown.dagym.entity.Board;
 import org.techtown.dagym.entity.dto.CommentDto;
 import org.techtown.dagym.entity.dto.FindIdDto;
 import org.techtown.dagym.entity.dto.LikeDto;
+import org.techtown.dagym.listener.RecyclerViewItemClickListener;
 import org.techtown.dagym.session.SharedPreference;
+import org.techtown.dagym.ui.board.CommentAdapter.OnItemClickListener;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -81,6 +84,14 @@ public class BoardDetail extends AppCompatActivity {
                 }
             });
             finish();
+        });
+
+        commentAdapter.onClick(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Log.i("TAG", "onItemClick: oncnlick");
+
+            }
         });
 
     }
@@ -197,13 +208,7 @@ public class BoardDetail extends AppCompatActivity {
 
     }
 
-    private CommentAdapter updateAdapter = new CommentAdapter(new CommentAdapter.OnItemClickListener() {
-        @Override
-        public void onItemClick(View view, int position) {
-            final CommentDto commentDto = commentAdapter.getItem(position);
-            Log.i("TAG", "onItemClick: update" + commentDto.getComments());
-        }
-    });
+
 
     private void select(ArrayList<CommentDto> mArrayList) {
         Call<ArrayList<CommentDto>> arrayListCall = dataService.boardAPI.selectComment(board_id);

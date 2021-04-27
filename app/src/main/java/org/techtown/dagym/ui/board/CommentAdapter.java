@@ -1,5 +1,6 @@
 package org.techtown.dagym.ui.board;
 
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.techtown.dagym.R;
+import org.techtown.dagym.databinding.CommentsItemBinding;
 import org.techtown.dagym.entity.Board;
 import org.techtown.dagym.entity.Comment;
 import org.techtown.dagym.entity.dto.CommentDto;
@@ -22,7 +24,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     private TextView update;
 
     public interface OnItemClickListener {
-        public void onItemClick(View view, int position, boolean isUser);
+        public void onItemClick(View view, int position);
     }
 
     private OnItemClickListener onItemClickListener;
@@ -51,7 +53,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         return this.mList.get(position);
     }
 
-    public CommentAdapter(OnItemClickListener onItemClickListener) {
+//    public CommentAdapter(OnItemClickListener onItemClickListener) {
+//        this.onItemClickListener = onItemClickListener;
+//    }
+
+    public void onClick(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
@@ -74,12 +80,15 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         return viewHolder;
     }
 
+
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         getUpdate().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                onItemClickListener.onItemClick(view, position);
+                Log.i("TAG", "onClick: 공듀");
+                onItemClickListener.onItemClick(view, position);
             }
         });
         holder.comments.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
