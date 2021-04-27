@@ -1,4 +1,4 @@
-package org.techtown.dagym;
+package org.techtown.dagym.ui.user_activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -17,11 +17,9 @@ import android.util.Patterns;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.Toast;
 
-import org.jetbrains.annotations.NotNull;
+import org.techtown.dagym.DataService;
 import org.techtown.dagym.databinding.ActivityRegisterBinding;
 import org.techtown.dagym.entity.Member;
 import org.techtown.dagym.entity.dto.MemberRegisterDto;
@@ -101,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
                 String user_id = b.etId.getText().toString();
-                dataService.select.selectIdCheck(user_id).enqueue(new Callback<String>() {
+                dataService.userAPI.selectIdCheck(user_id).enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         Log.i(TAG, "onResponse: " + response.body());
@@ -204,7 +202,7 @@ public class RegisterActivity extends AppCompatActivity {
         String phoneNo = b.etPhone.getText().toString();
         Log.i(TAG, "phoneNo = " + phoneNo);
 
-        dataService.select.findPn(phoneNo).enqueue(new Callback<Member>() {
+        dataService.userAPI.findPn(phoneNo).enqueue(new Callback<Member>() {
             @Override
             public void onResponse(Call<Member> call, Response<Member> response) {
 
@@ -299,7 +297,7 @@ public class RegisterActivity extends AppCompatActivity {
             Log.i(TAG, "onCreate: map = " + memberRegisterDto.getUser_name());
 
             // 웹 db 호출 및 저장
-            dataService.insert.insertOne(memberRegisterDto).enqueue(new Callback<Member>() {
+            dataService.userAPI.insertOne(memberRegisterDto).enqueue(new Callback<Member>() {
                 @Override
                 public void onResponse(Call<Member> call, Response<Member> response) {
                     Log.i(TAG, "onResponse: In");

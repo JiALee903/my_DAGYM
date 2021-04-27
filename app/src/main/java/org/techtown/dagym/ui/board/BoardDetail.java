@@ -13,6 +13,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.kakao.usermgmt.StringSet;
+
 import org.techtown.dagym.DataService;
 import org.techtown.dagym.R;
 import org.techtown.dagym.databinding.BoardDetailBinding;
@@ -32,6 +34,8 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.kakao.usermgmt.StringSet.user_id;
 
 public class BoardDetail extends AppCompatActivity {
     private BoardDetailBinding b;
@@ -87,6 +91,9 @@ public class BoardDetail extends AppCompatActivity {
             });
             finish();
         });
+
+        String user_id = SharedPreference.getAttribute(getApplicationContext(), "user_id");
+        commentAdapter.getUser_id(user_id);
 
         // 댓글 삭제
         commentAdapter.onClick(new OnItemClickListener() {
@@ -233,7 +240,6 @@ public class BoardDetail extends AppCompatActivity {
                 try {
                     ArrayList<CommentDto> body = response.body();
                     Log.i("TAG", "onResponse: comment = " + body.get(0).getComments());
-
                     mArrayList.clear();
 
                     for (int i = 0; i < body.size(); i++) {
@@ -244,10 +250,18 @@ public class BoardDetail extends AppCompatActivity {
                                 body.get(i).getId(),
                                 body.get(i).getUser_id(),
                                 body.get(i).getComments(),
-                                body.get(i).getModDate()
+                                modDate
                         );
                         mArrayList.add(commentDto);
+                        Log.i("TAG", "onResponse: for array = " + mArrayList.get(i).getComments());
                     }
+                    CommentDto commentDto = new CommentDto(
+                            null,
+                            "",
+                            "",
+                            ""
+                    );
+                    mArrayList.add(commentDto);
 
                     commentAdapter.addList(mArrayList);
                     commentAdapter.notifyDataSetChanged();

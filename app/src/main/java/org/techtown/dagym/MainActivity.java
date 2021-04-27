@@ -2,7 +2,6 @@ package org.techtown.dagym;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -16,14 +15,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import org.techtown.dagym.entity.dto.BoardListResponseDto;
 import org.techtown.dagym.session.SharedPreference;
-
-import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import org.techtown.dagym.ui.user_activity.LoginListActivity;
+import org.techtown.dagym.ui.user_activity.MyPageActivity;
 
 public class MainActivity extends AppCompatActivity {
 

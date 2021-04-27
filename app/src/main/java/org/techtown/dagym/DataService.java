@@ -16,6 +16,7 @@ import org.techtown.dagym.entity.dto.MemberRegisterDto;
 import org.techtown.dagym.entity.dto.MemberSignDto;
 import org.techtown.dagym.entity.dto.MemberUpdateDto;
 import org.techtown.dagym.ui.board.BoardAPI;
+import org.techtown.dagym.ui.user_activity.UserAPI;
 
 import java.util.ArrayList;
 
@@ -30,7 +31,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public class DataService {
-    private String BASE_URL = "http://192.168.1.49:8090/android/";
+    private String BASE_URL = "http://192.168.1.93:8090/android/";
     // 데이터 값 테스트하고싶으면 자기 cmd에서 ipconfig치고 ipv4 주소 :8090앞에 입력해줘야됨.
     // IPv4 주소........... : 192.168.1.55
     // 참고) IPv4 주소가 2개있는데 어뎁터 와이파이 적힌거 쓰면됨.
@@ -47,75 +48,7 @@ public class DataService {
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
 
-    public SelectAPI select = retrofitClient.create(SelectAPI.class);
-    public InsertAPI insert = retrofitClient.create(InsertAPI.class);
-    public UpdateAPI update = retrofitClient.create(UpdateAPI.class);
-    public DeleteAPI delete = retrofitClient.create(DeleteAPI.class);
     public BoardAPI boardAPI = retrofitClient.create(BoardAPI.class);
-}
-
-interface SelectAPI {
-
-    @POST("idChk")
-    Call<String> selectIdCheck(@Body String user_id);
-
-    @POST("findId")
-    Call<Member> findId(@Body MemberFindIdDto memberFindIdDto);
-
-    @POST("signIn")
-    Call<Member> signIn(@Body MemberSignDto memberSignDto);
-
-    @POST("findPn")
-    Call<Member> findPn(@Body String user_pn);
-
-    @POST("findPw")
-    Call<Member> findPw(@Body MemberFindPwDto memberFindPwDto);
-
-    @POST("findMem")
-    Call<Member> findMem(@Body Long id);
-
-    @POST("board/select")
-    Call<ArrayList<BoardListResponseDto>> selectBoard();
-
-    @POST("board/idSelect")
-    Call<FindIdDto> idSelect(@Body LikeDto likeDto);
-
-    @POST("board/like/select")
-    Call<ArrayList<FindIdDto>> selectLike(@Body Long member_id);
-
-    @POST("board/comment/select/{board_id}")
-    Call<ArrayList<CommentDto>> selectComment(@Path("board_id") Long board_id);
-}
-
-interface InsertAPI{
-
-    @POST("insert")
-    Call<Member> insertOne(@Body MemberRegisterDto memberRegisterDto);
-
-    @POST("board/insert/{member_id}")
-    Call<Board> insertBoard(@Path("member_id") Long member_id, @Body BoardSaveDto boardSaveDto);
-
-    @POST("board/like/add")
-    Call<LikeDto> addLike(@Body LikeDto likeDto);
-}
-
-interface UpdateAPI{
-    @POST("update/{id}")
-    Call<Member> updatePw(@Path("id") Long id, @Body String user_pw);
-
-    @PUT("mypage/{id}")
-    Call<Member> mypageUpdate(@Path("id") Long id, @Body MemberUpdateDto memberUpdateDto);
-
-    @PUT("board/update/{board_id}")
-    Call<Board> updateBoard(@Path("board_id") Long board_id, @Body BoardSaveDto boardSaveDto);
-
-}
-
-interface DeleteAPI {
-    @DELETE("userDelete/{id}")
-    Call<String> userDelete(@Path("id") Long id);
-
-    @DELETE("board/delete/{board_id}")
-    Call<Board> deleteBoard(@Path("board_id") Long board_id);
+    public UserAPI userAPI = retrofitClient.create(UserAPI.class);
 }
 

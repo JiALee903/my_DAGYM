@@ -39,9 +39,9 @@
         android:id="@+id/comment_delete"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginStart="320dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/ic_delete_comment"
         android:drawableTint="@color/black"
-        app:layout_constraintStart_toEndOf="@+id/comment_nick"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/comment_nick" />
 </androidx.constraintlayout.widget.ConstraintLayout>

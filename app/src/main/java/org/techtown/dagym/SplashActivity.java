@@ -1,6 +1,5 @@
 package org.techtown.dagym;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,7 +7,7 @@ import android.os.Handler;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.techtown.dagym.MainActivity;
+import org.techtown.dagym.ui.user_activity.LoginListActivity;
 
 public class SplashActivity extends AppCompatActivity {
 

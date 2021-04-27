@@ -1,29 +1,20 @@
-package org.techtown.dagym;
+package org.techtown.dagym.ui.user_activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.PopupMenu;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.ActionMenuItemView;
-import androidx.core.widget.PopupMenuCompat;
 
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.database.DatabaseReference;
-import com.lakue.lakuepopupactivity.PopupActivity;
-import com.lakue.lakuepopupactivity.PopupGravity;
-import com.lakue.lakuepopupactivity.PopupResult;
-import com.lakue.lakuepopupactivity.PopupType;
-
+import org.techtown.dagym.DataService;
+import org.techtown.dagym.MainActivity;
+import org.techtown.dagym.R;
+import org.techtown.dagym.SplashActivity;
 import org.techtown.dagym.databinding.ActivityMyPageBinding;
 import org.techtown.dagym.entity.Member;
 import org.techtown.dagym.entity.dto.MemberUpdateDto;
@@ -57,7 +48,7 @@ public class MyPageActivity extends AppCompatActivity {
 //        String user_id = SharedPreference.getAttribute(getApplicationContext(), "user_id");
 //        b.userId.setText(user_id);
         Member member = new Member();
-        dataService.select.findMem(id).enqueue(new Callback<Member>() {
+        dataService.userAPI.findMem(id).enqueue(new Callback<Member>() {
             @Override
             public void onResponse(Call<Member> call, Response<Member> response) {
                 Member member = response.body();
@@ -142,7 +133,7 @@ public class MyPageActivity extends AppCompatActivity {
 //                Toast.makeText(getApplicationContext(), "트레이너 여부를 체크해주세요.", Toast.LENGTH_LONG).show();
 //            }
             else if(true){
-                dataService.update.mypageUpdate(id, memberUpdateDto).enqueue(new Callback<Member>() {
+                dataService.userAPI.mypageUpdate(id, memberUpdateDto).enqueue(new Callback<Member>() {
                     @Override
                     public void onResponse(Call<Member> call, Response<Member> response) {
                         Member member = response.body();
@@ -186,7 +177,7 @@ public class MyPageActivity extends AppCompatActivity {
                     String str = SharedPreference.getAttribute(getApplicationContext(), "id"); // 세션
                     Long id = Long.parseLong(str);
                     Log.i(TAG, "onClick: id = " + id);
-                    dataService.delete.userDelete(id).enqueue(new Callback<String>() {
+                    dataService.userAPI.userDelete(id).enqueue(new Callback<String>() {
                         @Override
                         public void onResponse(Call<String> call, Response<String> response) {
                             Log.i(TAG, "onResponse: " + response.body());

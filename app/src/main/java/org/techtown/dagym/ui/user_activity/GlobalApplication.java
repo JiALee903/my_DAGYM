@@ -1,4 +1,4 @@
-package org.techtown.dagym;
+package org.techtown.dagym.ui.user_activity;
 
 import android.app.Application;
 import android.content.Context;

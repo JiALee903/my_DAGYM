@@ -6,7 +6,7 @@
     <!--sms문자인증 용으로 <uses-permission android:name="android.permission.SEND_SMS" /> 사용 -->
 
     <application
-        android:name=".GlobalApplication"
+        android:name=".ui.user_activity.GlobalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="DAGYM"
@@ -36,15 +36,15 @@
             android:windowSoftInputMode="adjustPan">
         </activity>
 
-        <activity android:name=".LoginListActivity"></activity>
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".RegisterActivity"></activity>
-        <activity android:name=".FindidActivity"></activity>
-        <activity android:name=".FindpwActivity"></activity>
+        <activity android:name=".ui.user_activity.LoginListActivity"></activity>
+        <activity android:name=".ui.user_activity.LoginActivity"></activity>
+        <activity android:name=".ui.user_activity.RegisterActivity"></activity>
+        <activity android:name=".ui.user_activity.FindidActivity"></activity>
+        <activity android:name=".ui.user_activity.FindpwActivity"></activity>
         <activity android:name=".ui.board.BoardInsert"></activity>
-        <activity android:name=".UpdatePwActivity"></activity>
-        <activity android:name=".MyPageActivity"></activity>
-        <activity android:name=".SocialLoginActivity" android:theme="@android:style/Theme.Material.Light.Dialog"></activity>
+        <activity android:name=".ui.user_activity.UpdatePwActivity"></activity>
+        <activity android:name=".ui.user_activity.MyPageActivity"></activity>
+        <activity android:name=".ui.user_activity.SocialLoginActivity" android:theme="@android:style/Theme.Material.Light.Dialog"></activity>
         <activity android:name=".ui.board.BoardDetail"></activity>
         <activity android:name=".ui.board.BoardUpdate"></activity>
     </application>

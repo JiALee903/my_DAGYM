@@ -1,4 +1,4 @@
-package org.techtown.dagym;
+package org.techtown.dagym.ui.user_activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -15,7 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.Toast;
 
-import org.techtown.dagym.R;
+import org.techtown.dagym.DataService;
 import org.techtown.dagym.databinding.ActivityFindidBinding;
 import org.techtown.dagym.entity.Member;
 import org.techtown.dagym.entity.dto.MemberFindIdDto;
@@ -50,7 +50,7 @@ public class FindidActivity extends AppCompatActivity {
             Log.i(TAG, "onCreate: name, pn = " + user_name + user_pn);
 
             if (pnChk == true) {
-                dataService.select.findId(memberFindIdDto).enqueue(new Callback<Member>() {
+                dataService.userAPI.findId(memberFindIdDto).enqueue(new Callback<Member>() {
                     @Override
                     public void onResponse(Call<Member> call, Response<Member> response) {
                         String user_id = response.body().getUser_id();

@@ -1,4 +1,4 @@
-package org.techtown.dagym;
+package org.techtown.dagym.ui.user_activity;
 
 import android.content.Intent;
 import android.graphics.Rect;
@@ -14,11 +14,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import org.techtown.dagym.entity.dto.MemberRegisterDto;
+import org.techtown.dagym.DataService;
+import org.techtown.dagym.MainActivity;
 import org.techtown.dagym.entity.dto.MemberSignDto;
 import org.techtown.dagym.session.SharedPreference;
 import org.techtown.dagym.databinding.ActivityLoginBinding;
 import org.techtown.dagym.entity.Member;
+import org.techtown.dagym.ui.user_activity.FindidActivity;
+import org.techtown.dagym.ui.user_activity.FindpwActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -62,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
 
             MemberSignDto memberSignDto = new MemberSignDto(id, pwd);
 
-            dataService.select.signIn(memberSignDto).enqueue(new Callback<Member>() {
+            dataService.userAPI.signIn(memberSignDto).enqueue(new Callback<Member>() {
                 @Override
                 public void onResponse(Call<Member> call, Response<Member> response) {
                     try {

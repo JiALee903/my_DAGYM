@@ -1,4 +1,4 @@
-package org.techtown.dagym;
+package org.techtown.dagym.ui.user_activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -14,8 +14,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import org.techtown.dagym.R;
-import org.techtown.dagym.databinding.ActivityFindidBinding;
+import org.techtown.dagym.DataService;
 import org.techtown.dagym.databinding.ActivityFindpwBinding;
 import org.techtown.dagym.entity.Member;
 import org.techtown.dagym.entity.dto.MemberFindPwDto;
@@ -43,7 +42,7 @@ public class FindpwActivity extends AppCompatActivity {
             memberFindPwDto.setUser_name(b.etName.getText().toString());
             memberFindPwDto.setUser_pn(b.etPhone.getText().toString());
             if (pnChk = true) {
-                dataService.select.findPw(memberFindPwDto).enqueue(new Callback<Member>() {
+                dataService.userAPI.findPw(memberFindPwDto).enqueue(new Callback<Member>() {
                     @Override
                     public void onResponse(Call<Member> call, Response<Member> response) {
                         try {

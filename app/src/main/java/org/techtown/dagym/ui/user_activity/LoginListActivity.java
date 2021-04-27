@@ -1,24 +1,13 @@
-package org.techtown.dagym;
+package org.techtown.dagym.ui.user_activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
-import com.kakao.auth.AuthType;
-import com.kakao.auth.Session;
-
+import org.techtown.dagym.R;
 import org.techtown.dagym.databinding.ActivityLoginListBinding;
 
 public class LoginListActivity extends AppCompatActivity {

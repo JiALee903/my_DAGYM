@@ -1,4 +1,4 @@
-package org.techtown.dagym;
+package org.techtown.dagym.ui.user_activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,7 +8,6 @@ import android.view.Window;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -21,15 +20,16 @@ import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
-import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.callback.MeV2ResponseCallback;
 import com.kakao.usermgmt.response.MeV2Response;
 import com.kakao.usermgmt.response.model.Profile;
 import com.kakao.usermgmt.response.model.UserAccount;
-import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.OptionalBoolean;
 import com.kakao.util.exception.KakaoException;
 
+import org.techtown.dagym.DataService;
+import org.techtown.dagym.MainActivity;
+import org.techtown.dagym.R;
 import org.techtown.dagym.databinding.ActivitySocialBinding;
 import org.techtown.dagym.entity.Member;
 import org.techtown.dagym.entity.dto.MemberRegisterDto;
@@ -140,7 +140,7 @@ public class SocialLoginActivity extends Activity {
             memberRegisterDto.setUser_email(email);
             memberRegisterDto.setUser_id(user_id);
             memberRegisterDto.setUser_name(m2);
-            dataService.insert.insertOne(memberRegisterDto).enqueue(new Callback<Member>() {
+            dataService.userAPI.insertOne(memberRegisterDto).enqueue(new Callback<Member>() {
                 @Override
                 public void onResponse(Call<Member> call, Response<Member> response) {
                     Long id = response.body().getId();
@@ -240,7 +240,7 @@ public class SocialLoginActivity extends Activity {
                         memberRegisterDto.setUser_name(user_name);
                         memberRegisterDto.setUser_email(user_email);
                         memberRegisterDto.setUser_id(user_id);
-                        dataService.insert.insertOne(memberRegisterDto).enqueue(new Callback<Member>() {
+                        dataService.userAPI.insertOne(memberRegisterDto).enqueue(new Callback<Member>() {
                             @Override
                             public void onResponse(Call<Member> call, Response<Member> response) {
                                 Member member = response.body();

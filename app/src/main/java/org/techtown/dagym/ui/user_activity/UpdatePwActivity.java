@@ -1,4 +1,4 @@
-package org.techtown.dagym;
+package org.techtown.dagym.ui.user_activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.techtown.dagym.DataService;
 import org.techtown.dagym.databinding.ActivityUpdatepwBinding;
 import org.techtown.dagym.entity.Member;
 
@@ -36,7 +37,7 @@ public class UpdatePwActivity extends AppCompatActivity {
             String user_pw = b.etPasswd.getText().toString();
             String user_pw2 = b.etPasswd2.getText().toString();
             if (user_pw.equals(user_pw2)) {
-                dataService.update.updatePw(finalId, user_pw).enqueue(new Callback<Member>() {
+                dataService.userAPI.updatePw(finalId, user_pw).enqueue(new Callback<Member>() {
                     @Override
                     public void onResponse(Call<Member> call, Response<Member> response) {
                         Toast.makeText(getApplicationContext(), "비밀번호 변경 완료.", Toast.LENGTH_SHORT).show();
@@ -53,10 +54,6 @@ public class UpdatePwActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(getApplicationContext(), "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
             }
-
         });
-
-
-
     }
 }
