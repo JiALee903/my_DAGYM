@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.techtown.dagym.R;
+import org.techtown.dagym.entity.Board;
+import org.techtown.dagym.entity.Comment;
 import org.techtown.dagym.entity.dto.CommentDto;
 
 import java.util.ArrayList;
@@ -17,18 +19,44 @@ import java.util.ArrayList;
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
 
     ArrayList<CommentDto> mList = new ArrayList<>();
+    private TextView update;
+
+    public interface OnItemClickListener {
+        public void onItemClick(View view, int position, boolean isUser);
+    }
+
+    private OnItemClickListener onItemClickListener;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         protected TextView comments;
         protected TextView user_id;
         protected TextView modDate;
 
+
         public ViewHolder(@NonNull View view) {
             super(view);
             this.comments = (TextView) view.findViewById(R.id.commnet);
             this.user_id = (TextView) view.findViewById(R.id.comment_nick);
             this.modDate = (TextView) view.findViewById(R.id.comment_mod);
+
+            update = (TextView) view.findViewById(R.id.comment_update);
         }
+    }
+
+    public TextView getUpdate() {
+        return update;
+    }
+
+    public CommentDto getItem(int position) {
+        return this.mList.get(position);
+    }
+
+    public CommentAdapter(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public CommentAdapter() {
+
     }
 
     public void addList(ArrayList<CommentDto> list) {
@@ -48,6 +76,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        getUpdate().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                onItemClickListener.onItemClick(view, position);
+            }
+        });
         holder.comments.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
         holder.user_id.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
         holder.modDate.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);

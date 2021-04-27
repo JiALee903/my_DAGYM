@@ -41,6 +41,9 @@ public interface BoardAPI {
     @POST("board/like/add")
     Call<LikeDto> addLike(@Body LikeDto likeDto);
 
+    @POST("board/comment/insert/{user_id}/{board_id}")
+    Call<CommentDto> insertComment(@Path("user_id") String user_id, @Path("board_id") Long board_id, @Body String content);
+
     // 수정
     @PUT("board/update/{board_id}")
     Call<Board> updateBoard(@Path("board_id") Long board_id, @Body BoardSaveDto boardSaveDto);

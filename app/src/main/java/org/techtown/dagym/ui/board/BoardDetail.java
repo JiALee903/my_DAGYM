@@ -1,9 +1,11 @@
 package org.techtown.dagym.ui.board;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -139,6 +141,71 @@ public class BoardDetail extends AppCompatActivity {
             }
         });
 
+        select(mArrayList);
+
+
+        /*좋아요 누를 시 */
+        // 21 04 21 23:30
+        b.favor.setOnClickListener(v -> {
+            likeDto.setBool(bool);
+            likeDto.setRecomment_cnt(recomment_cnt);
+            Call<LikeDto> likeDtoCall = dataService.boardAPI.addLike(likeDto);
+            likeDtoCall.enqueue(new Callback<LikeDto>() {
+                @Override
+                public void onResponse(Call<LikeDto> call, Response<LikeDto> response) {
+                    bool = response.body().getBool();
+                    recomment_cnt = response.body().getRecomment_cnt();
+
+                    if (bool.equals("true")) {
+                        b.favor.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_fill_favor));
+                    } else if (bool.equals("false")) {
+                        b.favor.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favor));
+                    }
+
+                    b.likeAmount.setText("" + recomment_cnt);
+
+                }
+
+                @Override
+                public void onFailure(Call<LikeDto> call, Throwable t) {
+
+                }
+            });
+        });
+
+        // 댓글 등록
+        b.commentSend.setOnClickListener(v -> {
+            String user_id = SharedPreference.getAttribute(getApplicationContext(), "user_id");
+            String content = b.editReply.getText().toString();
+            dataService.boardAPI.insertComment(user_id, board_id, content).enqueue(new Callback<CommentDto>() {
+                @Override
+                public void onResponse(Call<CommentDto> call, Response<CommentDto> response) {
+                    mArrayList.add(response.body());
+                    commentAdapter.addList(mArrayList);
+                    select(mArrayList);
+//                    commentAdapter.notifyDataSetChanged();
+
+                    b.editReply.setText(null);
+                }
+
+                @Override
+                public void onFailure(Call<CommentDto> call, Throwable t) {
+
+                }
+            });
+        });
+
+    }
+
+    private CommentAdapter updateAdapter = new CommentAdapter(new CommentAdapter.OnItemClickListener() {
+        @Override
+        public void onItemClick(View view, int position) {
+            final CommentDto commentDto = commentAdapter.getItem(position);
+            Log.i("TAG", "onItemClick: update" + commentDto.getComments());
+        }
+    });
+
+    private void select(ArrayList<CommentDto> mArrayList) {
         Call<ArrayList<CommentDto>> arrayListCall = dataService.boardAPI.selectComment(board_id);
         arrayListCall.enqueue(new Callback<ArrayList<CommentDto>>() {
             @Override
@@ -175,35 +242,6 @@ public class BoardDetail extends AppCompatActivity {
             }
         });
 
-
-        /*좋아요 누를 시 */
-        // 21 04 21 23:30
-        b.favor.setOnClickListener(v -> {
-            likeDto.setBool(bool);
-            likeDto.setRecomment_cnt(recomment_cnt);
-            Call<LikeDto> likeDtoCall = dataService.boardAPI.addLike(likeDto);
-            likeDtoCall.enqueue(new Callback<LikeDto>() {
-                @Override
-                public void onResponse(Call<LikeDto> call, Response<LikeDto> response) {
-                    bool = response.body().getBool();
-                    recomment_cnt = response.body().getRecomment_cnt();
-
-                    if (bool.equals("true")) {
-                        b.favor.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_fill_favor));
-                    } else if (bool.equals("false")) {
-                        b.favor.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favor));
-                    }
-
-                    b.likeAmount.setText("" + recomment_cnt);
-
-                }
-
-                @Override
-                public void onFailure(Call<LikeDto> call, Throwable t) {
-
-                }
-            });
-        });
 
     }
 }

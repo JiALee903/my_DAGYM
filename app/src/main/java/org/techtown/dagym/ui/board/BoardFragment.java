@@ -47,7 +47,6 @@ public class BoardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_board, container, false);
-
         // fragment findViewById 구하는 법, 프래그먼트는 액티비티가 아니라 getView를 통해서 findViewById를 구할 수 있음.
         recyclerView = (RecyclerView) view.findViewById(R.id.boardRecycle);
         // fragment context구하는 법 , 프래그먼트는 this나 getApplicationContext가 안먹히기 떄문에 getActivity를 통해서 구할 수 있음.
@@ -58,18 +57,18 @@ public class BoardFragment extends Fragment {
 
         Button likeBtn = (Button) view.findViewById(R.id.likeBtn);
 
-        recyclerView.addOnItemTouchListener(new RecyclerViewItemClickListener(getContext(), new RecyclerViewItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                // 아이템 클릭시에 실행되는 이벤트 부분
-                final Board board = mAdapter.getItem(position);
-                Intent intent = new Intent(getContext(), BoardDetail.class);
-                Log.i("TAG", "onItemClick: id = " + board.getId());
+            recyclerView.addOnItemTouchListener(new RecyclerViewItemClickListener(getContext(), new RecyclerViewItemClickListener.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    // 아이템 클릭시에 실행되는 이벤트 부분
+                    final Board board = mAdapter.getItem(position);
+                    Intent intent = new Intent(getContext(), BoardDetail.class);
+                    Log.i("TAG", "onItemClick: id = " + board.getId());
 
-                intent.putExtra("id", board.getId());
-                startActivity(intent);
-            }
-        }));
+                    intent.putExtra("id", board.getId());
+                    startActivity(intent);
+                }
+            }));
 
         likeBtn.setOnClickListener(v -> {
             String sid = SharedPreference.getAttribute(getContext(), "id");
