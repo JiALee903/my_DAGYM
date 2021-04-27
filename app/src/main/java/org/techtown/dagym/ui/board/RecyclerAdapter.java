@@ -28,6 +28,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         protected TextView title;
         protected TextView user_id;
         protected TextView regDate;
+        protected TextView content;
 
 
 
@@ -36,6 +37,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             this.title = (TextView) view.findViewById(R.id.boardTitle_recyc);
             this.user_id = (TextView) view.findViewById(R.id.boardWriter);
             this.regDate = (TextView) view.findViewById(R.id.boardDate);
+            this.content = (TextView) view.findViewById(R.id.boardContent);
         }
     }
 
@@ -64,6 +66,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         viewholder.title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
         viewholder.user_id.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
         viewholder.regDate.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+        viewholder.content.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
 
 
         // 글자 중앙 정렬
@@ -75,6 +78,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         viewholder.title.setText(mList.get(position).getTitle());
         viewholder.user_id.setText(mList.get(position).getUser_id());
         viewholder.regDate.setText(mList.get(position).getModDate());
+        viewholder.content.setText(mList.get(position).getContent());
     }
 
     @Override

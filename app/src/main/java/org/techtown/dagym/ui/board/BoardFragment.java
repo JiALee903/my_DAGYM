@@ -88,7 +88,7 @@ public class BoardFragment extends Fragment {
                             String strDate = body.get(i).getModDate();
                             LocalDateTime localDateTime = LocalDateTime.parse(strDate, DateTimeFormatter.ISO_DATE_TIME);
                             String modDate = localDateTime.format(DateTimeFormatter.ofPattern("yy/MM/dd hh:mm"));
-                            Board board = new Board(body.get(i).getId(), body.get(i).getTitle(), body.get(i).getUser_id(), modDate);
+                            Board board = new Board(body.get(i).getId(), body.get(i).getTitle(), body.get(i).getUser_id(), modDate, body.get(i).getContent());
                             mArrayList.add(board);
                         }
                         Log.i("TAG", "onResponse: board = " + mArrayList);
@@ -115,7 +115,7 @@ public class BoardFragment extends Fragment {
                             String strDate = body.get(i).getModifiedDate();
                             LocalDateTime localDateTime = LocalDateTime.parse(strDate, DateTimeFormatter.ISO_DATE_TIME);
                             String modDate = localDateTime.format(DateTimeFormatter.ofPattern("yy/MM/dd hh:mm"));
-                            Board board = new Board(body.get(i).getId(), body.get(i).getTitle(), body.get(i).getUser_id(), modDate);
+                            Board board = new Board(body.get(i).getId(), body.get(i).getTitle(), body.get(i).getUser_id(), modDate, body.get(i).getContent());
                             mArrayList.add(board);
                         }
                         Log.i("TAG", "onResponse: board = " + mArrayList);
@@ -172,7 +172,8 @@ public class BoardFragment extends Fragment {
                     String strDate = body.get(i).getModifiedDate();
                     LocalDateTime localDateTime = LocalDateTime.parse(strDate, DateTimeFormatter.ISO_DATE_TIME);
                     String modDate = localDateTime.format(DateTimeFormatter.ofPattern("yy/MM/dd hh:mm"));
-                    Board board = new Board(body.get(i).getId(), body.get(i).getTitle(), body.get(i).getUser_id(), modDate);
+
+                    Board board = new Board(body.get(i).getId(), body.get(i).getTitle(), body.get(i).getUser_id(), modDate, body.get(i).getContent());
                     mArrayList.add(board);
                 }
                 Log.i("TAG", "onResponse: board = " + mArrayList);
