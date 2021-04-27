@@ -241,7 +241,7 @@ public class BoardDetail extends AppCompatActivity {
                     ArrayList<CommentDto> body = response.body();
                     Log.i("TAG", "onResponse: comment = " + body.get(0).getComments());
                     mArrayList.clear();
-
+                    b.commentAmount.setText(body.size() + "");
                     for (int i = 0; i < body.size(); i++) {
                         String strDate = body.get(i).getModDate();
                         LocalDateTime localDateTime = LocalDateTime.parse(strDate, DateTimeFormatter.ISO_DATE_TIME);
