@@ -35,27 +35,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/comment_update"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="280dp"
-        android:clickable="true"
-        android:text="수정"
-        android:textColor="@color/black"
-        android:textSize="10sp"
+    <Button
+        android:id="@+id/comment_delete"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="320dp"
+        android:background="@drawable/ic_delete_comment"
+        android:drawableTint="@color/black"
         app:layout_constraintStart_toEndOf="@+id/comment_nick"
         app:layout_constraintTop_toTopOf="@+id/comment_nick" />
-
-    <TextView
-        android:id="@+id/comment_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:clickable="true"
-        android:text="삭제"
-        android:textColor="@color/black"
-        android:textSize="10sp"
-        app:layout_constraintStart_toEndOf="@+id/comment_update"
-        app:layout_constraintTop_toTopOf="@+id/comment_update" />
 </androidx.constraintlayout.widget.ConstraintLayout>

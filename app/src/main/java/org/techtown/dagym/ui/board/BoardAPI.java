@@ -21,6 +21,9 @@ public interface BoardAPI {
     @DELETE("board/delete/{board_id}")
     Call<Board> deleteBoard(@Path("board_id") Long board_id);
 
+    @DELETE("board/comment/delete/{comment_id}")
+    Call<Long> deleteComment(@Path("comment_id") Long comment_id);
+
     // 조회
     @POST("board/select")
     Call<ArrayList<BoardListResponseDto>> selectBoard();

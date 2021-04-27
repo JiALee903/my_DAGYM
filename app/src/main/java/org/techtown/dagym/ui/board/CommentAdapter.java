@@ -5,6 +5,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
 
     ArrayList<CommentDto> mList = new ArrayList<>();
-    private TextView update;
+    private Button delete;
 
     public interface OnItemClickListener {
         public void onItemClick(View view, int position);
@@ -41,15 +42,16 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             this.user_id = (TextView) view.findViewById(R.id.comment_nick);
             this.modDate = (TextView) view.findViewById(R.id.comment_mod);
 
-            update = (TextView) view.findViewById(R.id.comment_update);
+            delete = (Button) view.findViewById(R.id.comment_delete);
         }
     }
 
-    public TextView getUpdate() {
-        return update;
+    public TextView getDelete() {
+        return delete;
     }
 
     public CommentDto getItem(int position) {
+        Log.i("TAG", "getItem: mList = " + mList.get(position).getComments());
         return this.mList.get(position);
     }
 
@@ -84,10 +86,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        getUpdate().setOnClickListener(new View.OnClickListener() {
+        getDelete().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("TAG", "onClick: 공듀");
+                Log.i("TAG", "onClick: 공듀 = " + position);
                 onItemClickListener.onItemClick(view, position);
             }
         });

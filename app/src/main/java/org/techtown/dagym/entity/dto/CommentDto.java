@@ -19,7 +19,8 @@ public class CommentDto {
         this.modDate = modDate;
     }
 
-    public CommentDto(String user_id, String comments, String modDate) {
+    public CommentDto(Long id, String user_id, String comments, String modDate) {
+        this.id = id;
         this.user_id = user_id;
         this.comments = comments;
         this.modDate = modDate;

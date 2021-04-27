@@ -23,6 +23,7 @@ import org.techtown.dagym.entity.dto.LikeDto;
 import org.techtown.dagym.listener.RecyclerViewItemClickListener;
 import org.techtown.dagym.session.SharedPreference;
 import org.techtown.dagym.ui.board.CommentAdapter.OnItemClickListener;
+import org.w3c.dom.Comment;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -42,6 +43,7 @@ public class BoardDetail extends AppCompatActivity {
     private long member_id;
     private String bool = "false";
     private int recomment_cnt;
+    ArrayList<CommentDto> mArrayList = new ArrayList<>();
     DataService dataService = new DataService();
 
     @Override
@@ -86,11 +88,27 @@ public class BoardDetail extends AppCompatActivity {
             finish();
         });
 
+        // 댓글 삭제
         commentAdapter.onClick(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Log.i("TAG", "onItemClick: oncnlick");
+                Log.i("TAG", "onItemClick: POSITION = " + position);
+                CommentDto comment = commentAdapter.getItem(position);
+                Long comment_id = comment.getId();
+                Log.i("TAG", "onItemClick: comment_id = " + comment_id + " comments = " + comment.getComments());
+                Call<Long> commentCall = dataService.boardAPI.deleteComment(comment_id);
 
+                commentCall.enqueue(new Callback<Long>() {
+                    @Override
+                    public void onResponse(Call<Long> call, Response<Long> response) {
+                        select(mArrayList);
+                    }
+
+                    @Override
+                    public void onFailure(Call<Long> call, Throwable t) {
+
+                    }
+                });
             }
         });
 
@@ -100,7 +118,7 @@ public class BoardDetail extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
-        ArrayList<CommentDto> mArrayList = new ArrayList<>();
+
 
         board_id = getIntent().getExtras().getLong("id");
 
@@ -152,6 +170,7 @@ public class BoardDetail extends AppCompatActivity {
             }
         });
 
+        // 댓글 조회
         select(mArrayList);
 
 
@@ -191,12 +210,8 @@ public class BoardDetail extends AppCompatActivity {
             dataService.boardAPI.insertComment(user_id, board_id, content).enqueue(new Callback<CommentDto>() {
                 @Override
                 public void onResponse(Call<CommentDto> call, Response<CommentDto> response) {
-                    mArrayList.add(response.body());
-                    commentAdapter.addList(mArrayList);
-                    select(mArrayList);
-//                    commentAdapter.notifyDataSetChanged();
-
                     b.editReply.setText(null);
+                    select(mArrayList);
                 }
 
                 @Override
@@ -226,6 +241,7 @@ public class BoardDetail extends AppCompatActivity {
                         LocalDateTime localDateTime = LocalDateTime.parse(strDate, DateTimeFormatter.ISO_DATE_TIME);
                         String modDate = localDateTime.format(DateTimeFormatter.ofPattern("yy/MM/dd hh:mm"));
                         CommentDto commentDto = new CommentDto(
+                                body.get(i).getId(),
                                 body.get(i).getUser_id(),
                                 body.get(i).getComments(),
                                 body.get(i).getModDate()
