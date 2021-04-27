@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +21,7 @@ import org.techtown.dagym.DataService;
 import org.techtown.dagym.R;
 import org.techtown.dagym.entity.Board;
 import org.techtown.dagym.entity.dto.BoardListResponseDto;
+import org.techtown.dagym.entity.dto.BoardSearchDto;
 import org.techtown.dagym.entity.dto.FindIdDto;
 import org.techtown.dagym.listener.RecyclerViewItemClickListener;
 import org.techtown.dagym.session.SharedPreference;
@@ -69,6 +71,41 @@ public class BoardFragment extends Fragment {
                     startActivity(intent);
                 }
             }));
+
+        // 따로 담아야 함
+        Button searchBtn = (Button) view.findViewById(R.id.search);
+        searchBtn.setOnClickListener(v1 -> {
+            Log.i("TAG", "onCreateView: search on");
+            TextView et_search = view.findViewById(R.id.et_search);
+            String search_str = et_search.getText().toString();
+            BoardSearchDto boardSearchDto = new BoardSearchDto(search_str);
+            dataService.boardAPI.searchBoard(boardSearchDto).enqueue(new Callback<ArrayList<BoardListResponseDto>>() {
+                @Override
+                public void onResponse(Call<ArrayList<BoardListResponseDto>> call, Response<ArrayList<BoardListResponseDto>> response) {
+                    ArrayList<BoardListResponseDto> body = response.body();
+
+                    mArrayList.clear();
+
+                    for (int i = 0; i < body.size(); i++) {
+                        String strDate = body.get(i).getModifiedDate();
+                        LocalDateTime localDateTime = LocalDateTime.parse(strDate, DateTimeFormatter.ISO_DATE_TIME);
+                        String modDate = localDateTime.format(DateTimeFormatter.ofPattern("yy/MM/dd hh:mm"));
+                        Board board = new Board(body.get(i).getId(), body.get(i).getTitle(), body.get(i).getContent(), modDate, body.get(i).getUser_id());
+                        mArrayList.add(board);
+                    }
+                    Log.i("TAG", "onResponse: board = " + mArrayList);
+                    mAdapter.addList(mArrayList);
+                    mAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onFailure(Call<ArrayList<BoardListResponseDto>> call, Throwable t) {
+
+                }
+            });
+
+        });
+
 
         likeBtn.setOnClickListener(v -> {
             String sid = SharedPreference.getAttribute(getContext(), "id");
@@ -129,7 +166,6 @@ public class BoardFragment extends Fragment {
                     }
                 });
             }
-
 
         });
 

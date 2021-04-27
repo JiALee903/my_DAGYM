@@ -3,6 +3,7 @@ package org.techtown.dagym.ui.board;
 import org.techtown.dagym.entity.Board;
 import org.techtown.dagym.entity.dto.BoardListResponseDto;
 import org.techtown.dagym.entity.dto.BoardSaveDto;
+import org.techtown.dagym.entity.dto.BoardSearchDto;
 import org.techtown.dagym.entity.dto.CommentDto;
 import org.techtown.dagym.entity.dto.FindIdDto;
 import org.techtown.dagym.entity.dto.LikeDto;
@@ -36,6 +37,9 @@ public interface BoardAPI {
 
     @POST("board/comment/select/{board_id}")
     Call<ArrayList<CommentDto>> selectComment(@Path("board_id") Long board_id);
+
+    @POST("board/search")
+    Call<ArrayList<BoardListResponseDto>> searchBoard(@Body BoardSearchDto boardSearchDto);
     
     // 등록
     @POST("board/insert/{member_id}")

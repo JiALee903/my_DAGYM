@@ -36,4 +36,23 @@
         app:layout_constraintEnd_toStartOf="@+id/writeFab"
         app:layout_constraintTop_toTopOf="@+id/writeFab" />
 
+    <Button
+        android:id="@+id/search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="검색"
+        app:layout_constraintEnd_toStartOf="@+id/likeBtn"
+        app:layout_constraintTop_toTopOf="@+id/likeBtn" />
+
+    <EditText
+        android:id="@+id/et_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="제목, 내용 검색"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/search"
+        app:layout_constraintEnd_toStartOf="@+id/likeBtn"
+        app:layout_constraintStart_toStartOf="@+id/search" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
