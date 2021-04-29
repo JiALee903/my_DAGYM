@@ -81,7 +81,7 @@ public class BoardDetail extends AppCompatActivity {
             boardCall.enqueue(new Callback<Board>() {
                 @Override
                 public void onResponse(Call<Board> call, Response<Board> response) {
-
+                    finish();
                 }
 
                 @Override
@@ -89,7 +89,6 @@ public class BoardDetail extends AppCompatActivity {
 
                 }
             });
-            finish();
         });
 
         String user_id = SharedPreference.getAttribute(getApplicationContext(), "user_id");
@@ -124,8 +123,6 @@ public class BoardDetail extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-
-
 
         board_id = getIntent().getExtras().getLong("id");
 
