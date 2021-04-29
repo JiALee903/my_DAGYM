@@ -43,6 +43,7 @@ public class BoardFragment extends Fragment {
     private RecyclerView recyclerView;
 
     DataService dataService = new DataService();
+    private Button likeBtn;
 
 
     @Override
@@ -57,7 +58,7 @@ public class BoardFragment extends Fragment {
 
         recyclerView.setAdapter(mAdapter);
 
-        Button likeBtn = (Button) view.findViewById(R.id.likeBtn);
+        likeBtn = (Button) view.findViewById(R.id.likeBtn);
 
             recyclerView.addOnItemTouchListener(new RecyclerViewItemClickListener(getContext(), new RecyclerViewItemClickListener.OnItemClickListener() {
                 @Override
@@ -195,6 +196,8 @@ public class BoardFragment extends Fragment {
     public void onStart() {
 
         super.onStart();
+        likeBtn.setText("좋아요보기");
+
         Call<ArrayList<BoardListResponseDto>> arrayListCall = dataService.boardAPI.selectBoard();
         arrayListCall.enqueue(new Callback<ArrayList<BoardListResponseDto>>() {
             @Override
