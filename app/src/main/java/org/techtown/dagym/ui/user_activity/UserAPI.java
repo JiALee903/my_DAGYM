@@ -21,7 +21,7 @@ public interface UserAPI {
     Call<String> selectIdCheck(@Body String user_id);
 
     @POST("findId")
-    Call<Member> findId(@Body MemberFindIdDto memberFindIdDto);
+    Call<MemberSignDto> findId(@Body MemberFindIdDto memberFindIdDto);
 
     @POST("signIn")
     Call<Member> signIn(@Body MemberSignDto memberSignDto);
