@@ -45,5 +45,6 @@ public class PTActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
             startActivity(intent);
         });
+
     }
 }
