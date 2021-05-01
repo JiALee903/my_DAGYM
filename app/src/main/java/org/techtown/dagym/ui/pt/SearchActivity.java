@@ -27,6 +27,5 @@ public class SearchActivity extends AppCompatActivity {
         b = b.inflate(getLayoutInflater());
         setContentView(b.getRoot());
 
-
     }
 }
