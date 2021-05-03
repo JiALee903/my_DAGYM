@@ -1,6 +1,7 @@
 package org.techtown.dagym.ui.pt;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -80,6 +82,11 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 Log.i(TAG, "onItemClick: " + position);
+                AndPTUserSearchDto item = adapter.getItem(position);
+                Intent intent = new Intent(getApplicationContext(), TrainerInfo.class);
+                intent.putExtra("id", item.getId());
+                startActivity(intent);
+
             }
         });
 

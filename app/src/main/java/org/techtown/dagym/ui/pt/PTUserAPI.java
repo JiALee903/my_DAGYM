@@ -1,5 +1,6 @@
 package org.techtown.dagym.ui.pt;
 
+import org.techtown.dagym.entity.Member;
 import org.techtown.dagym.entity.dto.AndPTUserSearchDto;
 import org.techtown.dagym.entity.dto.AndTrainerSearchDto;
 
@@ -16,4 +17,7 @@ public interface PTUserAPI {
 
     @POST("ptUser/search")
     Call<ArrayList<AndPTUserSearchDto>> ptSearch(@Body AndTrainerSearchDto andTrainerSearchDto);
+
+    @POST("findMem")
+    Call<Member> findMem(@Body Long id);
 }

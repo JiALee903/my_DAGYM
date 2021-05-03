@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.techtown.dagym.R;
+import org.techtown.dagym.entity.Board;
 import org.techtown.dagym.entity.dto.AndPTUserSearchDto;
 import org.techtown.dagym.entity.dto.CommentDto;
 
@@ -42,6 +43,10 @@ public class TrainerSearchAdapter  extends RecyclerView.Adapter<TrainerSearchAda
         holder.searchNick.setText(list.get(position).getUser_name());
         holder.searchEmail.setText(list.get(position).getUser_email());
 
+    }
+
+    public AndPTUserSearchDto getItem(int position) {
+        return this.list.get(position);
     }
 
     public void addList(ArrayList<AndPTUserSearchDto> list) {

@@ -5,15 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<!--    <view-->
-<!--        android:id="@+id/view2"-->
-<!--        android:layout_width="2dp"-->
-<!--        android:layout_height="78dp"-->
-<!--        android:background="@color/black"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="wrap_content"
@@ -26,31 +17,20 @@
 
         <Button
             android:id="@+id/friendBtn"
-            android:layout_width="37dp"
-            android:layout_height="37dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginRight="100dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/ic_friend" />
 
         <Button
             android:id="@+id/chatBtn"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginLeft="70dp"
             android:layout_marginTop="2dp"
             android:background="@drawable/ic_chat" />
     </LinearLayout>
-
-
-<!--    <view-->
-<!--        android:id="@+id/view5"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="2dp"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:background="@color/black"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/friend"
