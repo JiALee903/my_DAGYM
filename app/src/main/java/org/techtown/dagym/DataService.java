@@ -16,6 +16,7 @@ import org.techtown.dagym.entity.dto.MemberRegisterDto;
 import org.techtown.dagym.entity.dto.MemberSignDto;
 import org.techtown.dagym.entity.dto.MemberUpdateDto;
 import org.techtown.dagym.ui.board.BoardAPI;
+import org.techtown.dagym.ui.pt.PTUserAPI;
 import org.techtown.dagym.ui.user_activity.UserAPI;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public class DataService {
-    private String BASE_URL = "http://192.168.1.49:8090/android/";
+    private String BASE_URL = "http://192.168.1.93:8090/android/";
     // 데이터 값 테스트하고싶으면 자기 cmd에서 ipconfig치고 ipv4 주소 :8090앞에 입력해줘야됨.
     // IPv4 주소........... : 192.168.1.55
     // 참고) IPv4 주소가 2개있는데 어뎁터 와이파이 적힌거 쓰면됨.
@@ -50,5 +51,8 @@ public class DataService {
 
     public BoardAPI boardAPI = retrofitClient.create(BoardAPI.class);
     public UserAPI userAPI = retrofitClient.create(UserAPI.class);
+    public PTUserAPI ptUserAPI = retrofitClient.create(PTUserAPI.class);
 }
+
+
 

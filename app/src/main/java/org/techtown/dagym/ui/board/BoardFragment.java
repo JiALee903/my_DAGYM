@@ -60,18 +60,18 @@ public class BoardFragment extends Fragment {
 
         likeBtn = (Button) view.findViewById(R.id.likeBtn);
 
-            recyclerView.addOnItemTouchListener(new RecyclerViewItemClickListener(getContext(), new RecyclerViewItemClickListener.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-                    // 아이템 클릭시에 실행되는 이벤트 부분
-                    final Board board = mAdapter.getItem(position);
-                    Intent intent = new Intent(getContext(), BoardDetail.class);
-                    Log.i("TAG", "onItemClick: id = " + board.getId());
+        recyclerView.addOnItemTouchListener(new RecyclerViewItemClickListener(getContext(), new RecyclerViewItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                // 아이템 클릭시에 실행되는 이벤트 부분
+                final Board board = mAdapter.getItem(position);
+                Intent intent = new Intent(getContext(), BoardDetail.class);
+                Log.i("TAG", "onItemClick: id = " + board.getId());
 
-                    intent.putExtra("id", board.getId());
-                    startActivity(intent);
-                }
-            }));
+                intent.putExtra("id", board.getId());
+                startActivity(intent);
+            }
+        }));
 
         // 따로 담아야 함
         Button searchBtn = (Button) view.findViewById(R.id.search);

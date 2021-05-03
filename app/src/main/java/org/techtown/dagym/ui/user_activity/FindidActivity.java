@@ -19,6 +19,7 @@ import org.techtown.dagym.DataService;
 import org.techtown.dagym.databinding.ActivityFindidBinding;
 import org.techtown.dagym.entity.Member;
 import org.techtown.dagym.entity.dto.MemberFindIdDto;
+import org.techtown.dagym.entity.dto.MemberSignDto;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,17 +50,17 @@ public class FindidActivity extends AppCompatActivity {
 
             Log.i(TAG, "onCreate: name, pn = " + user_name + user_pn);
 
-            if (pnChk == true) {
-                dataService.userAPI.findId(memberFindIdDto).enqueue(new Callback<Member>() {
+            if (pnChk) {
+                dataService.userAPI.findId(memberFindIdDto).enqueue(new Callback<MemberSignDto>() {
                     @Override
-                    public void onResponse(Call<Member> call, Response<Member> response) {
+                    public void onResponse(Call<MemberSignDto> call, Response<MemberSignDto> response) {
                         String user_id = response.body().getUser_id();
                         Log.i(TAG, "onResponse: body = " + user_id);
                         b.userId.setText(user_name + "님의 아이디는 \"" + user_id + "\"입니다.");
                     }
 
                     @Override
-                    public void onFailure(Call<Member> call, Throwable t) {
+                    public void onFailure(Call<MemberSignDto> call, Throwable t) {
                         t.printStackTrace();
                     }
                 });

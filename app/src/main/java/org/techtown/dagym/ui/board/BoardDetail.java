@@ -89,6 +89,8 @@ public class BoardDetail extends AppCompatActivity {
 
                 }
             });
+            finish();
+
         });
 
         String user_id = SharedPreference.getAttribute(getApplicationContext(), "user_id");
@@ -108,6 +110,7 @@ public class BoardDetail extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Long> call, Response<Long> response) {
                         select(mArrayList);
+
                     }
 
                     @Override
@@ -116,6 +119,7 @@ public class BoardDetail extends AppCompatActivity {
                     }
                 });
             }
+
         });
 
     }
@@ -211,10 +215,13 @@ public class BoardDetail extends AppCompatActivity {
         b.commentSend.setOnClickListener(v -> {
             String user_id = SharedPreference.getAttribute(getApplicationContext(), "user_id");
             String content = b.editReply.getText().toString();
+            Log.i("TAG", "onStart: 댓글등록 : board_id = " + board_id + ", user_id = " + user_id);
             dataService.boardAPI.insertComment(user_id, board_id, content).enqueue(new Callback<CommentDto>() {
                 @Override
                 public void onResponse(Call<CommentDto> call, Response<CommentDto> response) {
                     b.editReply.setText(null);
+
+                    Log.i("TAG", "onResponse: = " + response.body().getComments());
                     select(mArrayList);
                 }
 
@@ -238,7 +245,8 @@ public class BoardDetail extends AppCompatActivity {
                     ArrayList<CommentDto> body = response.body();
                     Log.i("TAG", "onResponse: comment = " + body.get(0).getComments());
                     mArrayList.clear();
-
+                    int size = response.body().size();
+                    b.commentAmount.setText(size+"");
                     for (int i = 0; i < body.size(); i++) {
                         String strDate = body.get(i).getModDate();
                         LocalDateTime localDateTime = LocalDateTime.parse(strDate, DateTimeFormatter.ISO_DATE_TIME);

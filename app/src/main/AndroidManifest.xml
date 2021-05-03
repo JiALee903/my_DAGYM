@@ -47,6 +47,9 @@
         <activity android:name=".ui.user_activity.SocialLoginActivity" android:theme="@android:style/Theme.Material.Light.Dialog"></activity>
         <activity android:name=".ui.board.BoardDetail"></activity>
         <activity android:name=".ui.board.BoardUpdate"></activity>
+        <activity android:name=".ui.pt.PTActivity"></activity>
+        <activity android:name=".ui.pt.SearchActivity"></activity>
+        <activity android:name=".ui.pt.TrainerInfo" android:theme="@android:style/Theme.Material.Light.Dialog"></activity>
     </application>
 
 </manifest>
