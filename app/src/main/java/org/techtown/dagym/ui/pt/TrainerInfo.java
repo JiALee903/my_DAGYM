@@ -43,11 +43,11 @@ public class TrainerInfo extends Activity {
         dataService.ptUserAPI.findMem(id).enqueue(new Callback<Member>() {
             @Override
             public void onResponse(Call<Member> call, Response<Member> response) {
-                b.tid.setText("아이디 : " + response.body().getUser_id());
-                b.tname.setText("이름 : " + response.body().getUser_name());
-                b.temail.setText("이메일 : " + response.body().getUser_email());
-                b.tpn.setText("전화번호 : " + response.body().getUser_pn());
-                b.tlocation.setText("헬스장 : " + response.body().getAddress_normal() + response.body().getAddress_detail());
+                b.tid.setText("아이디 \n : " + response.body().getUser_id());
+                b.tname.setText("이름 \n : " + response.body().getUser_name());
+                b.temail.setText("이메일 \n : " + response.body().getUser_email());
+                b.tpn.setText("전화번호 \n : " + response.body().getUser_pn());
+                b.tlocation.setText("헬스장 \n : " + response.body().getAddress_normal() + response.body().getAddress_detail());
             }
 
             @Override
@@ -58,6 +58,11 @@ public class TrainerInfo extends Activity {
 
         b.no.setOnClickListener(v -> {
             finish();
+        });
+
+        b.yes.setOnClickListener(v -> {
+            Intent pt = new Intent(getApplicationContext(), PTApply.class);
+            startActivity(pt);
         });
 
     }

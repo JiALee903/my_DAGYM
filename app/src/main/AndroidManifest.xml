@@ -50,6 +50,7 @@
         <activity android:name=".ui.pt.PTActivity"></activity>
         <activity android:name=".ui.pt.SearchActivity"></activity>
         <activity android:name=".ui.pt.TrainerInfo" android:theme="@android:style/Theme.Material.Light.Dialog"></activity>
+        <activity android:name=".ui.pt.PTApply"></activity>
     </application>
 
 </manifest>
