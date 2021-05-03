@@ -6,42 +6,42 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/search_email"
+        android:id="@+id/search_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="2021.04.07"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:text="id"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_nick" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/search_nick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="댓글 내용"
         android:textColor="@color/black"
+        android:text="이름"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_id" />
 
     <TextView
-        android:id="@+id/search_id"
+        android:id="@+id/search_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="닉네임"
-        android:textColor="@color/black"
-        android:textStyle="bold"
+        android:text="email"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/search_nick" />
 
-    <Button
-        android:id="@+id/comment_delete"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/ic_delete_comment"
-        android:drawableTint="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/search_id" />
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="3dp"
+        android:background="#919191"
+        app:layout_constraintTop_toBottomOf="@id/search_email" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

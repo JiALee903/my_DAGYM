@@ -1,7 +1,5 @@
 package org.techtown.dagym.ui.board;
 
-import android.app.Application;
-import android.content.Context;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -11,7 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.techtown.dagym.R;
@@ -39,9 +36,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
         public ViewHolder(@NonNull View view) {
             super(view);
-            this.comments = (TextView) view.findViewById(R.id.commnet);
-            this.user_id = (TextView) view.findViewById(R.id.comment_nick);
-            this.modDate = (TextView) view.findViewById(R.id.comment_mod);
+            this.comments = (TextView) view.findViewById(R.id.search_nick);
+            this.user_id = (TextView) view.findViewById(R.id.search_id);
+            this.modDate = (TextView) view.findViewById(R.id.search_email);
 
             this.delete = (Button) view.findViewById(R.id.comment_delete);
         }

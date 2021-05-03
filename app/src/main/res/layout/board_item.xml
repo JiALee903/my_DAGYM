@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="@+id/boardDate" />
 
     <TextView
-        android:id="@+id/boardTitle_recyc"
+        android:id="@+id/searchTitle_recyc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -47,8 +47,8 @@
         android:textColor="#202020"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toStartOf="@+id/boardTitle_recyc"
-        app:layout_constraintTop_toBottomOf="@+id/boardTitle_recyc" />
+        app:layout_constraintStart_toStartOf="@+id/searchTitle_recyc"
+        app:layout_constraintTop_toBottomOf="@+id/searchTitle_recyc" />
 
     <View
         android:id="@+id/view"

@@ -89,6 +89,8 @@ public class BoardDetail extends AppCompatActivity {
 
                 }
             });
+            finish();
+
         });
 
         String user_id = SharedPreference.getAttribute(getApplicationContext(), "user_id");
@@ -108,6 +110,7 @@ public class BoardDetail extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Long> call, Response<Long> response) {
                         select(mArrayList);
+
                     }
 
                     @Override
@@ -115,7 +118,6 @@ public class BoardDetail extends AppCompatActivity {
 
                     }
                 });
-                finish();
             }
 
         });

@@ -34,7 +34,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         public ViewHolder(@NonNull View view) {
             super(view);
-            this.title = (TextView) view.findViewById(R.id.boardTitle_recyc);
+            this.title = (TextView) view.findViewById(R.id.searchTitle_recyc);
             this.user_id = (TextView) view.findViewById(R.id.boardWriter);
             this.regDate = (TextView) view.findViewById(R.id.boardDate);
             this.content = (TextView) view.findViewById(R.id.boardContent);
