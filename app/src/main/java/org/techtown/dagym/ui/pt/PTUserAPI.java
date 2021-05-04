@@ -1,6 +1,7 @@
 package org.techtown.dagym.ui.pt;
 
 import org.techtown.dagym.entity.Member;
+import org.techtown.dagym.entity.dto.AndPTUserSaveDto;
 import org.techtown.dagym.entity.dto.AndPTUserSearchDto;
 import org.techtown.dagym.entity.dto.AndTrainerSearchDto;
 
@@ -10,6 +11,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface PTUserAPI {
     @GET("ptUser/selectAll")
@@ -20,4 +22,7 @@ public interface PTUserAPI {
 
     @POST("findMem")
     Call<Member> findMem(@Body Long id);
+
+    @POST("ptUser/apply")
+    Call<Void> applyTo(@Body AndPTUserSaveDto andPTUserSaveDto);
 }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -18,6 +19,7 @@ import org.techtown.dagym.MainActivity;
 import org.techtown.dagym.R;
 import org.techtown.dagym.databinding.PtApplyBinding;
 import org.techtown.dagym.entity.Member;
+import org.techtown.dagym.entity.dto.AndPTUserSaveDto;
 import org.techtown.dagym.session.SharedPreference;
 
 import java.util.Calendar;
@@ -28,6 +30,7 @@ import retrofit2.Response;
 
 public class PTApply extends AppCompatActivity {
 
+    private static final String TAG = "PTApply";
     private PtApplyBinding b;
 
     DataService dataService = new DataService();
@@ -50,9 +53,35 @@ public class PTApply extends AppCompatActivity {
         this.InitalizeListener();
 
         String id_str = SharedPreference.getAttribute(getApplicationContext(), "id");
-        long id = Long.parseLong(id_str);
+        long member_id = Long.parseLong(id_str);
 
-        dataService.ptUserAPI.findMem(id).enqueue(new Callback<Member>() {
+        Intent intent = getIntent();
+        long trainer_id = intent.getExtras().getLong("id");
+        Log.i(TAG, "onCreate: " + trainer_id);
+        b.requestBtn.setOnClickListener(v -> {
+            Log.i(TAG, "onCreate: requestBtn on");
+            String startDate = b.selectStartDay.getText().toString();
+            String endDate = b.selectFinishDay.getText().toString();
+
+            AndPTUserSaveDto andPTUserSaveDto = new AndPTUserSaveDto(
+                    startDate,endDate,member_id,trainer_id
+            );
+
+            dataService.ptUserAPI.applyTo(andPTUserSaveDto).enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    Log.i(TAG, "onResponse: dataService success" + response.body());
+                    finish();
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+
+                }
+            });
+        });
+
+        dataService.ptUserAPI.findMem(member_id).enqueue(new Callback<Member>() {
             @Override
             public void onResponse(Call<Member> call, Response<Member> response) {
                 b.requestUserName.setText(response.body().getUser_name());
@@ -70,6 +99,7 @@ public class PTApply extends AppCompatActivity {
         b.closeBtn.setOnClickListener(v -> {
             finish();
         });
+
     }
 
     public void InitalizeListener() {

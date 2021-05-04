@@ -26,6 +26,7 @@ import retrofit2.Response;
 public class TrainerInfo extends Activity {
 
     private TrainerInfoBinding b;
+    private Long id;
 
     DataService dataService = new DataService();
 
@@ -37,7 +38,7 @@ public class TrainerInfo extends Activity {
         setContentView(b.getRoot());
 
         Intent intent = getIntent();
-        long id = intent.getExtras().getLong("id");
+        id = intent.getExtras().getLong("id");
         Log.i("TAG", "id = " + id);
 
         dataService.ptUserAPI.findMem(id).enqueue(new Callback<Member>() {
@@ -61,7 +62,9 @@ public class TrainerInfo extends Activity {
         });
 
         b.yes.setOnClickListener(v -> {
+            Log.i("Trainerinfo id", id+"");
             Intent pt = new Intent(getApplicationContext(), PTApply.class);
+            pt.putExtra("id", id);
             startActivity(pt);
         });
 
