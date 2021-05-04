@@ -32,41 +32,42 @@
 
         <TextView
             android:id="@+id/tname"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:padding="10dp"
             android:text="TextView"
             android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/tid"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:padding="10dp"
             android:text="TextView"
             android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/temail"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:padding="10dp"
             android:text="TextView"
             android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/tpn"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:padding="10dp"
             android:text="TextView"
             android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/tlocation"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:text="TextView"
+            android:padding="10dp"
             android:textColor="@color/black"/>
 
     </LinearLayout>
