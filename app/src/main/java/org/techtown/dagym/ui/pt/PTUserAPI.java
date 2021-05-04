@@ -25,4 +25,7 @@ public interface PTUserAPI {
 
     @POST("ptUser/apply")
     Call<Void> applyTo(@Body AndPTUserSaveDto andPTUserSaveDto);
+
+    @POST("ptUser/apply/request")
+    Call<Integer> requestList(@Body Long member_id);
 }

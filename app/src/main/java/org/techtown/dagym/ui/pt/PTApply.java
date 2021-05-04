@@ -106,14 +106,16 @@ public class PTApply extends AppCompatActivity {
         startMethod = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                b.selectStartDay.setText(year + "년" + (monthOfYear+1) + "월" + dayOfMonth + "일");
+                //b.selectStartDay.setText(year + "년" + (monthOfYear+1) + "월" + dayOfMonth + "일");
+                b.selectStartDay.setText(year + "/" + (monthOfYear+1) + "/" + dayOfMonth);
             }
         };
 
         endMethod = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                b.selectFinishDay.setText(year + "년" + (monthOfYear+1) + "월" + dayOfMonth + "일");
+                //b.selectFinishDay.setText(year + "년" + (monthOfYear+1) + "월" + dayOfMonth + "일");
+                b.selectFinishDay.setText(year + "/" + (monthOfYear+1) + "/" + dayOfMonth);
             }
         };
     }

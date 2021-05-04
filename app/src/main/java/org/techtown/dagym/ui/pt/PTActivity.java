@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class PTActivity extends AppCompatActivity {
     private ActivityPersonaltBinding b;
 
     DataService dataService = new DataService();
+    private String tr_if;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +56,20 @@ public class PTActivity extends AppCompatActivity {
         String id_str = SharedPreference.getAttribute(getApplicationContext(), "id");
         long id = Long.parseLong(id_str);
 
+
+
         dataService.ptUserAPI.findMem(id).enqueue(new Callback<Member>() {
             @Override
             public void onResponse(Call<Member> call, Response<Member> response) {
+                tr_if = response.body().getUser_role();
+                if (tr_if.equals("trainer")) {
+                    requestList(id);
+                }
                 b.addFriend.setOnClickListener(v -> {
-                    if(response.body().getUser_role().equals("trainer")) {
+                    if(tr_if.equals("trainer")) {
                         Intent intent = new Intent(getApplicationContext(), RequestList.class);
                         startActivity(intent);
-                    } else if(response.body().getUser_role().equals("user")) {
+                    } else if(tr_if.equals("user")) {
                         Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
                         startActivity(intent);
                     } else {
@@ -76,5 +84,23 @@ public class PTActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void requestList(long id) {
+        dataService.ptUserAPI.requestList(id).enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                Log.i("TAG", "onResponse: " + response.body());
+                if(response.body() != 0) {
+                    b.requestCount.setVisibility(View.VISIBLE);
+                    b.rqCount.setText(response.body()+"");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+
+            }
+        });
     }
 }
