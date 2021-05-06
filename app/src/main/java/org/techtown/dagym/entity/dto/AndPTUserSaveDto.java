@@ -13,6 +13,10 @@ public class AndPTUserSaveDto {
         this.trainer_id = trainer_id;
     }
 
+    public AndPTUserSaveDto() {
+
+    }
+
     public String getStart_date() {
         return start_date;
     }

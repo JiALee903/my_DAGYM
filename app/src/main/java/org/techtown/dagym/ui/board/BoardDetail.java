@@ -181,7 +181,6 @@ public class BoardDetail extends AppCompatActivity {
         // 댓글 조회
         select(mArrayList);
 
-
         /*좋아요 누를 시 */
         // 21 04 21 23:30
         b.favor.setOnClickListener(v -> {

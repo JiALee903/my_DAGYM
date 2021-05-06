@@ -15,12 +15,16 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.techtown.dagym.DataService;
 import org.techtown.dagym.R;
 import org.techtown.dagym.databinding.ActivityPersonaltBinding;
 import org.techtown.dagym.entity.Member;
+import org.techtown.dagym.entity.dto.AndPTUserSearchDto;
 import org.techtown.dagym.session.SharedPreference;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,15 +33,19 @@ import retrofit2.Response;
 public class PTActivity extends AppCompatActivity {
 
     private ActivityPersonaltBinding b;
-
     DataService dataService = new DataService();
     private String tr_if;
+    private PTActivityAdapter adapter = new PTActivityAdapter();
+    private RecyclerView recyclerView;
+    ArrayList<AndPTUserSearchDto> list = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         b = b.inflate(getLayoutInflater());
         setContentView(b.getRoot());
+        recyclerView = (RecyclerView) b.friendrc;
 
 //        final GradientDrawable cdrawable = (GradientDrawable) ContextCompat.getDrawable(this, R.drawable.ic_chat);
 //        final GradientDrawable fdrawable = (GradientDrawable) ContextCompat.getDrawable(this, R.drawable.ic_friend);
@@ -53,11 +61,13 @@ public class PTActivity extends AppCompatActivity {
             b.chat.setVisibility(View.VISIBLE);
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         String id_str = SharedPreference.getAttribute(getApplicationContext(), "id");
         long id = Long.parseLong(id_str);
-
-
-
         dataService.ptUserAPI.findMem(id).enqueue(new Callback<Member>() {
             @Override
             public void onResponse(Call<Member> call, Response<Member> response) {
@@ -83,7 +93,6 @@ public class PTActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     private void requestList(long id) {
