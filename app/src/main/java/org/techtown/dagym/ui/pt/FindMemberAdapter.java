@@ -11,13 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.techtown.dagym.DataService;
 import org.techtown.dagym.R;
+import org.techtown.dagym.entity.dto.AndPTUserApplyMemberDto;
 import org.techtown.dagym.entity.dto.AndPTUserSearchDto;
 
 import java.util.ArrayList;
 
 public class FindMemberAdapter extends RecyclerView.Adapter<FindMemberAdapter.ViewHolder> {
 
-    ArrayList<AndPTUserSearchDto> list = new ArrayList<>();
+    ArrayList<AndPTUserApplyMemberDto> list = new ArrayList<>();
     private FindMemberAdapter.OnItemClickListener onItemClickListener;
 
     @NonNull
@@ -46,6 +47,11 @@ public class FindMemberAdapter extends RecyclerView.Adapter<FindMemberAdapter.Vi
 
         holder.applicantID.setText(list.get(position).getUser_id());
         holder.applicantName.setText(list.get(position).getUser_name());
+        holder.start_end_date.setText("(" +
+                list.get(position).getStart_date() +
+                "~" +
+                list.get(position).getEnd_date()
+                +")");
     }
 
     @Override
@@ -58,6 +64,7 @@ public class FindMemberAdapter extends RecyclerView.Adapter<FindMemberAdapter.Vi
         protected TextView applicantID;
         protected Button applicantOKBtn;
         protected Button applicantNoBtn;
+        protected TextView start_end_date;
 
         public ViewHolder(@NonNull View view) {
             super(view);
@@ -65,6 +72,7 @@ public class FindMemberAdapter extends RecyclerView.Adapter<FindMemberAdapter.Vi
             this.applicantID = (TextView) view.findViewById(R.id.friendID);
             this.applicantOKBtn = (Button) view.findViewById(R.id.applicantOKBtn);
             this.applicantNoBtn = (Button) view.findViewById(R.id.applicantNoBtn);
+            this.start_end_date = (TextView) view.findViewById(R.id.start_end_date);
         }
     }
 
@@ -76,11 +84,11 @@ public class FindMemberAdapter extends RecyclerView.Adapter<FindMemberAdapter.Vi
         public void onItemClick(View view, int position, String apply_if);
     }
 
-    public void addList(ArrayList<AndPTUserSearchDto> list) {
+    public void addList(ArrayList<AndPTUserApplyMemberDto> list) {
         this.list = list;
     }
 
-    public AndPTUserSearchDto getItem(int position) {
+    public AndPTUserApplyMemberDto getItem(int position) {
         return this.list.get(position);
     }
 

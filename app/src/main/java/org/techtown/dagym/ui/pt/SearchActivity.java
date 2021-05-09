@@ -77,7 +77,7 @@ public class SearchActivity extends AppCompatActivity {
             });
         });
 
-//         아이템 클릭 리스너
+// 아이템 클릭 리스너
         adapter.setOnItemClickListener(new TrainerSearchAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
