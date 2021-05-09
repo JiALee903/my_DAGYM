@@ -37,6 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/friendID"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="12dp"
         android:layout_toEndOf="@+id/friendName"
         android:text="수락"
@@ -49,8 +50,17 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/applicantOKBtn"
         android:layout_alignBottom="@+id/applicantOKBtn"
+        android:layout_marginTop="8dp"
         android:layout_toEndOf="@+id/applicantOKBtn"
         android:text="거절"
         card_view:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/start_end_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(2021/05/07~2021/05/31)"
+        card_view:layout_constraintStart_toStartOf="@+id/friendID"
+        card_view:layout_constraintTop_toBottomOf="@+id/friendID" />
 </androidx.constraintlayout.widget.ConstraintLayout>

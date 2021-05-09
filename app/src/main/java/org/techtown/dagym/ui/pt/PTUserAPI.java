@@ -1,7 +1,9 @@
 package org.techtown.dagym.ui.pt;
 
 import org.techtown.dagym.entity.Member;
+import org.techtown.dagym.entity.dto.AndMemberMypageDto;
 import org.techtown.dagym.entity.dto.AndPTUserApply;
+import org.techtown.dagym.entity.dto.AndPTUserApplyMemberDto;
 import org.techtown.dagym.entity.dto.AndPTUserSaveDto;
 import org.techtown.dagym.entity.dto.AndPTUserSearchDto;
 import org.techtown.dagym.entity.dto.AndTrainerSearchDto;
@@ -32,8 +34,14 @@ public interface PTUserAPI {
     Call<Integer> requestList(@Body Long member_id);
 
     @POST("ptUser/apply/findMember")
-    Call<ArrayList<AndPTUserSearchDto>> applyMember(@Body Long member_id);
+    Call<ArrayList<AndPTUserApplyMemberDto>> applyMember(@Body Long member_id);
 
     @PUT("ptUser/apply/if")
     Call<Void> applyIf(@Body AndPTUserApply andPTUserApply);
+
+    @GET("ptUser/find/member/{trainer_id}")
+    Call<ArrayList<AndPTUserSearchDto>> selectMembers(@Path("trainer_id") Long trainer_id);
+
+    @GET("ptUser/find/trainer/{member_id}")
+    Call<AndMemberMypageDto> selectTrainers(@Path("member_id") Long member_id);
 }
