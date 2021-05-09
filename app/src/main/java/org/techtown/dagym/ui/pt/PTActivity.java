@@ -95,6 +95,7 @@ public class PTActivity extends AppCompatActivity {
         });
     }
 
+
     private void requestList(long id) {
         dataService.ptUserAPI.requestList(id).enqueue(new Callback<Integer>() {
             @Override
@@ -103,6 +104,8 @@ public class PTActivity extends AppCompatActivity {
                 if(response.body() != 0) {
                     b.requestCount.setVisibility(View.VISIBLE);
                     b.rqCount.setText(response.body()+"");
+                } else {
+                    b.requestCount.setVisibility(View.GONE);
                 }
             }
 
