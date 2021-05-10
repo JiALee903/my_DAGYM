@@ -23,6 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+// 트레이너 상세정보 페이지
 public class TrainerInfo extends Activity {
 
     private TrainerInfoBinding b;

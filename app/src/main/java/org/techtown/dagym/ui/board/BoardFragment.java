@@ -34,6 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+//게시판 전체보기 페이지
 public class BoardFragment extends Fragment {
 
     private FloatingActionButton writeBtn;

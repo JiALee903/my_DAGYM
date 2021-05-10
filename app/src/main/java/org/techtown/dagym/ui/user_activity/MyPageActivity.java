@@ -24,6 +24,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+// 마이페이지 (수정페이지)
 public class MyPageActivity extends AppCompatActivity {
 
     private static final String TAG = "TAG";

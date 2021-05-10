@@ -15,6 +15,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+// 비밀번호 업데이트 (비밀번호찾기)
 public class UpdatePwActivity extends AppCompatActivity {
     private static final String TAG = "TAG";
     private ActivityUpdatepwBinding b;

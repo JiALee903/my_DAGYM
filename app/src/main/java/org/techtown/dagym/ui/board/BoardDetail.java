@@ -37,6 +37,7 @@ import retrofit2.Response;
 
 import static com.kakao.usermgmt.StringSet.user_id;
 
+// 게시판 상세보기 페이지
 public class BoardDetail extends AppCompatActivity {
     private BoardDetailBinding b;
 

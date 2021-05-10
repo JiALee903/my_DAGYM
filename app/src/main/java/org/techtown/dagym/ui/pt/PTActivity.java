@@ -23,6 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+// 친구목록, 채팅방들 보이는 페이지
 public class PTActivity extends AppCompatActivity {
 
     private static final String TAG = "PTActivity";
@@ -45,8 +46,6 @@ public class PTActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         recyclerView.setAdapter(adapter);
-//        final GradientDrawable cdrawable = (GradientDrawable) ContextCompat.getDrawable(this, R.drawable.ic_chat);
-//        final GradientDrawable fdrawable = (GradientDrawable) ContextCompat.getDrawable(this, R.drawable.ic_friend);
 
         b.friendBtn.setOnClickListener(v -> {
             b.friend.setVisibility(View.VISIBLE);

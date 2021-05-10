@@ -16,6 +16,7 @@ import org.techtown.dagym.entity.Board;
 
 import java.util.ArrayList;
 
+// 게시판 전체보기 리사이클러뷰 어뎁터
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     private ArrayList<Board> mList = new ArrayList<>();

@@ -15,6 +15,7 @@ import org.techtown.dagym.entity.dto.CommentDto;
 
 import java.util.ArrayList;
 
+// 트레이너 검색 리사이클러뷰 어뎁터
 public class TrainerSearchAdapter  extends RecyclerView.Adapter<TrainerSearchAdapter.ViewHolder>{
     ArrayList<AndPTUserSearchDto> list = new ArrayList<>();
 
