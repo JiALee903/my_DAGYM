@@ -13,6 +13,7 @@ import org.techtown.dagym.entity.dto.AndPTUserSearchDto;
 
 import java.util.ArrayList;
 
+// 친구목록 리사이클러뷰 어뎁터
 public class PTActivityAdapter extends RecyclerView.Adapter<PTActivityAdapter.ViewHolder> {
     ArrayList<AndPTUserSearchDto> list = new ArrayList<>();
     private OnItemClickListener onItemClickListener = null;

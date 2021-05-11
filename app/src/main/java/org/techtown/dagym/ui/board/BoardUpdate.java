@@ -21,6 +21,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+//게시판 수정 페이지
 public class BoardUpdate extends AppCompatActivity {
 
     private ActivityWriteBoardBinding b;

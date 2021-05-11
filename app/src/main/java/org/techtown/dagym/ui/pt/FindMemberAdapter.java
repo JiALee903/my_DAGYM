@@ -8,14 +8,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import org.techtown.dagym.DataService;
 import org.techtown.dagym.R;
 import org.techtown.dagym.entity.dto.AndPTUserApplyMemberDto;
-import org.techtown.dagym.entity.dto.AndPTUserSearchDto;
 
 import java.util.ArrayList;
 
+// 신청목록 리스트 리사이클러뷰의 어뎁터
 public class FindMemberAdapter extends RecyclerView.Adapter<FindMemberAdapter.ViewHolder> {
 
     ArrayList<AndPTUserApplyMemberDto> list = new ArrayList<>();

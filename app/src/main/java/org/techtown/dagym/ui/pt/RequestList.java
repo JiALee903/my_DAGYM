@@ -23,6 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+//신청 목록 페이지
 public class RequestList extends AppCompatActivity {
 
     private static final String TAG = "RequestList";
@@ -31,7 +32,6 @@ public class RequestList extends AppCompatActivity {
     private RecyclerView recyclerView;
     ArrayList<AndPTUserApplyMemberDto> list = new ArrayList<>();
     DataService dataService = new DataService();
-    private String apply_if;
     private long id;
 
     @Override

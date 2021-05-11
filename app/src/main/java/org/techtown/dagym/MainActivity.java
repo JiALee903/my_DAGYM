@@ -19,11 +19,10 @@ import org.techtown.dagym.session.SharedPreference;
 import org.techtown.dagym.ui.user_activity.LoginListActivity;
 import org.techtown.dagym.ui.user_activity.MyPageActivity;
 
+// 메인, 프레그먼트 이동하는 페이지
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    DataService dataService = new DataService();
-//    ArrayList<BoardListResponseDto> mlist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,23 +43,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-//        dataService.select.selectBoard().enqueue(new Callback<ArrayList<BoardListResponseDto>>() {
-//            @Override
-//            public void onResponse(Call<ArrayList<BoardListResponseDto>> call, Response<ArrayList<BoardListResponseDto>> response) {
-//                Log.i("TAG", "onResponse: array test = " + response.body().get(0).getTitle());
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ArrayList<BoardListResponseDto>> call, Throwable t) {
-//
-//            }
-//        });
-
     }
-
-//    public ArrayList<BoardListResponseDto> getArrayList() {
-//        return mlist;
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -92,10 +75,4 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
-//    public void replaceFragment(Object o) {
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.text, (Fragment) BoardFragment).commit();
-//    }
 }

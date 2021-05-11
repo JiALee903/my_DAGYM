@@ -27,6 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+// 로그인 페이지
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "Test";
     private ActivityLoginBinding b;

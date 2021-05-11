@@ -29,6 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+//pt신청 페이지
 public class PTApply extends AppCompatActivity {
 
     private static final String TAG = "PTApply";

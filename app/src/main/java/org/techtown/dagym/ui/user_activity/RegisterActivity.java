@@ -38,7 +38,7 @@ import retrofit2.Response;
  * + 비밀번호 눈 아이콘 추가해서 비밀번호 잠깐보이게 하는 기능 추가할까 생각중
  * */
 
-//회원가입
+//회원가입 페이지
 public class RegisterActivity extends AppCompatActivity {
     private ActivityRegisterBinding b;
     DataService dataService = new DataService();

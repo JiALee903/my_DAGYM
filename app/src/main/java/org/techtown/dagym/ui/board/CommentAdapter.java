@@ -16,6 +16,7 @@ import org.techtown.dagym.entity.dto.CommentDto;
 
 import java.util.ArrayList;
 
+// 댓글 리사이클러뷰 어뎁터
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
 
     ArrayList<CommentDto> mList = new ArrayList<>();
