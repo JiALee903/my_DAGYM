@@ -61,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //로그인 버튼이 눌리면
         b.btnLogin.setOnClickListener(btnLogin -> {
+            Log.i(TAG, "onCreate: loginin");
             String id = login_id.getText().toString().trim();
             String pwd = login_pass.getText().toString().trim();
 

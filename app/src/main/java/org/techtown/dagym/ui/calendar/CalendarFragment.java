@@ -29,14 +29,24 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
+import org.techtown.dagym.DataService;
 import org.techtown.dagym.R;
+import org.techtown.dagym.entity.dto.AndInsertCalDto;
+import org.techtown.dagym.session.SharedPreference;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class CalendarFragment extends Fragment {
+
+    DataService dataService = new DataService();
 
     private String day_if = "";
 
@@ -68,6 +78,9 @@ public class CalendarFragment extends Fragment {
                 if(mDate.equals(day_if)) {
                     Log.i("TAG", "성공!");
                     Intent intent = new Intent(getContext(), CalendarRecord.class);
+                    intent.putExtra("year", date.getYear());
+                    intent.putExtra("month", date.getMonth()+1);
+                    intent.putExtra("day", date.getDay());
                     startActivity(intent);
                 } else {
                     day_if = mDate;
@@ -75,6 +88,21 @@ public class CalendarFragment extends Fragment {
             }
         });
 
+        String sid = SharedPreference.getAttribute(getContext(), "id");
+        long id = Long.parseLong(sid);
+
+        dataService.calendarAPI.selectCal(id).enqueue(new Callback<ArrayList<AndInsertCalDto>>() {
+            @Override
+            public void onResponse(Call<ArrayList<AndInsertCalDto>> call, Response<ArrayList<AndInsertCalDto>> response) {
+                Log.i("TAG", "onResponse: " + response.body());
+
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<AndInsertCalDto>> call, Throwable t) {
+
+            }
+        });
         return view;
     }
 }
