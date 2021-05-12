@@ -11,7 +11,7 @@ import com.kakao.auth.KakaoAdapter;
 import com.kakao.auth.KakaoSDK;
 
 
-
+// 카카오톡 로그인
 public class GlobalApplication extends Application {
     private static GlobalApplication instance;
 

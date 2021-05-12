@@ -39,6 +39,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+//소셜 로그인 페이지
 public class SocialLoginActivity extends Activity {
     private static final String TAG = "TEST";
     private ActivitySocialBinding b;

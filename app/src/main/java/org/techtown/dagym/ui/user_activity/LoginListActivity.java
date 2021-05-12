@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.techtown.dagym.R;
 import org.techtown.dagym.databinding.ActivityLoginListBinding;
 
+// 시작페이지 (로그인, 회원가입 등)
 public class LoginListActivity extends AppCompatActivity {
     private ActivityLoginListBinding b;
 
@@ -21,6 +22,7 @@ public class LoginListActivity extends AppCompatActivity {
         setContentView(b.getRoot());
 
 
+        //회원가입 버튼
         Button button = (Button) findViewById(R.id.btn_register); // 버튼 객체 참조
         button.setOnClickListener(new View.OnClickListener() { // View에 리스너를 바로 구현
             @Override // 상속 받은 메소드(onclick) 변경
@@ -30,6 +32,7 @@ public class LoginListActivity extends AppCompatActivity {
             }
         });
 
+        // 로그인 버튼
         Button button4 = (Button) findViewById(R.id.login);
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +42,7 @@ public class LoginListActivity extends AppCompatActivity {
             }
         });
 
+        // 소셜로그인 버튼
         Button button5 = (Button) findViewById(R.id.social);
         button5.setOnClickListener(new View.OnClickListener() {
             @Override

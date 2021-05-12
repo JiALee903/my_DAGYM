@@ -13,9 +13,10 @@ import org.techtown.dagym.entity.dto.AndPTUserSearchDto;
 
 import java.util.ArrayList;
 
+// 친구목록 리사이클러뷰 어뎁터
 public class PTActivityAdapter extends RecyclerView.Adapter<PTActivityAdapter.ViewHolder> {
     ArrayList<AndPTUserSearchDto> list = new ArrayList<>();
-    private PTActivityAdapter.OnItemClickListener onItemClickListener;
+    private OnItemClickListener onItemClickListener = null;
 
     @NonNull
     @Override
@@ -43,6 +44,18 @@ public class PTActivityAdapter extends RecyclerView.Adapter<PTActivityAdapter.Vi
             super(view);
             this.friendName = (TextView) view.findViewById(R.id.friendName);
             this.friendId = (TextView) view.findViewById(R.id.friendID);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition() ;
+                    if (pos != RecyclerView.NO_POSITION) {
+                        // 리스너 객체의 메서드 호출.
+                        if (onItemClickListener != null) {
+                            onItemClickListener.onItemClick(v, pos) ;
+                        }
+                    }
+                }
+            });
         }
     }
 
@@ -51,7 +64,7 @@ public class PTActivityAdapter extends RecyclerView.Adapter<PTActivityAdapter.Vi
     }
 
     public interface OnItemClickListener {
-        public void onItemClick(View view, int position, String apply_if);
+        public void onItemClick(View view, int position);
     }
 
     public void addList(ArrayList<AndPTUserSearchDto> list) {

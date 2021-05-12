@@ -25,6 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+// 아이디 찾기 페이지
 public class FindidActivity extends AppCompatActivity {
     private static final String TAG = "TAG";
     private ActivityFindidBinding b;

@@ -12,6 +12,7 @@ import org.techtown.dagym.DataService;
 import org.techtown.dagym.R;
 import org.techtown.dagym.databinding.RequsetNotificationBinding;
 import org.techtown.dagym.entity.dto.AndPTUserApply;
+import org.techtown.dagym.entity.dto.AndPTUserApplyMemberDto;
 import org.techtown.dagym.entity.dto.AndPTUserSaveDto;
 import org.techtown.dagym.entity.dto.AndPTUserSearchDto;
 import org.techtown.dagym.session.SharedPreference;
@@ -22,15 +23,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+//신청 목록 페이지
 public class RequestList extends AppCompatActivity {
 
     private static final String TAG = "RequestList";
     private RequsetNotificationBinding b;
     private FindMemberAdapter adapter = new FindMemberAdapter();
     private RecyclerView recyclerView;
-    ArrayList<AndPTUserSearchDto> list = new ArrayList<>();
+    ArrayList<AndPTUserApplyMemberDto> list = new ArrayList<>();
     DataService dataService = new DataService();
-    private String apply_if;
     private long id;
 
     @Override
@@ -52,7 +53,7 @@ public class RequestList extends AppCompatActivity {
         adapter.onClick(new FindMemberAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, String apply_if) {
-                AndPTUserSearchDto item = adapter.getItem(position);
+                AndPTUserApplyMemberDto item = adapter.getItem(position);
                 Log.i(TAG, "onItemClick: tid = " + id);
                 Log.i(TAG, "onItemClick: item = " + item.getUser_id());
                 AndPTUserApply andPTUserApply = new AndPTUserApply(
@@ -75,16 +76,17 @@ public class RequestList extends AppCompatActivity {
     }
 
     private void applyMember() {
-        dataService.ptUserAPI.applyMember(id).enqueue(new Callback<ArrayList<AndPTUserSearchDto>>() {
+        dataService.ptUserAPI.applyMember(id).enqueue(new Callback<ArrayList<AndPTUserApplyMemberDto>>() {
             @Override
-            public void onResponse(Call<ArrayList<AndPTUserSearchDto>> call, Response<ArrayList<AndPTUserSearchDto>> response) {
+            public void onResponse(Call<ArrayList<AndPTUserApplyMemberDto>> call, Response<ArrayList<AndPTUserApplyMemberDto>> response) {
                 list.clear();
-                adapter.addList(response.body());
+                list = response.body();
+                adapter.addList(list);
                 adapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(Call<ArrayList<AndPTUserSearchDto>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<AndPTUserApplyMemberDto>> call, Throwable t) {
 
             }
         });

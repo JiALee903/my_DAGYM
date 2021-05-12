@@ -23,6 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+//비밀번호 찾기 페이지
 public class FindpwActivity extends AppCompatActivity {
     private static final String TAG = "TAG";
     private ActivityFindpwBinding b;

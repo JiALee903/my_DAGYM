@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
 import org.techtown.dagym.DataService;
 import org.techtown.dagym.MainActivity;
@@ -28,6 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+//pt신청 페이지
 public class PTApply extends AppCompatActivity {
 
     private static final String TAG = "PTApply";
@@ -71,6 +73,7 @@ public class PTApply extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     Log.i(TAG, "onResponse: dataService success" + response.body());
+                    Toast.makeText(getApplicationContext(), "신청에 성공하였습니다.", Toast.LENGTH_SHORT);
                     finish();
                 }
 
