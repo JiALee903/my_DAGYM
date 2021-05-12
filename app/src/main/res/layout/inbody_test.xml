@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="인바디 입력"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textAlignment="center"
+        android:layout_marginTop="80dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="체중(kg)"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="7sp"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="기초대사량(kcal)"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="7sp"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="체지방률(%)"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="7sp"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="골격근량(kg)"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="7sp"
+        android:autofillHints="no" />
+
+    <EditText
+        android:id="@+id/inbodyDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="년/월/일"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="7sp"
+        android:importantForAutofill="no" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/ibResetBtn"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="취소"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/ibConfirmBtn"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="등록"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>
