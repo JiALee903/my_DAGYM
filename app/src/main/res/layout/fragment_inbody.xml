@@ -28,7 +28,7 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="40dp"
-                android:text="체중"
+                android:text="체중(kg)"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
@@ -46,7 +46,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:layout_marginStart="10dp"
-            android:text="골격근량"
+            android:text="골격근량(kg)"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -62,9 +62,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="20dp"
             android:layout_marginStart="10dp"
-            android:text="체지방량"
+            android:layout_marginTop="20dp"
+            android:text="체지방률(%)"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -82,7 +82,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:layout_marginStart="10dp"
-            android:text="체지방률"
+            android:text="기초대사량(kcal)"
             android:textColor="@color/black"
             android:textSize="20sp" />
 

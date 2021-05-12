@@ -3,6 +3,7 @@ package org.techtown.dagym.ui.inbody;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,9 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
+import org.techtown.dagym.DataService;
 import org.techtown.dagym.R;
+import org.techtown.dagym.entity.dto.AndInBodyDto;
 import org.techtown.dagym.session.SharedPreference;
 
 import java.text.SimpleDateFormat;
@@ -30,24 +33,30 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class InbodyFragment extends Fragment {
 
+    private static final String TAG = "InBodyFragment";
     /*
-    long now = System.currentTimeMillis();
+        long now = System.currentTimeMillis();
 
-    // 현재 시간을 date 변수에 저장한다.
-    Date date = new Date(now);
+        // 현재 시간을 date 변수에 저장한다.
+        Date date = new Date(now);
 
-    // 시간을 나타낼 포맷을 정한다.
-    SimpleDateFormat sdfNow = new SimpleDateFormat("yyy/MM/dd");
+        // 시간을 나타낼 포맷을 정한다.
+        SimpleDateFormat sdfNow = new SimpleDateFormat("yyy/MM/dd");
 
-    // nowDate 변수에 값을 저장한다.
-    String formatDate = sdfNow.format(date);
+        // nowDate 변수에 값을 저장한다.
+        String formatDate = sdfNow.format(date);
 
-    TextView dateNow;
-     */
-
+        TextView dateNow;
+         */
+    DataService dataService = new DataService();
     LineChart lineChart, lineChart2, lineChart3, lineChart4;
+    ArrayList<AndInBodyDto> list = new ArrayList<>();
 
     @Nullable
     @Override
@@ -63,20 +72,64 @@ public class InbodyFragment extends Fragment {
         dateNow.setText(formatDate); // TextView에 현재 시간 문자열 할당
          */
 
-        lineChart = (LineChart)view.findViewById(R.id.line_chart);
-        lineChart2 = (LineChart)view.findViewById(R.id.line_chart2);
-        lineChart3 = (LineChart)view.findViewById(R.id.line_chart3);
+        // 체중
+        lineChart = (LineChart) view.findViewById(R.id.line_chart);
+        // 골격근량
+        lineChart2 = (LineChart) view.findViewById(R.id.line_chart2);
+        // 체지방량
+        lineChart3 = (LineChart) view.findViewById(R.id.line_chart3);
+        // 체지방률
         lineChart4 = (LineChart)view.findViewById(R.id.line_chart4);
 
         List<Entry> entries = new ArrayList<>();
-        entries.add(new Entry(1, 60));
-        entries.add(new Entry(2, 65));
-        entries.add(new Entry(3, 58));
-        entries.add(new Entry(4, 58));
-        entries.add(new Entry(5, 62));
-        entries.add(new Entry(6, 60));
-        entries.add(new Entry(7, 59));
+        List<Entry> entries2 = new ArrayList<>();
+        List<Entry> entries3 = new ArrayList<>();
+        List<Entry> entries4 = new ArrayList<>();
 
+        String user_id = SharedPreference.getAttribute(getContext(), "user_id");
+
+        AndInBodyDto andInBodyDto = new AndInBodyDto();
+        andInBodyDto.setInBody_user_id(user_id);
+
+        dataService.inBodyAPI.selectInbody(andInBodyDto).enqueue(new Callback<ArrayList<AndInBodyDto>>() {
+            @Override
+            public void onResponse(Call<ArrayList<AndInBodyDto>> call, Response<ArrayList<AndInBodyDto>> response) {
+                list.clear();
+                list = response.body();
+
+                for (int i = 0; i < list.size(); i++) {
+                    //엔트리 1 체중, 2 골격근량 3 체지방률 4 기초대사량
+                    String inBody_weight = list.get(i).getInBody_weight();
+                    float weight = Float.parseFloat(inBody_weight);
+                    entries.add(new Entry(i, weight));
+
+                    String inBody_smm = list.get(i).getInBody_smm();
+                    float smm = Float.parseFloat(inBody_smm);
+                    entries2.add(new Entry(i, smm));
+
+                    String inBody_bfp = list.get(i).getInBody_bfp();
+                    float bfp = Float.parseFloat(inBody_bfp);
+                    entries3.add(new Entry(i, bfp));
+
+                    String inBody_rmr = list.get(i).getInBody_rmr();
+                    float rmr = Float.parseFloat(inBody_rmr);
+                    entries4.add(new Entry(i, rmr));
+                }
+
+                setGraph(entries, entries2, entries3, entries4);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<AndInBodyDto>> call, Throwable t) {
+
+            }
+        });
+
+        return view;
+
+    }
+
+    private void setGraph(List<Entry> entries, List<Entry> entries2, List<Entry> entries3, List<Entry> entries4) {
         LineDataSet lineDataSet = new LineDataSet(entries, "");
         lineDataSet.setLineWidth(2);
         lineDataSet.setCircleRadius(6);
@@ -86,8 +139,8 @@ public class InbodyFragment extends Fragment {
         lineDataSet.setDrawCircles(true);
         lineDataSet.setDrawHorizontalHighlightIndicator(false);
         lineDataSet.setDrawHighlightIndicators(false);
-        lineDataSet.setValueTextSize(2.0f);
-        lineDataSet.setDrawValues(false);
+        lineDataSet.setValueTextSize(10.0f);
+        lineDataSet.setDrawValues(true);
 
         LineData lineData = new LineData(lineDataSet);
         lineChart.setData(lineData);
@@ -115,15 +168,6 @@ public class InbodyFragment extends Fragment {
         lineChart.setDescription(description);
         lineChart.invalidate();
 
-        List<Entry> entries2 = new ArrayList<>();
-        entries2.add(new Entry(1, (float) 22.3));
-        entries2.add(new Entry(2, (float) 24.1));
-        entries2.add(new Entry(3, (float) 30.2));
-        entries2.add(new Entry(4, (float) 27.3));
-        entries2.add(new Entry(5, (float) 25.2));
-        entries2.add(new Entry(6, (float) 25.2));
-        entries2.add(new Entry(7, (float) 23.4));
-
         LineDataSet lineDataSet2 = new LineDataSet(entries2, "");
         lineDataSet2.setLineWidth(2);
         lineDataSet2.setCircleRadius(6);
@@ -133,8 +177,8 @@ public class InbodyFragment extends Fragment {
         lineDataSet2.setDrawCircles(true);
         lineDataSet2.setDrawHorizontalHighlightIndicator(false);
         lineDataSet2.setDrawHighlightIndicators(false);
-        lineDataSet2.setValueTextSize(2.0f);
-        lineDataSet2.setDrawValues(false);
+        lineDataSet2.setValueTextSize(10.0f);
+        lineDataSet2.setDrawValues(true);
 
         LineData lineData2 = new LineData(lineDataSet2);
         lineChart2.setData(lineData2);
@@ -162,15 +206,6 @@ public class InbodyFragment extends Fragment {
         lineChart2.setDescription(description2);
         lineChart2.invalidate();
 
-        List<Entry> entries3 = new ArrayList<>();
-        entries3.add(new Entry(1, (float) 12.1));
-        entries3.add(new Entry(2, (float) 16.4));
-        entries3.add(new Entry(3, (float) 18.9));
-        entries3.add(new Entry(4, (float) 13.5));
-        entries3.add(new Entry(5, (float) 15.6));
-        entries3.add(new Entry(6, (float) 17.2));
-        entries3.add(new Entry(7, (float) 14.7));
-
         LineDataSet lineDataSet3 = new LineDataSet(entries3, "");
         lineDataSet3.setLineWidth(2);
         lineDataSet3.setCircleRadius(6);
@@ -180,8 +215,8 @@ public class InbodyFragment extends Fragment {
         lineDataSet3.setDrawCircles(true);
         lineDataSet3.setDrawHorizontalHighlightIndicator(false);
         lineDataSet3.setDrawHighlightIndicators(false);
-        lineDataSet3.setValueTextSize(2.0f);
-        lineDataSet3.setDrawValues(false);
+        lineDataSet3.setValueTextSize(10.0f);
+        lineDataSet3.setDrawValues(true);
 
         LineData lineData3 = new LineData(lineDataSet3);
         lineChart3.setData(lineData3);
@@ -209,14 +244,6 @@ public class InbodyFragment extends Fragment {
         lineChart3.setDescription(description3);
         lineChart3.invalidate();
 
-        List<Entry> entries4 = new ArrayList<>();
-        entries4.add(new Entry(1, (float) 18.0));
-        entries4.add(new Entry(2, (float) 21.2));
-        entries4.add(new Entry(3, (float) 24.1));
-        entries4.add(new Entry(4, (float) 22.8));
-        entries4.add(new Entry(5, (float) 26.3));
-        entries4.add(new Entry(6, (float) 25.4));
-        entries4.add(new Entry(7, (float) 19.9));
 
         LineDataSet lineDataSet4 = new LineDataSet(entries4, "");
         lineDataSet4.setLineWidth(2);
@@ -227,8 +254,8 @@ public class InbodyFragment extends Fragment {
         lineDataSet4.setDrawCircles(true);
         lineDataSet4.setDrawHorizontalHighlightIndicator(false);
         lineDataSet4.setDrawHighlightIndicators(false);
-        lineDataSet4.setValueTextSize(2.0f);
-        lineDataSet4.setDrawValues(false);
+        lineDataSet4.setValueTextSize(8.0f);
+        lineDataSet4.setDrawValues(true);
 
         LineData lineData4 = new LineData(lineDataSet4);
         lineChart4.setData(lineData4);
@@ -255,9 +282,6 @@ public class InbodyFragment extends Fragment {
         lineChart4.setDrawGridBackground(false);
         lineChart4.setDescription(description4);
         lineChart4.invalidate();
-
-        return view;
-
     }
 
     @Override
