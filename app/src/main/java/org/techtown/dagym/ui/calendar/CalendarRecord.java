@@ -47,7 +47,6 @@ public class CalendarRecord extends Activity {
     private String fDay;
     private String fHour;
     private String fMinute;
-    private String efYear;
     private String efMonth;
     private String efDay;
     private String efHour;
@@ -128,37 +127,50 @@ public class CalendarRecord extends Activity {
         eMinute = Integer.parseInt(fMinute);
 
         Intent intent = getIntent();
-        int start_year = intent.getExtras().getInt("year");
         int start_month = intent.getExtras().getInt("month");
         int start_day = intent.getExtras().getInt("day");
-        String sf_year = ""+start_year;
-        String sf_month;
-        String sf_day;
+
         if (start_month < 10) {
-            sf_month = "0" + start_month;
+            fMonth = "0" + start_month;
         } else {
-            sf_month = "" + start_month;
+            fMonth = "" + start_month;
         }
         if (start_day < 10) {
-            sf_day = "0" + start_day;
+            fDay = "0" + start_day;
         } else {
-            sf_day = "" + start_day;
+            fDay = "" + start_day;
         }
+        fHour="00";
+        fMinute="00";
+        if (start_month < 10) {
+            efMonth = "0" + start_month;
+        } else {
+            efMonth = "" + start_month;
+        }
+        if (start_day < 10) {
+            efDay = "0" + start_day;
+        } else {
+            efDay = "" + start_day;
+        }
+        efHour = "00";
+        efMinute = "00";
 
         b.allTime.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-                    b.start.setText("시작   " + sYear + "-" + sf_month + "-" + sf_day + " " + "00" + ":" + "00");
-                    b.end.setText("종료   " + eYear + "-" + sf_month + "-" + sf_day + " " + "23" + ":" + "59");
+                    b.start.setText("시작   " + sYear + "-" + fMonth + "-" + fDay + " " + "00" + ":" + "00");
+                    b.end.setText("종료   " + eYear + "-" + fMonth + "-" + fDay + " " + "23" + ":" + "59");
                     b.start.setEnabled(false);
                     b.end.setEnabled(false);
+
+
                 }
             }
         });
 
-        b.start.setText("시작   " + sYear + "-" + sf_month + "-" + sf_day + " " + "00" + ":" + "00");
-        b.end.setText("종료   " + eYear + "-" + sf_month + "-" + sf_day + " " + "00" + ":" + "00");
+        b.start.setText("시작   " + sYear + "-" + fMonth + "-" + fDay + " " + "00" + ":" + "00");
+        b.end.setText("종료   " + eYear + "-" + fMonth + "-" + fDay + " " + "00" + ":" + "00");
 
         b.monthPicker.setValue(start_month);
         b.dayPicker.setValue(start_day);
@@ -297,6 +309,10 @@ public class CalendarRecord extends Activity {
 
         b.submit.setOnClickListener(v -> {
             overCheck();
+            if (b.allTime.isChecked()) {
+                efHour = "23";
+                efMinute = "59";
+            }
             if(b.title.getText().toString().isEmpty()) {
                 Toast.makeText(this, "일정명을 등록해주세요.", Toast.LENGTH_SHORT).show();
             } else {
