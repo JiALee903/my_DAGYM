@@ -6,7 +6,7 @@ public class AndInsertCalDto {
     private String start;
     private String end;
     private String description;
-    private String type = "a";
+    private String type = "app";
     private boolean allDay;
 
     public AndInsertCalDto(Long id, String title, String start, String end, String description, String type, boolean allDay) {
