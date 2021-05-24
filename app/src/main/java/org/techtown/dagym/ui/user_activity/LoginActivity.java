@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(b.getRoot());
 
 
-        firebaseAuth = FirebaseAuth.getInstance();
+//        firebaseAuth = FirebaseAuth.getInstance();
         //버튼 등록하기
         login_id = b.loginId;
         login_pass = b.loginPass;

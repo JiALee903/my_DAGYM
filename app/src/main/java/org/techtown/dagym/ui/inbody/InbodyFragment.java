@@ -1,33 +1,35 @@
 package org.techtown.dagym.ui.inbody;
 
-import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import org.techtown.dagym.DataService;
 import org.techtown.dagym.R;
 import org.techtown.dagym.entity.dto.AndInBodyDto;
 import org.techtown.dagym.session.SharedPreference;
 
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,20 +42,6 @@ import retrofit2.Response;
 public class InbodyFragment extends Fragment {
 
     private static final String TAG = "InBodyFragment";
-    /*
-        long now = System.currentTimeMillis();
-
-        // 현재 시간을 date 변수에 저장한다.
-        Date date = new Date(now);
-
-        // 시간을 나타낼 포맷을 정한다.
-        SimpleDateFormat sdfNow = new SimpleDateFormat("yyy/MM/dd");
-
-        // nowDate 변수에 값을 저장한다.
-        String formatDate = sdfNow.format(date);
-
-        TextView dateNow;
-         */
     DataService dataService = new DataService();
     LineChart lineChart, lineChart2, lineChart3, lineChart4;
     ArrayList<AndInBodyDto> list = new ArrayList<>();
@@ -68,9 +56,12 @@ public class InbodyFragment extends Fragment {
         String user_name = SharedPreference.getAttribute(getContext(), "user_name");
         sessionId.setText(user_name + " 님의 기록");
 
-        /* dateNow = (TextView) view.findViewById(R.id.dateNow);
-        dateNow.setText(formatDate); // TextView에 현재 시간 문자열 할당
-         */
+
+        View viewById = view.findViewById(R.id.inBodySubmit);
+        viewById.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), InbodySubmit.class);
+            startActivity(intent);
+        });
 
         // 체중
         lineChart = (LineChart) view.findViewById(R.id.line_chart);
@@ -79,7 +70,17 @@ public class InbodyFragment extends Fragment {
         // 체지방량
         lineChart3 = (LineChart) view.findViewById(R.id.line_chart3);
         // 체지방률
-        lineChart4 = (LineChart)view.findViewById(R.id.line_chart4);
+        lineChart4 = (LineChart) view.findViewById(R.id.line_chart4);
+
+        return view;
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
 
         List<Entry> entries = new ArrayList<>();
         List<Entry> entries2 = new ArrayList<>();
@@ -101,22 +102,34 @@ public class InbodyFragment extends Fragment {
                     //엔트리 1 체중, 2 골격근량 3 체지방률 4 기초대사량
                     String inBody_weight = list.get(i).getInBody_weight();
                     float weight = Float.parseFloat(inBody_weight);
-                    entries.add(new Entry(i, weight));
+                    String inBody_date = list.get(i).getInBody_date();
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                    Date parse;
+                    long time = 0;
+                    try {
+                        parse = format.parse(inBody_date);
+                        Log.i(TAG, "onResponse: parse = " + parse);
+                        time = parse.getTime();
+                        Log.i(TAG, "onResponse: time = " + time);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    entries.add(new Entry(time, weight));
 
                     String inBody_smm = list.get(i).getInBody_smm();
                     float smm = Float.parseFloat(inBody_smm);
-                    entries2.add(new Entry(i, smm));
+                    entries2.add(new Entry(time, smm));
 
                     String inBody_bfp = list.get(i).getInBody_bfp();
                     float bfp = Float.parseFloat(inBody_bfp);
-                    entries3.add(new Entry(i, bfp));
+                    entries3.add(new Entry(time, bfp));
 
                     String inBody_rmr = list.get(i).getInBody_rmr();
                     float rmr = Float.parseFloat(inBody_rmr);
-                    entries4.add(new Entry(i, rmr));
+                    entries4.add(new Entry(time, rmr));
                 }
 
-                setGraph(entries, entries2, entries3, entries4);
+                setGraph(entries, entries2, entries3, entries4, list.size());
             }
 
             @Override
@@ -125,11 +138,12 @@ public class InbodyFragment extends Fragment {
             }
         });
 
-        return view;
-
+        lineChart.setOnClickListener(v -> {
+            Log.i(TAG, "onResume: gogogogo");
+        });
     }
 
-    private void setGraph(List<Entry> entries, List<Entry> entries2, List<Entry> entries3, List<Entry> entries4) {
+    private void setGraph(List<Entry> entries, List<Entry> entries2, List<Entry> entries3, List<Entry> entries4, int size) {
         LineDataSet lineDataSet = new LineDataSet(entries, "");
         lineDataSet.setLineWidth(2);
         lineDataSet.setCircleRadius(6);
@@ -142,9 +156,9 @@ public class InbodyFragment extends Fragment {
         lineDataSet.setValueTextSize(10.0f);
         lineDataSet.setDrawValues(true);
 
+
         LineData lineData = new LineData(lineDataSet);
         lineChart.setData(lineData);
-
         Description description = new Description();
         description.setText("");
 
@@ -156,12 +170,25 @@ public class InbodyFragment extends Fragment {
         lineChart.getAxisRight().setEnabled(false);
         lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
 
+
         lineChart.getXAxis().setDrawGridLines(false);
         lineChart.getAxisLeft().setDrawAxisLine(false);
         lineChart.getAxisRight().setDrawAxisLine(false);
         lineChart.getXAxis().setDrawGridLines(false);
         lineChart.getAxisLeft().setDrawGridLines(false);
         lineChart.getAxisRight().setDrawGridLines(false);
+
+        lineChart.getXAxis().setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+
+                Date date = new Date((long)value);
+                Log.i(TAG, "getFormattedValue: date = " + date);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");
+                String format = simpleDateFormat.format(date);
+                return format;
+            }
+        });
 
         lineChart.setDoubleTapToZoomEnabled(false);
         lineChart.setDrawGridBackground(false);
@@ -206,6 +233,18 @@ public class InbodyFragment extends Fragment {
         lineChart2.setDescription(description2);
         lineChart2.invalidate();
 
+        lineChart2.getXAxis().setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+
+                Date date = new Date((long)value);
+                Log.i(TAG, "getFormattedValue: date = " + date);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");
+                String format = simpleDateFormat.format(date);
+                return format;
+            }
+        });
+
         LineDataSet lineDataSet3 = new LineDataSet(entries3, "");
         lineDataSet3.setLineWidth(2);
         lineDataSet3.setCircleRadius(6);
@@ -244,6 +283,17 @@ public class InbodyFragment extends Fragment {
         lineChart3.setDescription(description3);
         lineChart3.invalidate();
 
+        lineChart3.getXAxis().setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+
+                Date date = new Date((long)value);
+                Log.i(TAG, "getFormattedValue: date = " + date);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");
+                String format = simpleDateFormat.format(date);
+                return format;
+            }
+        });
 
         LineDataSet lineDataSet4 = new LineDataSet(entries4, "");
         lineDataSet4.setLineWidth(2);
@@ -282,6 +332,18 @@ public class InbodyFragment extends Fragment {
         lineChart4.setDrawGridBackground(false);
         lineChart4.setDescription(description4);
         lineChart4.invalidate();
+
+        lineChart4.getXAxis().setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+
+                Date date = new Date((long)value);
+                Log.i(TAG, "getFormattedValue: date = " + date);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");
+                String format = simpleDateFormat.format(date);
+                return format;
+            }
+        });
     }
 
     @Override

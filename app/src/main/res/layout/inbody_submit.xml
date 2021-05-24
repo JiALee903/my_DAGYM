@@ -16,6 +16,7 @@
         android:layout_marginTop="80dp" />
 
     <EditText
+        android:id="@+id/weight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="체중(kg)"
@@ -24,6 +25,7 @@
         android:importantForAutofill="no" />
 
     <EditText
+        android:id="@+id/rmr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="기초대사량(kcal)"
@@ -32,6 +34,7 @@
         android:importantForAutofill="no" />
 
     <EditText
+        android:id="@+id/bfp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="체지방률(%)"
@@ -40,6 +43,7 @@
         android:importantForAutofill="no" />
 
     <EditText
+        android:id="@+id/smm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="골격근량(kg)"
@@ -47,7 +51,7 @@
         android:paddingLeft="7sp"
         android:autofillHints="no" />
 
-    <EditText
+    <TextView
         android:id="@+id/inbodyDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

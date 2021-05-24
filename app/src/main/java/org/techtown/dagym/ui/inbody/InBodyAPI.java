@@ -15,5 +15,5 @@ public interface InBodyAPI {
     Call<ArrayList<AndInBodyDto>> selectInbody(@Body AndInBodyDto andInBodyDto);
 
     @POST("inbody/save/{member_id}")
-    Call<ArrayList<Void>> saveInBody(@Path("member_id") Long member_id, InBody inBody);
+    Call<Void> saveInBody(@Path("member_id") Long member_id, @Body InBody inBody);
 }

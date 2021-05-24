@@ -53,6 +53,7 @@
         <activity android:name=".ui.pt.PTApply"></activity>
         <activity android:name=".ui.pt.RequestList"></activity>
         <activity android:name=".ui.calendar.CalendarRecord" android:theme="@android:style/Theme.Material.Light.Dialog"></activity>
+        <activity android:name=".ui.inbody.InbodySubmit"></activity>
     </application>
 
 </manifest>
