@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -16,4 +17,7 @@ public interface InBodyAPI {
 
     @POST("inbody/save/{member_id}")
     Call<Void> saveInBody(@Path("member_id") Long member_id, @Body InBody inBody);
+
+    @DELETE("inbody/delete/{inbody_id}")
+    Call<Void> deleteInbody(@Path("inbody_id") Long inbody_id);
 }

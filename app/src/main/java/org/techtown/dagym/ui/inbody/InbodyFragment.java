@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -28,7 +27,6 @@ import org.techtown.dagym.R;
 import org.techtown.dagym.entity.dto.AndInBodyDto;
 import org.techtown.dagym.session.SharedPreference;
 
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -79,8 +77,6 @@ public class InbodyFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-
 
         List<Entry> entries = new ArrayList<>();
         List<Entry> entries2 = new ArrayList<>();
@@ -140,6 +136,24 @@ public class InbodyFragment extends Fragment {
 
         lineChart.setOnClickListener(v -> {
             Log.i(TAG, "onResume: gogogogo");
+            Intent intent = new Intent(getContext(), ActivityInbodyDetail.class);
+            intent.putExtra("category", "weight");
+            startActivity(intent);
+        });
+        lineChart2.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), ActivityInbodyDetail.class);
+            intent.putExtra("category", "smm");
+            startActivity(intent);
+        });
+        lineChart3.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), ActivityInbodyDetail.class);
+            intent.putExtra("category", "bfp");
+            startActivity(intent);
+        });
+        lineChart4.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), ActivityInbodyDetail.class);
+            intent.putExtra("category", "rmr");
+            startActivity(intent);
         });
     }
 

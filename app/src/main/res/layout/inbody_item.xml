@@ -15,9 +15,9 @@
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:layout_marginStart="16dp"
-        android:text="회원 이름"
         android:textColor="@color/black"
         android:textSize="17sp"
+        android:hint="날짜"
         card_view:layout_constraintStart_toStartOf="parent"
         card_view:layout_constraintTop_toTopOf="parent" />
 
@@ -27,9 +27,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/dateInbody"
         android:layout_alignStart="@+id/dateInbody"
-        android:text="아이디 들어가는 곳"
-        card_view:layout_constraintStart_toStartOf="@+id/dateInbody"
-        card_view:layout_constraintTop_toBottomOf="@+id/dateInbody" />
+        android:layout_marginStart="32dp"
+        android:textSize="17sp"
+        android:hint="값"
+        card_view:layout_constraintStart_toEndOf="@+id/dateInbody"
+        card_view:layout_constraintTop_toTopOf="@+id/dateInbody" />
 
     <View
         android:id="@+id/view"
@@ -37,4 +39,14 @@
         android:layout_height="1dp"
         android:background="#919191"
         card_view:layout_constraintTop_toBottomOf="parent" />
+
+    <Button
+        android:id="@+id/inbody_delete"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/ic_cancel"
+        card_view:layout_constraintBottom_toBottomOf="parent"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

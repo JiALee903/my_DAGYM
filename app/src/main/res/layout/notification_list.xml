@@ -9,7 +9,7 @@
     android:layout_margin="5dp">
 
     <TextView
-        android:id="@+id/friendName"
+        android:id="@+id/dateInbody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -22,24 +22,24 @@
         card_view:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/friendID"
+        android:id="@+id/inbodyValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/friendName"
-        android:layout_alignStart="@+id/friendName"
+        android:layout_below="@id/dateInbody"
+        android:layout_alignStart="@+id/dateInbody"
         android:text="아이디 들어가는 곳"
-        card_view:layout_constraintStart_toStartOf="@+id/friendName"
-        card_view:layout_constraintTop_toBottomOf="@+id/friendName" />
+        card_view:layout_constraintStart_toStartOf="@+id/dateInbody"
+        card_view:layout_constraintTop_toBottomOf="@+id/dateInbody" />
 
     <Button
         android:id="@+id/applicantOKBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/friendID"
+        android:layout_alignBottom="@+id/inbodyValue"
         android:layout_alignParentTop="true"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="12dp"
-        android:layout_toEndOf="@+id/friendName"
+        android:layout_toEndOf="@+id/dateInbody"
         android:text="수락"
         card_view:layout_constraintEnd_toStartOf="@+id/applicantNoBtn"
         card_view:layout_constraintTop_toTopOf="parent" />
@@ -61,6 +61,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="(2021/05/07~2021/05/31)"
-        card_view:layout_constraintStart_toStartOf="@+id/friendID"
-        card_view:layout_constraintTop_toBottomOf="@+id/friendID" />
+        card_view:layout_constraintStart_toStartOf="@+id/inbodyValue"
+        card_view:layout_constraintTop_toBottomOf="@+id/inbodyValue" />
 </androidx.constraintlayout.widget.ConstraintLayout>

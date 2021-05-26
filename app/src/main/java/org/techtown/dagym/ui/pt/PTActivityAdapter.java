@@ -42,8 +42,8 @@ public class PTActivityAdapter extends RecyclerView.Adapter<PTActivityAdapter.Vi
         protected TextView friendId;
         public ViewHolder(@NonNull View view) {
             super(view);
-            this.friendName = (TextView) view.findViewById(R.id.friendName);
-            this.friendId = (TextView) view.findViewById(R.id.friendID);
+            this.friendName = (TextView) view.findViewById(R.id.dateInbody);
+            this.friendId = (TextView) view.findViewById(R.id.inbodyValue);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

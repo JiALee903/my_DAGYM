@@ -66,8 +66,8 @@ public class FindMemberAdapter extends RecyclerView.Adapter<FindMemberAdapter.Vi
 
         public ViewHolder(@NonNull View view) {
             super(view);
-            this.applicantName = (TextView) view.findViewById(R.id.friendName);
-            this.applicantID = (TextView) view.findViewById(R.id.friendID);
+            this.applicantName = (TextView) view.findViewById(R.id.dateInbody);
+            this.applicantID = (TextView) view.findViewById(R.id.inbodyValue);
             this.applicantOKBtn = (Button) view.findViewById(R.id.applicantOKBtn);
             this.applicantNoBtn = (Button) view.findViewById(R.id.applicantNoBtn);
             this.start_end_date = (TextView) view.findViewById(R.id.start_end_date);

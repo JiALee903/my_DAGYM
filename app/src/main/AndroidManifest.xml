@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.techtown.dagym">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-    <!--sms문자인증 용으로 <uses-permission android:name="android.permission.SEND_SMS" /> 사용 -->
 
     <application
         android:name=".ui.user_activity.GlobalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="DAGYM"
-        android:textColor="@color/black"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:textColor="@color/black"
         android:theme="@style/Theme.DAGYM.NoActionBar"
         android:usesCleartextTraffic="true">
-        <!--android:usesCleartextTraffic="true"> 써야지 웹 연동 가능 -->
+        <activity android:name=".ui.inbody.ActivityInbodyDetail"></activity>
+        <!-- android:usesCleartextTraffic="true"> 써야지 웹 연동 가능 -->
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="8aed129972f1253dee29332d6291a455" />
@@ -25,35 +26,37 @@
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-
-
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
-
-        <activity android:name=".ui.user_activity.LoginListActivity"></activity>
-        <activity android:name=".ui.user_activity.LoginActivity"></activity>
-        <activity android:name=".ui.user_activity.RegisterActivity"></activity>
-        <activity android:name=".ui.user_activity.FindidActivity"></activity>
-        <activity android:name=".ui.user_activity.FindpwActivity"></activity>
-        <activity android:name=".ui.board.BoardInsert"></activity>
-        <activity android:name=".ui.user_activity.UpdatePwActivity"></activity>
-        <activity android:name=".ui.user_activity.MyPageActivity"></activity>
-        <activity android:name=".ui.user_activity.SocialLoginActivity" android:theme="@android:style/Theme.Material.Light.Dialog"></activity>
-        <activity android:name=".ui.board.BoardDetail"></activity>
-        <activity android:name=".ui.board.BoardUpdate"></activity>
-        <activity android:name=".ui.pt.PTActivity"></activity>
-        <activity android:name=".ui.pt.SearchActivity"></activity>
-        <activity android:name=".ui.pt.TrainerInfo" android:theme="@android:style/Theme.Material.Light.Dialog"></activity>
-        <activity android:name=".ui.pt.PTApply"></activity>
-        <activity android:name=".ui.pt.RequestList"></activity>
-        <activity android:name=".ui.calendar.CalendarRecord" android:theme="@android:style/Theme.Material.Light.Dialog"></activity>
-        <activity android:name=".ui.inbody.InbodySubmit"></activity>
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".ui.user_activity.LoginListActivity" />
+        <activity android:name=".ui.user_activity.LoginActivity" />
+        <activity android:name=".ui.user_activity.RegisterActivity" />
+        <activity android:name=".ui.user_activity.FindidActivity" />
+        <activity android:name=".ui.user_activity.FindpwActivity" />
+        <activity android:name=".ui.board.BoardInsert" />
+        <activity android:name=".ui.user_activity.UpdatePwActivity" />
+        <activity android:name=".ui.user_activity.MyPageActivity" />
+        <activity
+            android:name=".ui.user_activity.SocialLoginActivity"
+            android:theme="@android:style/Theme.Material.Light.Dialog" />
+        <activity android:name=".ui.board.BoardDetail" />
+        <activity android:name=".ui.board.BoardUpdate" />
+        <activity android:name=".ui.pt.PTActivity" />
+        <activity android:name=".ui.pt.SearchActivity" />
+        <activity
+            android:name=".ui.pt.TrainerInfo"
+            android:theme="@android:style/Theme.Material.Light.Dialog" />
+        <activity android:name=".ui.pt.PTApply" />
+        <activity android:name=".ui.pt.RequestList" />
+        <activity
+            android:name=".ui.calendar.CalendarRecord"
+            android:theme="@android:style/Theme.Material.Light.Dialog" />
+        <activity android:name=".ui.inbody.InbodySubmit" />
     </application>
 
 </manifest>
