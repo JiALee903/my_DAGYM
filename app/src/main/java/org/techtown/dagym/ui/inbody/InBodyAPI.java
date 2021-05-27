@@ -19,5 +19,5 @@ public interface InBodyAPI {
     Call<Void> saveInBody(@Path("member_id") Long member_id, @Body InBody inBody);
 
     @DELETE("inbody/delete/{inbody_id}")
-    Call<Void> deleteInbody(@Path("inbody_id") Long inbody_id);
+    Call<ArrayList<AndInBodyDto>> deleteInbody(@Path("inbody_id") Long inbody_id);
 }

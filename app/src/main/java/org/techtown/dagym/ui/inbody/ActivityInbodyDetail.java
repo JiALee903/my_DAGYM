@@ -111,14 +111,47 @@ public class ActivityInbodyDetail extends AppCompatActivity {
             public void onItemClick(View view, int position) {
                 InBodyValue item = adapter.getItem(position);
                 Long id = item.getId();
-                dataService.inBodyAPI.deleteInbody(id).enqueue(new Callback<Void>() {
+                dataService.inBodyAPI.deleteInbody(id).enqueue(new Callback<ArrayList<AndInBodyDto>>() {
                     @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
+                    public void onResponse(Call<ArrayList<AndInBodyDto>> call, Response<ArrayList<AndInBodyDto>> response) {
+                        ArrayList<AndInBodyDto> body = response.body();
+                        Log.i("TAG", "body.size = " + body.size());
+                        ArrayList<InBodyValue> list = new ArrayList<>();
 
+                        for (int i = 0; i < body.size(); i++) {
+                            AndInBodyDto dto = body.get(i);
+                            String inBody_date = dto.getInBody_date();
+                            SimpleDateFormat test = new SimpleDateFormat("yyyy-MM-dd");
+                            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
+                            InBodyValue inBodyValue = new InBodyValue();
+                            inBodyValue.setId(dto.getId());
+                            try {
+                                Date parse = test.parse(inBody_date);
+                                String format = simpleDateFormat.format(parse);
+
+                                inBodyValue.setInBody_date(format);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                            if(category.equals("weight")) {
+                                inBodyValue.setValue(dto.getInBody_weight() + "kg");
+                            } else if (category.equals("smm")) {
+                                inBodyValue.setValue(dto.getInBody_smm() + "kg");
+                            } else if (category.equals("bfp")) {
+                                inBodyValue.setValue(dto.getInBody_bfp() + "%");
+                            } else {
+                                inBodyValue.setValue(dto.getInBody_rmr() + "kcal");
+                            }
+
+                            list.add(inBodyValue);
+                        }
+                        adapter.addItem(list);
+                        adapter.notifyDataSetChanged();
                     }
 
                     @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
+                    public void onFailure(Call<ArrayList<AndInBodyDto>> call, Throwable t) {
 
                     }
                 });
@@ -129,4 +162,6 @@ public class ActivityInbodyDetail extends AppCompatActivity {
 
 
     }
+
+
 }
