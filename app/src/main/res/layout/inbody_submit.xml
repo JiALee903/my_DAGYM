@@ -68,18 +68,18 @@
         android:gravity="center">
 
         <Button
-            android:id="@+id/ibResetBtn"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="취소"
-            android:textColor="@color/white" />
-
-        <Button
             android:id="@+id/ibConfirmBtn"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:text="등록"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/ibResetBtn"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="취소"
             android:textColor="@color/white" />
     </LinearLayout>
 
